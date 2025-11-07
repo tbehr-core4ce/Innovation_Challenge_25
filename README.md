@@ -2,6 +2,41 @@
 
 Change service_name | app_name | web_service to actual name
 
+## Wanna Contribute? or just add files to repository a little bit easier?
+
+if you have a mac development is a bit easier to get a hang of. All you need is to have xcode installed.
+
+know how to access your computer's terminal. 
+
+**on mac:**
+cmd + space
+
+type in `terminal`
+
+__Windows Users__... if you are using a organization-managed device
+**DONT** be too much work lol use something else
+
+### Windows only
+
+Better Tutorial than what I could give: [Here](https://learn.microsoft.com/en-us/windows/wsl/install)
+
+After tutorial above:
+
+```sh
+#Start WSL by opening a command prompt and running wsl
+sudo apt update
+# Git is the only one needed if not coding
+sudo apt install -y git curl build-essential libssl-dev libreadline-dev zlib1g-dev
+sudo apt install -y nodejs yarn
+```
+
+... now !
+
+use `ls` to figure out what folders are in your current directory.
+use cd to navigate to a spot you want 
+
+git clone https://github.com/tbehr-core4ce/Innovation_Challenge_25.git
+
 ## Setting Up
 
 ### Typescript | Frontend

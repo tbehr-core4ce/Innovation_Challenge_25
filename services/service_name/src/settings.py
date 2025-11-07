@@ -4,8 +4,6 @@ PROBS Unneeded ???
 import os
 import json
 from typing import Any, Dict, Optional
-from azure.identity import DefaultAzureCredential
-from azure.keyvault.secrets import SecretClient
 
 
 class Settings:
