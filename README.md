@@ -33,9 +33,9 @@ sudo apt install -y nodejs yarn
 ... now !
 
 use `ls` to figure out what folders are in your current directory.
-use cd to navigate to a spot you want 
+use `cd` to navigate to a spot you want 
 
-git clone https://github.com/tbehr-core4ce/Innovation_Challenge_25.git
+`git clone https://github.com/tbehr-core4ce/Innovation_Challenge_25.git`
 
 ## Suggested guides
 
