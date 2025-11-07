@@ -1,0 +1,14 @@
+archive/
+.venv/
+./README.md
+README.md
+compose.yml
+Dockerfile
+prod.Dockerfile
+__pycache__/
+.git
+.github
+.DS_Store/
+.DS_Store
+src/test.py
+masterFile.docx

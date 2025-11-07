@@ -1,0 +1,89 @@
+name: Build
+
+on:
+  pull_request:
+    branches:
+      - 'main'
+
+env:
+  REGISTRY_LOGIN_SERVER: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+  REGISTRY_USERNAME: ${{ secrets.REGISTRY_USERNAME }}
+  REGISTRY_PASSWORD: ${{ secrets.REGISTRY_PASSWORD }}
+  RESOURCE_GROUP: ${{ secrets.RESOURCE_GROUP }}
+  ENV: dev
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.4.1'
+
+      - name: Install dependencies
+        run: |
+          npm i -g pnpm@latest
+          pnpm install
+
+      - name: Formatting check
+        run: pnpm format-check
+
+  type-check:
+    runs-on: ubuntu-latest
+    needs: format
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.4.1'
+
+      - name: Install dependencies
+        run: |
+          npm i -g pnpm@latest
+          pnpm install
+
+      - name: Type check
+        run: pnpm type-check
+
+  lint:
+    runs-on: ubuntu-latest
+    needs: type-check
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.4.1'
+
+      - name: Install dependencies
+        run: |
+          npm i -g pnpm@latest
+          pnpm install
+
+      - name: Linting code
+        run: pnpm lint
+
+  # code-quality:
+  #   uses: ./.github/workflows/sonarqube.yml
+  #   secrets: inherit
+
+  unit-test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22.4.1'
+
+      - name: Install dependencies
+        run: |
+          npm i -g pnpm@latest
+          pnpm install
+
+      - name: Run unit tests
+        run: pnpm unit-test

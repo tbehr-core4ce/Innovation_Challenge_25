@@ -1,0 +1,21 @@
+[project]
+name = "service_name"
+[tool.poetry]
+version = "1.0"  # base version
+
+description = "A python project made to kick butt
+authors = ["Tiffany Behr <tiffany.behr@core4ce.com>", "First Last <email@core4ce.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = ">=0.115.13"
+uvicorn = { extras = ["standard"], version = ">=0.35.0" }
+pydantic = "^2.11.9"
+celery = "^5.5.3"
+requests = "^2.32.5"
+pyopenssl = "^25.3.0"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
