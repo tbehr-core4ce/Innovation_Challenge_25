@@ -13,8 +13,6 @@
     "format-check": "prettier --check ."
   },
   "dependencies": {
-    "@dnd-kit/core": "^6.3.1",
-    "@dnd-kit/react": "^0.1.21",
     "@hookform/resolvers": "^3.9.1",
     "@nimpl/classnames-minifier": "^4.0.0",
     "@radix-ui/react-accordion": "1.2.2",
