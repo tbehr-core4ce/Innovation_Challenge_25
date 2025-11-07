@@ -37,6 +37,10 @@ use cd to navigate to a spot you want
 
 git clone https://github.com/tbehr-core4ce/Innovation_Challenge_25.git
 
+## Suggested guides
+
+[Markdown Basic Syntax Guide](https://www.markdownguide.org/basic-syntax/)
+
 ## Setting Up
 
 ### Typescript | Frontend
