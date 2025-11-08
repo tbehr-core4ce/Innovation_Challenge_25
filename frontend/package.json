@@ -1,6 +1,7 @@
 {
-  "name": "app_name",
+  "name": "bets-frontend",
   "version": "0.1.0",
+  "description": "BETS Bio-Event Tracking System Frontend",
   "private": true,
   "scripts": {
     "dev": "next dev",
