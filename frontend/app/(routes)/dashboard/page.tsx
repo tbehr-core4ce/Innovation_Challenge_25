@@ -1,5 +1,8 @@
-import React from 'react';
-import BETSMapVisualization, { H5N1Case, HotspotZone } from '../../components/BETSMapVisualization';
+import React from 'react'
+import BETSMapVisualization, {
+  H5N1Case,
+  HotspotZone
+} from '../../components/BETSMapVisualization'
 
 // ==================== MOCK DATA ====================
 
@@ -15,18 +18,19 @@ const mockCases: H5N1Case[] = [
     severity: 'high',
     reportedDate: '2025-11-05',
     status: 'monitoring',
-    description: 'Dairy cattle herd showing symptoms. Quarantine measures in place.',
+    description:
+      'Dairy cattle herd showing symptoms. Quarantine measures in place.'
   },
   {
     id: '2',
     lat: 37.6391,
-    lng: -120.9970,
+    lng: -120.997,
     location: 'Merced County, CA',
     caseType: 'dairy',
     count: 8,
     severity: 'medium',
     reportedDate: '2025-11-04',
-    status: 'contained',
+    status: 'contained'
   },
 
   // Human Cases
@@ -40,7 +44,8 @@ const mockCases: H5N1Case[] = [
     severity: 'critical',
     reportedDate: '2025-11-06',
     status: 'active',
-    description: 'Two dairy workers tested positive. Hospitalized and receiving treatment.',
+    description:
+      'Two dairy workers tested positive. Hospitalized and receiving treatment.'
   },
   {
     id: '4',
@@ -52,21 +57,21 @@ const mockCases: H5N1Case[] = [
     severity: 'high',
     reportedDate: '2025-11-03',
     status: 'monitoring',
-    description: 'Poultry worker exposed. Currently isolated.',
+    description: 'Poultry worker exposed. Currently isolated.'
   },
 
   // Avian Cases
   {
     id: '5',
     lat: 40.7128,
-    lng: -74.0060,
+    lng: -74.006,
     location: 'New York, NY',
     caseType: 'avian',
     count: 45,
     severity: 'medium',
     reportedDate: '2025-11-01',
     status: 'contained',
-    description: 'Wild bird population affected in Central Park area.',
+    description: 'Wild bird population affected in Central Park area.'
   },
   {
     id: '6',
@@ -77,7 +82,7 @@ const mockCases: H5N1Case[] = [
     count: 32,
     severity: 'high',
     reportedDate: '2025-10-30',
-    status: 'monitoring',
+    status: 'monitoring'
   },
   {
     id: '7',
@@ -89,7 +94,7 @@ const mockCases: H5N1Case[] = [
     severity: 'critical',
     reportedDate: '2025-11-05',
     status: 'active',
-    description: 'Major outbreak in commercial poultry facilities.',
+    description: 'Major outbreak in commercial poultry facilities.'
   },
 
   // Environmental Cases
@@ -103,18 +108,18 @@ const mockCases: H5N1Case[] = [
     severity: 'low',
     reportedDate: '2025-10-28',
     status: 'monitoring',
-    description: 'Virus detected in wastewater sampling.',
+    description: 'Virus detected in wastewater sampling.'
   },
   {
     id: '9',
     lat: 33.4484,
-    lng: -112.0740,
+    lng: -112.074,
     location: 'Phoenix, AZ',
     caseType: 'environmental',
     count: 2,
     severity: 'low',
     reportedDate: '2025-10-25',
-    status: 'monitoring',
+    status: 'monitoring'
   },
 
   // Additional Cases for clustering demo
@@ -127,7 +132,7 @@ const mockCases: H5N1Case[] = [
     count: 12,
     severity: 'high',
     reportedDate: '2025-11-04',
-    status: 'active',
+    status: 'active'
   },
   {
     id: '11',
@@ -138,7 +143,7 @@ const mockCases: H5N1Case[] = [
     count: 9,
     severity: 'medium',
     reportedDate: '2025-11-03',
-    status: 'monitoring',
+    status: 'monitoring'
   },
   {
     id: '12',
@@ -149,9 +154,9 @@ const mockCases: H5N1Case[] = [
     count: 6,
     severity: 'medium',
     reportedDate: '2025-11-02',
-    status: 'contained',
-  },
-];
+    status: 'contained'
+  }
+]
 
 const mockHotspots: HotspotZone[] = [
   {
@@ -160,7 +165,7 @@ const mockHotspots: HotspotZone[] = [
     lng: -119.5,
     radius: 50000, // 50km
     caseCount: 42,
-    riskLevel: 'critical',
+    riskLevel: 'critical'
   },
   {
     id: 'h2',
@@ -168,7 +173,7 @@ const mockHotspots: HotspotZone[] = [
     lng: -122.3321,
     radius: 30000, // 30km
     caseCount: 67,
-    riskLevel: 'critical',
+    riskLevel: 'critical'
   },
   {
     id: 'h3',
@@ -176,37 +181,38 @@ const mockHotspots: HotspotZone[] = [
     lng: -87.6298,
     radius: 40000, // 40km
     caseCount: 32,
-    riskLevel: 'high',
+    riskLevel: 'high'
   },
   {
     id: 'h4',
     lat: 40.7128,
-    lng: -74.0060,
+    lng: -74.006,
     radius: 25000, // 25km
     caseCount: 45,
-    riskLevel: 'medium',
-  },
-];
+    riskLevel: 'medium'
+  }
+]
 
 // ==================== EXAMPLE USAGE ====================
 
 export default function DashboardPage() {
-
   const handleCaseClick = (caseData: H5N1Case) => {
     console.log('Case clicked:', caseData)
     // You could open a detailed modal, update a side panel, etc.
-    alert(`Clicked: ${caseData.location}\nType: ${caseData.caseType}\nCases: ${caseData.count}`)
+    alert(
+      `Clicked: ${caseData.location}\nType: ${caseData.caseType}\nCases: ${caseData.count}`
+    )
 
-  return (
-    <div className="w-full h-screen">
-      <BETSMapVisualization
-        cases={mockCases}
-        hotspots={mockHotspots}
-        center={[39.8283, -98.5795]} // Center of USA
-        zoom={5}
-        onCaseClick={handleCaseClick}
-      />
-    </div>
-  )
-}
+    return (
+      <div className="w-full h-screen">
+        <BETSMapVisualization
+          cases={mockCases}
+          hotspots={mockHotspots}
+          center={[39.8283, -98.5795]} // Center of USA
+          zoom={5}
+          onCaseClick={handleCaseClick}
+        />
+      </div>
+    )
+  }
 }

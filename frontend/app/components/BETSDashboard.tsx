@@ -3,56 +3,61 @@
  * Shows how to connect the map visualization with the FastAPI backend
  */
 
-import React, { useState, useEffect } from 'react';
-import BETSMapVisualization, { H5N1Case, HotspotZone } from './BETSMapVisualization';
-import { betsApi } from '../../services/betsApi';
+import React, { useState, useEffect } from 'react'
+import BETSMapVisualization, {
+  H5N1Case,
+  HotspotZone
+} from './BETSMapVisualization'
+import { betsApi } from '../../services/betsApi'
 
 const BETSDashboard: React.FC = () => {
   // State management
-  const [cases, setCases] = useState<H5N1Case[]>([]);
-  const [hotspots, setHotspots] = useState<HotspotZone[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
-  const [lastUpdated, setLastUpdated] = useState<string>('');
-  const [refreshInterval, setRefreshInterval] = useState<number>(30000); // 30 seconds
+  const [cases, setCases] = useState<H5N1Case[]>([])
+  const [hotspots, setHotspots] = useState<HotspotZone[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
+  const [lastUpdated, setLastUpdated] = useState<string>('')
+  const [refreshInterval, setRefreshInterval] = useState<number>(30000) // 30 seconds
 
   // Fetch data from API
   const fetchMapData = async () => {
     try {
-      setLoading(true);
-      setError(null);
-      
-      const data = await betsApi.getMapData();
-      setCases(data.cases);
-      setHotspots(data.hotspots);
-      setLastUpdated(new Date(data.lastUpdated).toLocaleString());
+      setLoading(true)
+      setError(null)
+
+      const data = await betsApi.getMapData()
+      setCases(data.cases)
+      setHotspots(data.hotspots)
+      setLastUpdated(new Date(data.lastUpdated).toLocaleString())
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to fetch data');
-      console.error('Error fetching map data:', err);
+      setError(err instanceof Error ? err.message : 'Failed to fetch data')
+      console.error('Error fetching map data:', err)
     } finally {
-      setLoading(false);
+      setLoading(false)
     }
-  };
+  }
 
   // Initial load
   useEffect(() => {
-    fetchMapData();
-  }, []);
+    fetchMapData()
+  }, [])
 
   // Auto-refresh data
   useEffect(() => {
     if (refreshInterval > 0) {
-      const interval = setInterval(fetchMapData, refreshInterval);
-      return () => clearInterval(interval);
+      const interval = setInterval(fetchMapData, refreshInterval)
+      return () => clearInterval(interval)
     }
-  }, [refreshInterval]);
+  }, [refreshInterval])
 
   // Handle case click
   const handleCaseClick = (caseData: H5N1Case) => {
-    console.log('Case clicked:', caseData);
+    console.log('Case clicked:', caseData)
     // You could open a modal, side panel, or update a details view
-    alert(`${caseData.location}\n${caseData.count} ${caseData.caseType} case(s)\nSeverity: ${caseData.severity}`);
-  };
+    alert(
+      `${caseData.location}\n${caseData.count} ${caseData.caseType} case(s)\nSeverity: ${caseData.severity}`
+    )
+  }
 
   // Loading state
   if (loading && cases.length === 0) {
@@ -63,7 +68,7 @@ const BETSDashboard: React.FC = () => {
           <p className="text-lg text-gray-700">Loading BETS data...</p>
         </div>
       </div>
-    );
+    )
   }
 
   // Error state
@@ -71,7 +76,9 @@ const BETSDashboard: React.FC = () => {
     return (
       <div className="flex items-center justify-center w-full h-screen bg-gray-100">
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-md">
-          <div className="text-red-600 text-xl font-bold mb-4">Error Loading Data</div>
+          <div className="text-red-600 text-xl font-bold mb-4">
+            Error Loading Data
+          </div>
           <p className="text-gray-700 mb-4">{error}</p>
           <button
             onClick={fetchMapData}
@@ -81,7 +88,7 @@ const BETSDashboard: React.FC = () => {
           </button>
         </div>
       </div>
-    );
+    )
   }
 
   return (
@@ -93,14 +100,16 @@ const BETSDashboard: React.FC = () => {
             <h1 className="text-2xl font-bold text-gray-800">
               BETS - Bio-Event Tracking System
             </h1>
-            <span className="text-sm text-gray-500">H5N1 Surveillance Dashboard</span>
+            <span className="text-sm text-gray-500">
+              H5N1 Surveillance Dashboard
+            </span>
           </div>
-          
+
           <div className="flex items-center space-x-4">
             <div className="text-sm text-gray-600">
               Last Updated: {lastUpdated}
             </div>
-            
+
             <button
               onClick={fetchMapData}
               disabled={loading}
@@ -143,7 +152,7 @@ const BETSDashboard: React.FC = () => {
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default BETSDashboard;
+export default BETSDashboard

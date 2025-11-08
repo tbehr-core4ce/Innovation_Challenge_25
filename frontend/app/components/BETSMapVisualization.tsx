@@ -1,72 +1,82 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Circle, useMap } from 'react-leaflet';
-import MarkerClusterGroup from 'react-leaflet-cluster';
-import 'leaflet/dist/leaflet.css';
-import { Icon, LatLngExpression } from 'leaflet';
+import React, { useState, useEffect, useRef } from 'react'
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Circle,
+  useMap
+} from 'react-leaflet'
+import MarkerClusterGroup from 'react-leaflet-cluster'
+import 'leaflet/dist/leaflet.css'
+import { Icon, LatLngExpression } from 'leaflet'
 
 // Fix default Leaflet icon issues with React
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import L from 'leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png'
+import iconShadow from 'leaflet/dist/images/marker-shadow.png'
+import L from 'leaflet'
 
 let DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
   iconSize: [25, 41],
-  iconAnchor: [12, 41],
+  iconAnchor: [12, 41]
 })
 
-export default BETSMapVisualization;
-export type { H5N1Case, HotspotZone };
-L.Marker.prototype.options.icon = DefaultIcon;
+export default BETSMapVisualization
+export type { H5N1Case, HotspotZone }
+L.Marker.prototype.options.icon = DefaultIcon
 
 // ==================== TYPE DEFINITIONS ====================
 
 interface H5N1Case {
-  id: string;
-  lat: number;
-  lng: number;
-  location: string;
-  caseType: 'human' | 'avian' | 'dairy' | 'environmental';
-  count: number;
-  severity: 'low' | 'medium' | 'high' | 'critical';
-  reportedDate: string;
-  status: 'active' | 'contained' | 'monitoring';
-  description?: string;
+  id: string
+  lat: number
+  lng: number
+  location: string
+  caseType: 'human' | 'avian' | 'dairy' | 'environmental'
+  count: number
+  severity: 'low' | 'medium' | 'high' | 'critical'
+  reportedDate: string
+  status: 'active' | 'contained' | 'monitoring'
+  description?: string
 }
 
 interface HotspotZone {
-  id: string;
-  lat: number;
-  lng: number;
-  radius: number; // in meters
-  caseCount: number;
-  riskLevel: 'low' | 'medium' | 'high' | 'critical';
+  id: string
+  lat: number
+  lng: number
+  radius: number // in meters
+  caseCount: number
+  riskLevel: 'low' | 'medium' | 'high' | 'critical'
 }
 
 interface MapViewProps {
-  cases: H5N1Case[];
-  hotspots: HotspotZone[];
-  center?: LatLngExpression;
-  zoom?: number;
-  onCaseClick?: (caseData: H5N1Case) => void;
+  cases: H5N1Case[]
+  hotspots: HotspotZone[]
+  center?: LatLngExpression
+  zoom?: number
+  onCaseClick?: (caseData: H5N1Case) => void
 }
 
 // ==================== HELPER FUNCTIONS ====================
 
-const getCaseIcon = (caseType: H5N1Case['caseType'], severity: H5N1Case['severity']) => {
+const getCaseIcon = (
+  caseType: H5N1Case['caseType'],
+  severity: H5N1Case['severity']
+) => {
   const colors: Record<H5N1Case['severity'], string> = {
     low: '#22c55e',
     medium: '#eab308',
     high: '#f97316',
-    critical: '#ef4444',
-  };
+    critical: '#ef4444'
+  }
 
   const shapes: Record<H5N1Case['caseType'], string> = {
     human: '●',
     avian: '▲',
     dairy: '■',
-    environmental: '◆',
+    environmental: '◆'
   }
 
   return new L.DivIcon({
@@ -90,31 +100,31 @@ const getCaseIcon = (caseType: H5N1Case['caseType'], severity: H5N1Case['severit
       </div>
     `,
     iconSize: [30, 30],
-    iconAnchor: [15, 15],
-  });
-};
+    iconAnchor: [15, 15]
+  })
+}
 
 const getHotspotColor = (riskLevel: HotspotZone['riskLevel']): string => {
   const colors: Record<HotspotZone['riskLevel'], string> = {
     low: '#22c55e',
     medium: '#eab308',
     high: '#f97316',
-    critical: '#ef4444',
-  };
-  return colors[riskLevel];
+    critical: '#ef4444'
+  }
+  return colors[riskLevel]
 }
 
 // ==================== MAP CONTROLS COMPONENT ====================
 
 const MapControls: React.FC<{
-  showClusters: boolean;
-  showHotspots: boolean;
-  showHeatmap: boolean;
-  filterCaseType: string;
-  onToggleClusters: () => void;
-  onToggleHotspots: () => void;
-  onToggleHeatmap: () => void;
-  onFilterChange: (filter: string) => void;
+  showClusters: boolean
+  showHotspots: boolean
+  showHeatmap: boolean
+  filterCaseType: string
+  onToggleClusters: () => void
+  onToggleHotspots: () => void
+  onToggleHeatmap: () => void
+  onFilterChange: (filter: string) => void
 }> = ({
   showClusters,
   showHotspots,
@@ -123,12 +133,12 @@ const MapControls: React.FC<{
   onToggleClusters,
   onToggleHotspots,
   onToggleHeatmap,
-  onFilterChange,
+  onFilterChange
 }) => {
   return (
     <div className="absolute top-4 right-4 z-[1000] bg-white rounded-lg shadow-lg p-4 space-y-3">
       <div className="font-semibold text-sm mb-2">Map Controls</div>
-      
+
       {/* Toggle Controls */}
       <label className="flex items-center space-x-2 cursor-pointer">
         <input
@@ -162,7 +172,9 @@ const MapControls: React.FC<{
 
       {/* Filter Dropdown */}
       <div className="pt-2 border-t">
-        <label className="text-xs font-semibold mb-1 block">Filter by Type</label>
+        <label className="text-xs font-semibold mb-1 block">
+          Filter by Type
+        </label>
         <select
           value={filterCaseType}
           onChange={(e) => onFilterChange(e.target.value)}
@@ -227,10 +239,10 @@ const MapControls: React.FC<{
 // ==================== STATS PANEL COMPONENT ====================
 
 const StatsPanel: React.FC<{ cases: H5N1Case[] }> = ({ cases }) => {
-  const humanCases = cases.filter(c => c.caseType === 'human').length;
-  const avianCases = cases.filter(c => c.caseType === 'avian').length;
-  const dairyCases = cases.filter(c => c.caseType === 'dairy').length;
-  const criticalCases = cases.filter(c => c.severity === 'critical').length;
+  const humanCases = cases.filter((c) => c.caseType === 'human').length
+  const avianCases = cases.filter((c) => c.caseType === 'avian').length
+  const dairyCases = cases.filter((c) => c.caseType === 'dairy').length
+  const criticalCases = cases.filter((c) => c.severity === 'critical').length
 
   return (
     <div className="absolute bottom-4 left-4 z-[1000] bg-white rounded-lg shadow-lg p-4">
@@ -249,7 +261,9 @@ const StatsPanel: React.FC<{ cases: H5N1Case[] }> = ({ cases }) => {
           <div className="text-xs text-gray-600">Dairy Cases</div>
         </div>
         <div>
-          <div className="text-2xl font-bold text-orange-600">{criticalCases}</div>
+          <div className="text-2xl font-bold text-orange-600">
+            {criticalCases}
+          </div>
           <div className="text-xs text-gray-600">Critical</div>
         </div>
       </div>
@@ -267,12 +281,12 @@ const BETSMapVisualization: React.FC<MapViewProps> = ({
   hotspots,
   center = [39.8283, -98.5795], // Center of USA
   zoom = 5,
-  onCaseClick,
+  onCaseClick
 }) => {
-  const [showClusters, setShowClusters] = useState(true);
-  const [showHotspots, setShowHotspots] = useState(true);
-  const [showHeatmap, setShowHeatmap] = useState(false);
-  const [filterCaseType, setFilterCaseType] = useState<string>('all');
+  const [showClusters, setShowClusters] = useState(true)
+  const [showHotspots, setShowHotspots] = useState(true)
+  const [showHeatmap, setShowHeatmap] = useState(false)
+  const [filterCaseType, setFilterCaseType] = useState<string>('all')
 
   // Filter cases based on selected type
   const filteredCases = cases.filter(
@@ -303,7 +317,7 @@ const BETSMapVisualization: React.FC<MapViewProps> = ({
                 fillColor: getHotspotColor(hotspot.riskLevel),
                 fillOpacity: 0.2,
                 color: getHotspotColor(hotspot.riskLevel),
-                weight: 2,
+                weight: 2
               }}
             >
               <Popup>
@@ -331,12 +345,14 @@ const BETSMapVisualization: React.FC<MapViewProps> = ({
                 position={[caseData.lat, caseData.lng]}
                 icon={getCaseIcon(caseData.caseType, caseData.severity)}
                 eventHandlers={{
-                  click: () => onCaseClick?.(caseData),
+                  click: () => onCaseClick?.(caseData)
                 }}
               >
                 <Popup>
                   <div className="text-sm space-y-1">
-                    <div className="font-bold text-base">{caseData.location}</div>
+                    <div className="font-bold text-base">
+                      {caseData.location}
+                    </div>
                     <div className="flex items-center space-x-2">
                       <span className="font-semibold">Type:</span>
                       <span className="capitalize">{caseData.caseType}</span>
@@ -352,10 +368,10 @@ const BETSMapVisualization: React.FC<MapViewProps> = ({
                           caseData.severity === 'critical'
                             ? 'bg-red-100 text-red-800'
                             : caseData.severity === 'high'
-                            ? 'bg-orange-100 text-orange-800'
-                            : caseData.severity === 'medium'
-                            ? 'bg-yellow-100 text-yellow-800'
-                            : 'bg-green-100 text-green-800'
+                              ? 'bg-orange-100 text-orange-800'
+                              : caseData.severity === 'medium'
+                                ? 'bg-yellow-100 text-yellow-800'
+                                : 'bg-green-100 text-green-800'
                         }`}
                       >
                         {caseData.severity.toUpperCase()}
@@ -369,7 +385,9 @@ const BETSMapVisualization: React.FC<MapViewProps> = ({
                       {new Date(caseData.reportedDate).toLocaleDateString()}
                     </div>
                     {caseData.description && (
-                      <div className="pt-2 border-t text-xs">{caseData.description}</div>
+                      <div className="pt-2 border-t text-xs">
+                        {caseData.description}
+                      </div>
                     )}
                   </div>
                 </Popup>
@@ -384,7 +402,7 @@ const BETSMapVisualization: React.FC<MapViewProps> = ({
               position={[caseData.lat, caseData.lng]}
               icon={getCaseIcon(caseData.caseType, caseData.severity)}
               eventHandlers={{
-                click: () => onCaseClick?.(caseData),
+                click: () => onCaseClick?.(caseData)
               }}
             >
               <Popup>
@@ -421,4 +439,3 @@ const BETSMapVisualization: React.FC<MapViewProps> = ({
     </div>
   )
 }
-
