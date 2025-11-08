@@ -14,6 +14,10 @@
     "format-check": "prettier --check ."
   },
   "dependencies": {
+    "leaflet": "^1.9.4",
+    "react-leaflet": "^4.2.1",
+    "react-leaflet-cluster": "^2.1.0",
+    "@types/leaflet": "^1.9.8",
     "@hookform/resolvers": "^3.9.1",
     "@nimpl/classnames-minifier": "^4.0.0",
     "@radix-ui/react-accordion": "1.2.2",
