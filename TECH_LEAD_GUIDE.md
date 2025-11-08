@@ -36,11 +36,6 @@ I've created a complete map visualization system with:
 - Auto-generated API docs (Swagger)
 - Easy to extend with ML/anomaly detection
 
-**vs Rails:**
-- Rails is CRUD-focused (employees, opportunities)
-- BETS is data-processing-focused (aggregations, geo-analysis)
-- Python's data science ecosystem >> Ruby's
-
 ### React Frontend ✅
 **You already know this:**
 - TypeScript for type safety
@@ -50,7 +45,7 @@ I've created a complete map visualization system with:
 
 ---
 
-## 🚀 Quick Start (3 Commands)
+## Quick Start (3 Commands)
 
 ```bash
 # 1. Start backend
@@ -65,7 +60,7 @@ http://localhost:3000
 
 Or with Docker:
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 ---
@@ -182,7 +177,7 @@ docker-compose up --build
 
 ---
 
-## 🗂️ File Organization
+## File Organization
 
 ```
 bets-prototype/
@@ -207,7 +202,7 @@ bets-prototype/
 
 ---
 
-## 🎨 UI/UX Notes
+## UI/UX Notes
 
 ### Color Scheme
 - **Low**: Green (#22c55e)
@@ -229,7 +224,7 @@ bets-prototype/
 
 ---
 
-## 🔌 API Integration Pattern
+## API Integration Pattern
 
 **Frontend calls backend like this:**
 
@@ -263,7 +258,7 @@ cases = db.query(Case).filter(Case.date > cutoff).all()
 
 ---
 
-## 📊 Next Steps (Priority Order)
+## Next Steps (Priority Order)
 
 1. **Week 1 - Data**
    - [ ] Get real H5N1 datasets
@@ -312,7 +307,7 @@ app.add_middleware(
 
 ---
 
-## 💡 Tips for Your Team
+## Tips for Your Team
 
 1. **Use the Swagger docs** - Auto-generated at `http://localhost:8000/docs`
 2. **Test API directly** - Use Swagger UI to test endpoints before frontend work
@@ -322,7 +317,7 @@ app.add_middleware(
 
 ---
 
-## 🎯 Success Criteria
+## Success Criteria
 
 The demo should show:
 - ✅ Map loads with H5N1 case markers
@@ -337,13 +332,10 @@ The demo should show:
 
 ---
 
-## 📞 Need Help?
-
-The code is well-commented and follows patterns you know from snappi_dashboard. If stuck:
+## Need Help?
 
 1. Check the README.md
 2. Look at ExampleApp.tsx for usage
 3. Use Swagger docs for API testing
 4. Console.log is your friend
 
-You've got this! 🚀
