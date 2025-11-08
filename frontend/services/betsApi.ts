@@ -3,7 +3,7 @@
  * React service for fetching H5N1 case data from FastAPI backend
  */
 
-import { H5N1Case, HotspotZone } from '../app/BETSMapVisualization';
+import { H5N1Case, HotspotZone } from '../app/components/BETSMapVisualization';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000';
 

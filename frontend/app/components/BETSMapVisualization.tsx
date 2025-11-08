@@ -14,8 +14,10 @@ let DefaultIcon = L.icon({
   shadowUrl: iconShadow,
   iconSize: [25, 41],
   iconAnchor: [12, 41],
-});
+})
 
+export default BETSMapVisualization;
+export type { H5N1Case, HotspotZone };
 L.Marker.prototype.options.icon = DefaultIcon;
 
 // ==================== TYPE DEFINITIONS ====================
@@ -65,7 +67,7 @@ const getCaseIcon = (caseType: H5N1Case['caseType'], severity: H5N1Case['severit
     avian: '▲',
     dairy: '■',
     environmental: '◆',
-  };
+  }
 
   return new L.DivIcon({
     className: 'custom-icon',
@@ -100,7 +102,7 @@ const getHotspotColor = (riskLevel: HotspotZone['riskLevel']): string => {
     critical: '#ef4444',
   };
   return colors[riskLevel];
-};
+}
 
 // ==================== MAP CONTROLS COMPONENT ====================
 
@@ -219,8 +221,8 @@ const MapControls: React.FC<{
         </div>
       </div>
     </div>
-  );
-};
+  )
+}
 
 // ==================== STATS PANEL COMPONENT ====================
 
@@ -255,8 +257,8 @@ const StatsPanel: React.FC<{ cases: H5N1Case[] }> = ({ cases }) => {
         Last Updated: {new Date().toLocaleString()}
       </div>
     </div>
-  );
-};
+  )
+}
 
 // ==================== MAIN MAP COMPONENT ====================
 
@@ -275,7 +277,7 @@ const BETSMapVisualization: React.FC<MapViewProps> = ({
   // Filter cases based on selected type
   const filteredCases = cases.filter(
     (c) => filterCaseType === 'all' || c.caseType === filterCaseType
-  );
+  )
 
   return (
     <div className="relative w-full h-screen">
@@ -417,8 +419,6 @@ const BETSMapVisualization: React.FC<MapViewProps> = ({
       {/* Stats Panel */}
       <StatsPanel cases={filteredCases} />
     </div>
-  );
-};
+  )
+}
 
-export default BETSMapVisualization;
-export type { H5N1Case, HotspotZone };

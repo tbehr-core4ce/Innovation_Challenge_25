@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import BETSMapVisualization, { H5N1Case, HotspotZone } from './BETSMapVisualization';
-import { betsApi } from './betsApiService';
+import { betsApi } from '../../services/betsApi';
 
 const BETSDashboard: React.FC = () => {
   // State management

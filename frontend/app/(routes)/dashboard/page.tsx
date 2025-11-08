@@ -1,5 +1,5 @@
 import React from 'react';
-import BETSMapVisualization, { H5N1Case, HotspotZone } from './BETSMapVisualization';
+import BETSMapVisualization, { H5N1Case, HotspotZone } from '../../components/BETSMapVisualization';
 
 // ==================== MOCK DATA ====================
 
@@ -190,12 +190,12 @@ const mockHotspots: HotspotZone[] = [
 
 // ==================== EXAMPLE USAGE ====================
 
-const ExampleApp: React.FC = () => {
+export default function DashboardPage() {
+
   const handleCaseClick = (caseData: H5N1Case) => {
-    console.log('Case clicked:', caseData);
+    console.log('Case clicked:', caseData)
     // You could open a detailed modal, update a side panel, etc.
-    alert(`Clicked: ${caseData.location}\nType: ${caseData.caseType}\nCases: ${caseData.count}`);
-  };
+    alert(`Clicked: ${caseData.location}\nType: ${caseData.caseType}\nCases: ${caseData.count}`)
 
   return (
     <div className="w-full h-screen">
@@ -207,7 +207,6 @@ const ExampleApp: React.FC = () => {
         onCaseClick={handleCaseClick}
       />
     </div>
-  );
-};
-
-export default ExampleApp;
+  )
+}
+}

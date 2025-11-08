@@ -1,0 +1,78 @@
+{
+  "useTabs": false,
+  "printWidth": 80,
+  "tabWidth": 2,
+  "singleQuote": true,
+  "trailingComma": "none",
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "semi": false,
+  "parser": "typescript",
+  "plugins": [
+  "prettier-plugin-sh"
+  ],
+  "overrides": [
+  {
+    "files": [
+    "*.js",
+    "*.jsx"
+    ],
+    "options": {
+    "parser": "babel"
+  }
+  },
+  {
+    "files": [
+    "*.ts",
+    "*.tsx"
+    ],
+    "options": {
+    "parser": "babel-ts"
+  }
+  },
+  {
+    "files": [
+    "*.html",
+    "*.svg"
+    ],
+    "options": {
+    "parser": "html"
+  }
+  },
+  {
+    "files": [
+    "*.json"
+    ],
+    "options": {
+    "parser": "json"
+  }
+  },
+  {
+    "files": [
+    "*.css"
+    ],
+    "options": {
+    "parser": "css"
+  }
+  },
+  {
+    "files": [
+    "*.yaml",
+    "*.yml"
+    ],
+    "options": {
+    "parser": "yaml"
+  }
+  },
+  {
+    "files": [
+    ".*",
+    "*.sh",
+    "*Dockerfile"
+    ],
+    "options": {
+    "parser": "sh"
+  }
+}
+]}
