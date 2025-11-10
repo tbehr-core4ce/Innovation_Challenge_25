@@ -1,6 +1,9 @@
 FastAPI - Modern, fast, auto-generated API docs
 # Simpler than Rails for a prototype
 ```
+### API
+
+https://data.cdc.gov/Public-Health-Surveillance/CDC-Epidemic-Trends-and-Rt/5dqz-y4ea/data_preview
 
 ### React Frontend - Perfect for:
 - Interactive dashboards
