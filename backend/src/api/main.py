@@ -11,6 +11,9 @@ from settings import settings
 from azure_storage import get_storage_client
 from models.workflow import JobSubmission
 from models.microsoft import UploadSasResponse, DownloadSasResponse
+from routers import data_ingestion
+
+app.include_router(data_ingestion.router)
 
 
 app = FastAPI(title="Document Processor API")
