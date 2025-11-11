@@ -1,4 +1,4 @@
-version: '3.8'
+
 name: bets
 # PRODUCTION only
 services:
@@ -11,6 +11,9 @@ services:
       - "8000:8000"
     environment:
       - PYTHONUNBUFFERED=1
+      - UVICORN_RELOAD=true
+      - PROJECT_BASE_PATH=/app
+      - PROJECT_BASE_PATH=/app
     volumes:
       - ./backend:/app
     restart: unless-stopped # always instead ?
@@ -41,6 +44,21 @@ services:
     networks:
       - bets-network
 
+  postgres:
+    image: postgis/postgis:18-3.6
+    platform: linux/amd64
+    environment:
+      POSTGRES_USER: bets_user
+      POSTGRES_PASSWORD: bets_password
+      POSTGRES_DB: bets_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql # TODO changed to /var/lib/postgresql in PostgresSQL 18+ 
+      - ./scripts/init.sql:/docker-entrypoint-initdb.d/init.sql
+
+volumes:
+  postgres_data:
 networks:
   bets-network:
     driver: bridge

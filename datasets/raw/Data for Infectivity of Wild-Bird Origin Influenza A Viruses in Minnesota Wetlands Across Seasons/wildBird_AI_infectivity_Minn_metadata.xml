@@ -1,0 +1,2016 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Scott, Laura C. (ORCID: 0000-0003-0303-5340)</origin>
+        <origin>Poulson, Rebecca L. (ORCID: 0000-0002-8087-3295)</origin>
+        <origin>Ahlstrom, Christina A. (ORCID: 0000-0001-5414-8076)</origin>
+        <origin>Reeves, Andrew B. (ORCID: 0000-0002-7526-0726)</origin>
+        <origin>Hubbard, Laura E. (ORCID: 0000-0003-3813-1500)</origin>
+        <origin>Fojtik, Alinde</origin>
+        <origin>Carter, Deborah L.</origin>
+        <origin>Stallknecht, David E. (ORCID: 0000-0001-7355-8732)</origin>
+        <origin>Ramey, Andrew M. (ORCID: 0000-0002-3601-8400)</origin>
+        <pubdate>20240429</pubdate>
+        <title>Data for Infectivity of Wild-Bird Origin Influenza A Viruses in Minnesota Wetlands Across Seasons</title>
+        <geoform>tabular digital data</geoform>
+        <pubinfo>
+          <pubplace>Anchorage, Alaska</pubplace>
+          <publish>U.S. Geological Survey, Alaska Science Center</publish>
+        </pubinfo>
+        <othercit>Suggested Citation: Scott, L.C., Poulson, R.L., Ahlstrom, C.A., Reeves, A.B., Hubbard, L.E., Fojtik, A., Carter, D.L., Stallknecht, D.E., Ramey, A.M., 2024, Data for infectivity of wild-bird origin influenza A viruses in Minnesota wetlands across seasons: U.S. Geological Survey data release, https://doi.org/10.5066/P13INUVG</othercit>
+        <onlink>https://doi.org/10.5066/P13INUVG</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>This data set represents an ecological and laboratory-based experiment to understand influenza virus viability in surface water. Data tables included in this release consist of 1) daily mean water temperature, 2) viability of viruses maintained in water, 3) influenza detection in duck samples, 4) viral titers of experimentally inoculated water samples, and 5) water chemistry.</abstract>
+      <purpose>Data were collected to determine how long influenza viruses remain infectious in surface water. Data can be used for viral survival analysis over time in the presented samples.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>20200801</begdate>
+          <enddate>20210731</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>observed</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <descgeog>Minnesota, USA</descgeog>
+      <bounding>
+        <westbc>-97.2300</westbc>
+        <eastbc>-89.5000</eastbc>
+        <northbc>49.3700</northbc>
+        <southbc>43.4900</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>USGS Metadata Identifier</themekt>
+        <themekey>USGS:662fc51ad34ea70bd5f2625d</themekey>
+      </theme>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>Biota</themekey>
+        <themekey>Environment</themekey>
+        <themekey>Health</themekey>
+      </theme>
+      <theme>
+        <themekt>NASA GCMD Earth Science Keyword Thesaurus</themekt>
+        <themekey>Animals/vertebrates</themekey>
+        <themekey>Birds</themekey>
+        <themekey>Ducks/geese/swans</themekey>
+        <themekey>Freshwater ecosystems</themekey>
+        <themekey>Lakes/reservoirs</themekey>
+        <themekey>Viruses</themekey>
+        <themekey>Animal diseases/disorders/pests</themekey>
+        <themekey>Disease/epidemic</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS CSAS Biocomplexity Thesaurus</themekt>
+        <themekey>Migratory birds</themekey>
+        <themekey>Disease reservoirs</themekey>
+        <themekey>Avian influenza</themekey>
+        <themekey>Animal disease</themekey>
+        <themekey>Persistence</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Thesaurus</themekt>
+        <themekey>Wildlife</themekey>
+        <themekey>Health and disease</themekey>
+        <themekey>Wildlife disease</themekey>
+      </theme>
+      <theme>
+        <themekt>NIH MeSH Thesaurus</themekt>
+        <themekey>Virus Diseases</themekey>
+        <themekey>Influenza A virus</themekey>
+      </theme>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>Waterfowl</themekey>
+      </theme>
+      <place>
+        <placekt>USGS Geographic Names Information System (GNIS)</placekt>
+        <placekey>Minnesota</placekey>
+      </place>
+      <place>
+        <placekt>Protected Areas Database of the United States (PAD-US)</placekt>
+        <placekey>Agassiz National Wildlife Refuge</placekey>
+        <placekey>Roseau River Wildlife Management Area</placekey>
+      </place>
+    </keywords>
+    <taxonomy>
+      <keywtax>
+        <taxonkt>None</taxonkt>
+        <taxonkey>Mallard</taxonkey>
+        <taxonkey>Anas platyrhynchos</taxonkey>
+      </keywtax>
+      <taxonsys>
+        <classsys>
+          <classcit>
+            <citeinfo>
+              <origin>ITIS Integrated Taxonomic Information System</origin>
+              <pubdate>Unknown</pubdate>
+              <title>ITIS Integrated Taxonomic Information System</title>
+              <geoform>online database</geoform>
+              <pubinfo>
+                <pubplace>online</pubplace>
+                <publish>ITIS-North America</publish>
+              </pubinfo>
+              <othercit>Taxonomic details retrieved March 22, 2024 from the Integrated Taxonomic Information System online database https://www.itis.gov</othercit>
+              <onlink>https://doi.org/10.5066/F7KH0KBK</onlink>
+            </citeinfo>
+          </classcit>
+        </classsys>
+        <taxonpro>Species were identified by skilled observers in the field and laboratory based on plumage, behavior, and vocalization.</taxonpro>
+        <taxoncom>Taxonomy is complete for all samples. No voucher specimens were collected.</taxoncom>
+      </taxonsys>
+      <taxoncl>
+        <taxonrn>Kingdom</taxonrn>
+        <taxonrv>Animalia</taxonrv>
+        <taxoncl>
+          <taxonrn>Subkingdom</taxonrn>
+          <taxonrv>Bilateria</taxonrv>
+          <taxoncl>
+            <taxonrn>Infrakingdom</taxonrn>
+            <taxonrv>Deuterostomia</taxonrv>
+            <taxoncl>
+              <taxonrn>Phylum</taxonrn>
+              <taxonrv>Chordata</taxonrv>
+              <taxoncl>
+                <taxonrn>Subphylum</taxonrn>
+                <taxonrv>Vertebrata</taxonrv>
+                <taxoncl>
+                  <taxonrn>Infraphylum</taxonrn>
+                  <taxonrv>Gnathostomata</taxonrv>
+                  <taxoncl>
+                    <taxonrn>Superclass</taxonrn>
+                    <taxonrv>Tetrapoda</taxonrv>
+                    <taxoncl>
+                      <taxonrn>Class</taxonrn>
+                      <taxonrv>Aves</taxonrv>
+                      <taxoncl>
+                        <taxonrn>Order</taxonrn>
+                        <taxonrv>Anseriformes</taxonrv>
+                        <taxoncl>
+                          <taxonrn>Family</taxonrn>
+                          <taxonrv>Anatidae</taxonrv>
+                          <taxoncl>
+                            <taxonrn>Genus</taxonrn>
+                            <taxonrv>Anas</taxonrv>
+                            <taxoncl>
+                              <taxonrn>Species</taxonrn>
+                              <taxonrv>Anas platyrhynchos</taxonrv>
+                              <common>Mallard</common>
+                            </taxoncl>
+                          </taxoncl>
+                        </taxoncl>
+                      </taxoncl>
+                    </taxoncl>
+                  </taxoncl>
+                </taxoncl>
+              </taxoncl>
+            </taxoncl>
+          </taxoncl>
+        </taxoncl>
+      </taxoncl>
+    </taxonomy>
+    <accconst>No access constraints</accconst>
+    <useconst>No use contraints</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>U.S. Geological Survey, Alaska Science Center</cntorg>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>Mailing and Physical</addrtype>
+          <address>4210 University Drive</address>
+          <city>Anchorage</city>
+          <state>Alaska</state>
+          <postal>99508</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>907-786-7000</cntvoice>
+        <cntemail>gs-ak_asc_datamanagers@usgs.gov</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <crossref>
+      <citeinfo>
+        <origin>Poulson, R.L.</origin>
+        <origin>Reeves, A.B.</origin>
+        <origin>Ahlstrom, C.A.</origin>
+        <origin>Scott, L.C.</origin>
+        <origin>Hubbard, L.E.</origin>
+        <origin>Fotjik, A.</origin>
+        <origin>Carter, D.L.</origin>
+        <origin>Stallknecht, D.E.</origin>
+        <origin>Ramey, A.M.</origin>
+        <pubdate>2024</pubdate>
+        <title>Infectivity of Wild-Bird Origin Influenza A Viruses in Minnesota Wetlands Across Seasons</title>
+        <geoform>journal article</geoform>
+        <serinfo>
+          <sername>Pathogens</sername>
+          <issue>13(5):406</issue>
+        </serinfo>
+        <pubinfo>
+          <pubplace>online</pubplace>
+          <publish>MDPI</publish>
+        </pubinfo>
+        <othercit>Poulson, R.L., Reeves, A.B., Ahlstrom, C.A., Scott, L.C., Hubbard, L.E., Fotjik, A., Carter, D.L., Stallknecht, D.E., Ramey, A.M., 2024. Infectivity of wild-bird origin influenza A viruses in Minnesota wetlands across seasons. Pathogens 13(5):406. doi:10.3390/pathogens13050406</othercit>
+        <onlink>https://doi.org/10.3390/pathogens13050406</onlink>
+      </citeinfo>
+    </crossref>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Viral viability was confirmed with cultured isolates as well as targeted molecular detection for complete specificity.</attraccr>
+    </attracc>
+    <logic>Data have been checked for completeness. All values fall within expected ranges for data with numerical values.</logic>
+    <complete>These data only represent the experimental conditions present in this study. No data were omitted, there are no missing values.</complete>
+    <lineage>
+      <procstep>
+        <procdesc>STEP 1 - Water chemistry analysis:
+
+A multiparameter water quality sonde (Yellow Springs Instruments [YSI], Yellow Springs, Ohio) was used in situ to measure field parameters including pH, temperature, specific conductance, and dissolved oxygen (DO). In addition, approximately 700mL of both unfiltered and 0.45µm filtered water was also collected from each waterbody in the field, at initiation of the trial [8/26/2020] and sent to the USGS Redox Chemistry Laboratory (Boulder, CO) for further chemical characterization with a Sievers Nitric Oxide analyzer, Dionex ICS-5000 Ion chromatograph, and Formacs Total nitrogen analyzer. Water chemistry analyses were led by Laura Hubbard (USGS Upper Midwest Science Center). Methods were derived from Ramey et al. 2022.</procdesc>
+        <procdate>20200901</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>STEP 2 - Collection of swab samples from wild mallards and sample preparation: 
+
+Four sites for a field experiment were chosen at locations previously utilized for wild bird influenza A virus (IAV) surveillance and research. Surface water was collected from each location, filtered to 0.22µm to remove particulates and bacteria, and kept chilled at 4 degrees Celsius. Filtered water from each site was dispensed into 800 4mL cryovials at 1.8mL volume. Distilled water was also aliquoted into 800 4mL cryovials at 1.8mL volume at the laboratory  prior to field work, kept cold, and transported to the Minnesota field lab where it was then used for aliquots of duck swab materials.
+
+Paired cloacal and oropharyngeal (CL/OP) swabs were collected from 266 live captured mallards from 25 August – 19 September 2020 and placed in 8mL cold, distilled water. Swabs in distilled water were kept at 4 degrees Celsius until processing, at which point they were vortexed and supernatants aliquoted at 195uL volume into four tubes of 1.8mL of 0.22µm filtered water from each waterbody plus four tubes of distilled water. One replicate aliquot of each CL/OP swab (initial timepoint [2 September – 19 September 2020], hereafter T1) was placed in filtered water from each waterbody and was immediately sent to the processing laboratory for cold storage until testing. All distilled water samples were also shipped to the processing laboratory for immediate testing (T1), or laboratory storage at 4 degrees Celsius. All other aliquots of CL/OP swabs in filtered water (hereafter T2, T3, and T4) from all water bodies (A, B, C, or D) were deployed in the environment. Two replicate negative control tubes (filtered natural water only) from each site for quality assurance were also included for T1 sample processing. Sample extraction was led by Rebecca Poulson (University of Georgia). Methods were derived from Ramey et al. 2022.</procdesc>
+        <procdate>20200919</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>STEP 3 - RNA Extraction and Reverse Transcription PCR (rrt-pcr): 
+
+Viral RNA was extracted from the swab samples using a commercially available magnetic bead kit (MagMax, Thermofisher) on an automated Kingfisher Duo using the manufacturer's protocol. With every extraction, positive and negative controls were used. Extracted RNA was tested for the Matrix gene. The primers used to amplify the Matrix gene were as follows: "M+25" 5'-AGATGAGTCTTCTAACCGAGGTCG-3', "M-124" 5'-TGCAAAAACATCTTCAAGTCTCTG-3'. Amplified target was detected with a FAM intercalated probe with the sequence: 5'-TCAGGCCCCCTCAAAGCCGA-3'. Master mix for the qPCR included reagents in the AgPath-ID One-step RT-PCR kit (Applied Biosystems) and the aforementioned primers and probe in the following volumes per reaction: reaction buffer, 12.5μL; M+25 primer (20uM), 0.25μL; M-124 primer (20uM), 0.25μL; probe (6uM), 0.25μL; 25x RT-PCR enzyme, 1μL; detection enhancer, 1.67μL; nanopure water, 1.08uL, sample RNA, 8uL. Thermal cycling conditions on an Applied Biosystems 7500Fast real time quantitative PCR machine were: 10 minutes 45°C, 10 minutes 94°C, followed by 45 cycles of 1 second denaturation at 94°C and 30 seconds annealing at 60°C, with fluorescence data collected at the annealing step. Cycle threshold (Ct) values were automatically generated by the thermal cycler.
+
+All distilled water samples with a cycle threshold (Ct) values less than 45 were considered positive for IAV viral RNA; virus isolation (VI) in embryonated chicken eggs (ECE) was also carried out on all T1 distilled water samples. Briefly, prior to VI, each tube of water was dosed with antibiotic/antimycotic solution (penicillin G: 200 units/mL, Streptomycin: 0.2 mg/mL, and Amphotericin B: 0.5 μg/mL; Sigma-Aldrich, St. Louis, MO, USA), vortexed vigorously and centrifuged at 3000 rpm x 15 minutes. Approximately 1.0mL of supernatant was then evenly divided into the amnioallantoic cavity of three ECE and allowed to incubate at 37 degrees Celsius for 5 days. Amnioallantoic fluids were tested via hemagglutination assay (HA) with 0.5 percent chicken red blood cells; nucleic acids were extracted from all HA positive samples and then screened in rrt-PCR targeting IAV matrix gene as described.
+
+When IAV was detected by rrt-PCR and/or by VI in distilled water samples, all replicate mesocosm samples were then subjected to VI, as described above, approximately one week later. Additionally, 51 of 65 distilled water samples that were IAV VI positive at T1 were also subjected to end-point titration in ECE one to two weeks after initial VI, and median egg infectious dose (EID50/mL) was calculated for each. The minimum detectable limit for this procedure is 100.8 EID50/mL. Rebecca Poulson (University of Georgia) led the viral extraction process. Methods were derived from Ramey et al. 2022.</procdesc>
+        <procdate>20200930</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>STEP 4 - Assessment of viral viability in mesocosms: 
+
+A perforated steel drum containing a Hobo® TidbiT® temperature logger (Onset Computer Corp; Bourne, MA, USA) was deployed into each waterbody at a depth of approximately 1 meter as has been previously described. Replicate sample tubes for T2, T3, and T4 were contained within mesh bags inside each drum in each water body and deployed between 3 September and 19 September 2020; all tubes were held at 4 degrees Celsius from point of collection, aliquoting of swab materials, and until deployment into the environment. Quality assurance/control samples included one tube of uninoculated filtered water for each water body (A – D) for retrieval at T2 and T3. Replicate samples were retrieved at three ecologically relevant timepoints: ice formation T2 (26 October 2020, 38-62 days post initial sample collection [dpi]); ice out T3 (8 April 2021; 202-226 dpi); and summer T4 (24 June 2021; 279-303 dpi). After collection of samples for each timepoint T2, and T3, care was taken to confirm that the drum was still properly anchored at appropriate depth (approximately 1m) in the waterbody. The steel drum and all contents, including the HOBO data logger were removed from each waterbody at the conclusion of the study (T4).  All T2, T3, and T4 samples were sent on ice packs to the processing lab immediately after retrieval. All distilled water samples were removed from 4 degrees Celsius in the lab within 0-18 days of field sample retrieval (T2: 0-18 days; T3: 0-6days; T4: 0-8days). To account for potential heterogeneity across samples, at T2, all replicates (A – D and distilled water) were subjected to VI in ECE if any replicate (A – D and/or distilled water) was IAV rrt-PCR or hemagglutination (described in Process Step 3) assay positive at T1. T3 and T4 samples were treated similarly, if any replicates were IAV rrt-PCR or hemagglutination assay positive at the previous timepoint, VI was performed for all replicate treatments for that swab sample.
+
+The persistence of a duck-derived, egg-propagated LP H3N8 virus held in filtered waters under cold conditions in the laboratory (approximately 4 degrees Celsius, refrigerator) was assessed to refine inference on variability in viral persistence among water bodies. Briefly, 500mL of each 0.22um filtered natural water was brought into the laboratory and spiked with approximately 104 median tissue culture infectious dose (TCID50)/mL of first ECE passage A/mallard/Minnesota/2018(H3N8); a volume of distilled water was also spiked at the same approximate concentration. Spiked waters (filtered and distilled) were then aliquoted at 1mL volume into individual-use snap-cap tubes, and to maintain surrounding temperature, placed in a plastic container filled with water in a laboratory refrigerator at approximately 4 C. Samples were titrated on Madin-Darby Canine Kidney (MDCK, CCL-34, American Type Culture Collection, Manassas, Virginia) upon experimental set up and then every 7 – 39 days until the conclusion of the trial at 241 days; viral titers were calculated. Linear regression was used to determine a 90% reduction time (Rt) for each treatment that demonstrated more than a 1 log10 TCID50/mL reduction in viral titer. Rt values correspond to the time required for a 1log10 TCID50/mL decrease in viral titer. The minimum detectable limit for this procedure is 101.77 TCID50/mL. Methods were derived from Ramey et al. 2022.</procdesc>
+        <procdate>20210501</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>STEP 5 - Sequencing: 
+
+All samples with positive viral isolation results from the each timepoint and mesocosm, underwent RNA extraction, as described in Process Step 3, and were amplified for the influenza A genome with reverse transcription PCR for sequencing. The consensus 5' and 3' influenza A primers are: "MBTuni-12" 5'-ACGCGTGATCAGCRAAAGCAGG-3' and "MBTuni-13" 5'-ACGCGTGATCAGTAGAAACAAGG-3'. Master mix for the PCR was made using reagents from the SuperScript III One-Step RT-PCR System with Platinum Taq high Fidelity (Invitrogen) and the previously listed primers in the following volumes per reaction: 2x reaction mix, 12.5uL; Superscript III RT Platinum Taq Mix, 0.5uL; MBTuni-12 (10uM), 0.5uL; MBTuni-13 (10uM), 0.5uL; nanopure water, magnesium sulfate (5mM), 1uL; RNAse inhibitor (13.3U/uL), 0.5uL; sample RNA, 2uL. Thermal cycling conditions on a Bio-Rad T100 were: 60 minutes 42°C, 2 minutes 94°C, 5 cycles of 15 seconds 94°C denaturing, 30 seconds 45°C annealing, and 3 minutes 68°C extensions, 30 cycles of 15 seconds 94°C denaturing, 30 seconds 57°C annealing, 3 minutes 68°C extension, and a final extension for 3 minutes at 68°C. PCR product was prepared for sequencing using the Nextera XT Library Preparation Kit (Illumina) following manufacturer's instructions, and sequenced on a MiSeq (Illumina).
+
+Illumina adapter sequences were trimmed from raw reads using Trimmomatic and default settings.  Burrows-Wheeler aligner was used to map trimmed reads to 55 influenza A virus reference genome segments that were selected to represent genetically diverse viruses from North America and Eurasia. Consensus sequences were generated for each gene segment based on highest reference genome coverage and a Bayesian heterozygous consensus calling algorithm was selected for nucleotide assignment using SAMtools. Sequencing was led by Laura Scott (USGS Alaska Science Center). Methods were derived from Ramey et al. 2022.</procdesc>
+        <procdate>20220501</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>LITERATURE CITED:
+
+Ramey, A.M., Reeves, A.B., Lagasse, B.J., Patil, V., Hubbard, L.E., Kolpin, D.W., McCleskey, R.B., Repert, D.A., Stallknecht, D.E., Poulson, R.L., 2022. Evidence for interannual persistence of infectious influenza A viruses in Alaska wetlands. Science of the Total Environment 803:150078. doi:10.1016/j.scitotenv.2021.150078</procdesc>
+        <procdate>Unknown</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <spdoinfo>
+    <indspref>Sampling locations are described without coordinates. The sampling location is described by a common name listed in the attributes of table "wildBird_virusMinn_daily_mean_waterTemperature.csv".</indspref>
+    <direct>Point</direct>
+  </spdoinfo>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>wildBird_virusMinn_dailyMean_waterTemperature.csv</enttypl>
+        <enttypd>Table providing daily water temperature measurements collected at four waterbodies where virus viability was measured over time. Presented in a Comma Separated Value (CSV) formatted table.</enttypd>
+        <enttypds>Author Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Date</attrlabl>
+        <attrdef>Date that the water temperature was measured at each waterbody.</attrdef>
+        <attrdefs>Author defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>2020-09-03</rdommin>
+            <rdommax>2021-06-24</rdommax>
+            <attrunit>Date (YYYY-MM-DD)</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FarmesPool_AgassizNWR</attrlabl>
+        <attrdef>Average daily water temperature measured in degrees Celsius at the Farmes Pool sampling site within Agassiz National Wildlife Refuge (approximately 48.2703N, 96.039W).</attrdef>
+        <attrdefs>Author defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data collected</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>0.75</rdommin>
+            <rdommax>24.3</rdommax>
+            <attrunit>Degrees Celsius</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>TamarackPool_AgassizNWR</attrlabl>
+        <attrdef>Average daily water temperature measured in degrees Celsius at the Tamarack Pool sampling site within Agassiz National Wildlife Refuge (approximately 48.3983N, 95.9962W).</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data collected</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>1.06</rdommin>
+            <rdommax>24.1</rdommax>
+            <attrunit>Degrees Celsius</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>ThiefLakeWMA_RiverSite</attrlabl>
+        <attrdef>Average daily water temperature measured in degrees Celsius at the river sampling site within Thief Lake Wildlife Management Area (approximately 48.4556N, 95.9535W).</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>NA</edomv>
+            <edomvd>No Data collected</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>0.52</rdommin>
+            <rdommax>25.73</rdommax>
+            <attrunit>Degrees Celsius</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RoseauWMA_PeninsulaSite</attrlabl>
+        <attrdef>Average daily water temperature measured in degrees Celsius at the peninsula sampling site within Roseau Wildlife Management Area (approximately 48.9557N, 96.2097W).</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>0.83</rdommin>
+            <rdommax>21.61</rdommax>
+            <attrunit>Degrees Celsius</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>wildBird_virusMinn_IAV_ducks.csv</enttypl>
+        <enttypd>Table providing the outcomes of virus isolate acquisition from captured mallards. Presented in a Comma Separated Value (CSV) formatted table.</enttypd>
+        <enttypds>Author Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>SampleID</attrlabl>
+        <attrdef>A unique numeric ID assigned to each sample collected.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <udom>A unique numeric ID assigned to each sample collected.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Age</attrlabl>
+        <attrdef>A categorical estimation of the age of the duck swabbed, based on plumage characteristics.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>A</edomv>
+            <edomvd>Adult</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>J</edomv>
+            <edomvd>Juvenile</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>NR</edomv>
+            <edomvd>No age recorded</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Sex</attrlabl>
+        <attrdef>A categorical variable representing the estimated sex of the sampled duck through visual inspection and palpation.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>F</edomv>
+            <edomvd>Female</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>M</edomv>
+            <edomvd>Male</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>NR</edomv>
+            <edomvd>No sex recorded</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Collection_Date</attrlabl>
+        <attrdef>The date (YYYY-MM-DD) the mallard was swabbed for viral screening.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>2020-08-25</rdommin>
+            <rdommax>2021-05-17</rdommax>
+            <attrunit>Date (YYYY-MM-DD)</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>HA_Screening</attrlabl>
+        <attrdef>A binary variable indicating whether or not egg fluids from the swab sample were positive for influenza detection by quantitative PCR for Hemagglutinin.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>0</edomv>
+            <edomvd>Influenza was not detected in the sample</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>1</edomv>
+            <edomvd>Influenza was detected in the sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Screening_Ct</attrlabl>
+        <attrdef>The cycle threshold (Ct) value of a second influenza screening of inoculated egg fluids using qPCR. A value of "." indicates that the sample did not meet the criteria for being screened with this test (the sample was not positive for the HA screening).</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/d</edomv>
+            <edomvd>Influenza was not detected in the sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>19.79</rdommin>
+            <rdommax>30.78</rdommax>
+            <attrunit>Cycle Threshold Value</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>IAV_Isolation</attrlabl>
+        <attrdef>A binary variable indicating whether influenza was successfully cultured from the swab sample.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>0</edomv>
+            <edomvd>Influenza was not isolated in the sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>1</edomv>
+            <edomvd>Influenza was isolated in the sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>wildBird_virusMinn_viral_titers_benchStudy.csv</enttypl>
+        <enttypd>Table of viral titers reported as mean tissue culture infectious dose (TCID50)/ mL for each filtered natural and distilled water treatment inoculated with a low pathogenicity H3N8 virus and held at 4C as part of the experimental laboratory persistence trial.  The limit of detection is 101.77 TCID50/mL. Presented in a Comma Separated Value (CSV) formatted table.</enttypd>
+        <enttypds>Author Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Water_treatment</attrlabl>
+        <attrdef>A description of the waterbody location or water type where influenza isolates were held to examine viability. Waterbody and treatment are interchangeable. The waterbody letters correspond to each of the four waterbodies, which is considered a "treatment" since each water body has different physiochemical parameters.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>Farmes Pool (A)</edomv>
+            <edomvd>Water from the Farmes Pool sampling site. This water treatment is also referred to as "A".</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Tamarac Pool (B)</edomv>
+            <edomvd>Water from the Tamarac Pool sampling site. This water treatment is also referred to as "B".</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Thief Lake WMA (C)</edomv>
+            <edomvd>Water from the Thief Lake WMA sampling site. This water treatment is also referred to as "C".</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Roseau River WMA (D)</edomv>
+            <edomvd>Water from the Roseau River WMA sampling site. This water treatment is also referred to as "D".</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Distilled water</edomv>
+            <edomvd>Distilled water used.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>'0_Days' through '241_Days'</attrlabl>
+        <attrdef>Measurement of viral titers at 0, 26, 42, 50, 78, 91, 118, 146, 167, 174, 202, and 241 days after inoculation.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 1.77</rdommin>
+            <rdommax>4.37</rdommax>
+            <attrunit>Tissue culture infectious dose per mL</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>wildBird_virusMinn_environmentalViability.csv</enttypl>
+        <enttypd>This table represents the outcome of virus viability and sequencing for viruses suspended in five aqueous mesocosms over time. Presented in a Comma Separated Value (CSV) formatted table.</enttypd>
+        <enttypds>Author Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Sample_Number</attrlabl>
+        <attrdef>Unique sample number identifying from which swabbed mallard the initial virus isolate was collected from.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <udom>Unique sample number identifying from which swabbed mallard the initial virus isolate was collected from.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Waterbody</attrlabl>
+        <attrdef>The waterbody, or mesocosm, the isolate was suspended in for the duration of the timepoint experiment.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>A</edomv>
+            <edomvd>Farmes Pool, Agassiz National Wildlife Refuge</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>B</edomv>
+            <edomvd>Tamarack Pool, Agassiz National Wildlife Refuge</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>C</edomv>
+            <edomvd>River site at Thief Lake Wildlife Management Area</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>D</edomv>
+            <edomvd>Peninsula site at Roseau Wildlife Management Area</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>E</edomv>
+            <edomvd>Distilled water</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>T1_Date</attrlabl>
+        <attrdef>Date the isolates were submerged in the mesocosm. T1 replicates were also removed on this date.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>2020-08-25</rdommin>
+            <rdommax>2020-09-18</rdommax>
+            <attrunit>Date (YYYY-MM-DD)</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>T2_Date</attrlabl>
+        <attrdef>Date the replicate (second replicate) was removed from the mesocosm.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>2020-10-26</rdommin>
+            <rdommax>2020-11-13</rdommax>
+            <attrunit>Date (YYYY-MM-DD)</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>T3_Date</attrlabl>
+        <attrdef>Date the third replicate was removed from the mesocosm.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>2021-04-08</rdommin>
+            <rdommax>2021-04-14</rdommax>
+            <attrunit>Date (YYYY-MM-DD)</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>T4_Date</attrlabl>
+        <attrdef>Date the fourth replicate was removed from the mesocosm. Blank cells indicate that no replicates remained for recovery.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>2021-06-24</rdommin>
+            <rdommax>2021-07-02</rdommax>
+            <attrunit>Date (YYYY-MM-DD)</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>TI_Titer</attrlabl>
+        <attrdef>The initial viral titer found in the distilled water control at timepoint 1. The limit of detection of this assay is 0.8. Blank cells indicate that the samples did not qualify for titer reporting  since inoculated titers were based only on distilled water mesocosms.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.8</rdommin>
+            <rdommax>4.4</rdommax>
+            <attrunit>Titer (EID50/mL)</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>'T1' through 'T4'</attrlabl>
+        <attrdef>Viral viability and, when viability was detected, influenza subtype detected through whole genome sequencing at timepoint 1, 2 (38-62 days after initial collection, 3 (202-226 days post initial sample collection), and 4 (279 to 303 days post initial collection).</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <udom>Viral viability and, when viability was detected, influenza subtype detected through whole genome sequencing at timepoint 1, 2 (38-62 days after initial collection, 3 (202-226 days post initial sample collection), and 4 (279 to 303 days post initial collection).
+
+Multiple H or N designations indicate a mixed subtype was detected during whole genome sequencing.</udom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>NEG</edomv>
+            <edomvd>No virus was isolated in for this sample in the specified waterbody at this time point.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>KM_Criteria1</attrlabl>
+        <attrdef>A binary variable representing the first inclusion criteria for Kaplan Meier analysis. This criterion is defined as whether or not in samples of the same origination identification number, viruses were isolated from at least two waterbodies at timepoint 1.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>Y</edomv>
+            <edomvd>The sample met the inclusion criteria.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>N</edomv>
+            <edomvd>The sample did not meet the inclusion criteria.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>KM_Criteria2</attrlabl>
+        <attrdef>A binary variable representing the second inclusion criteria for Kaplan Meier analysis. This criterion is defined as sequenced isolates from time point 1 waterbodies of the same sample number must have at least 99% shared genetic identity for a minimum of five gene segments. Blank cells indicate that data was not collected or recorded.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>Y</edomv>
+            <edomvd>The sample met the inclusion criteria.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>N</edomv>
+            <edomvd>The sample did not meet the inclusion criteria.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>KM_Criteria3</attrlabl>
+        <attrdef>A binary variable representing the third inclusion criteria for Kaplan Meier analysis. This criterion is defined as replicates of the same sample number at timepoints two, three, and four, sequenced isolates must share at least 99% genetic identity for a minimum five gene segments with the consensus sequence with the timepoint 1 consensus sequence. Blank cells indicate that data was not collected or recorded.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>Y</edomv>
+            <edomvd>The sample met the inclusion criteria.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>N</edomv>
+            <edomvd>The sample did not meet the inclusion criteria.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>KM_Inclusion</attrlabl>
+        <attrdef>A binary variable determining if a sample was included in Kaplan Meier survival analysis. To be included, a sample must have met the preceding three inclusion criteria.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>Y</edomv>
+            <edomvd>The sample was included in Kaplan Meier analysis.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>N</edomv>
+            <edomvd>The sample was not included in Kaplan Meier analysis.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>wildBird_virusMinn_waterChemistry.csv</enttypl>
+        <enttypd>Physiochemical parameters measured at waterbodies where viruses were measured for viability over time. Presented in a Comma Separated Value (CSV) formatted table.</enttypd>
+        <enttypds>Author Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Sample_Site</attrlabl>
+        <attrdef>Sample site name and waterbody designation for each sample tested for water physiochemical parameters.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>Agassiz NWR- Farmes Pool- Waterbody A</edomv>
+            <edomvd>Farmes Pool sampling site within Agassiz National Wildlife Refuge (approximately 48.2703N, 96.039W).</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Agassiz NWR- Tamarack Pool- Waterbody B</edomv>
+            <edomvd>Tamarack Pool sampling site within Agassiz National Wildlife Refuge (approximately 48.3983N, 95.9962W).</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Roseau River WMA- Peninsula Site- Waterbody D</edomv>
+            <edomvd>Peninsula sampling site within Roseau Wildlife Management Area (approximately 48.9557N, 96.2097W).</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Thief Lake WMA- River Site- Waterbody C</edomv>
+            <edomvd>River sampling site within Thief Lake Wildlife Management Area (approximately 48.4556N, 95.9535W).</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Medium_Code</attrlabl>
+        <attrdef>A designation for what type of water was tested for physiochemical parameters.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>WS</edomv>
+            <edomvd>Surface water sample</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>OAQ</edomv>
+            <edomvd>Laboratory blank</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Collection_Date</attrlabl>
+        <attrdef>Date (YYYY-MM-DD) when the water sample was collected.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>2020-08-26</rdommin>
+            <rdommax>2021-06-25</rdommax>
+            <attrunit>Date (YYYY-MM-DD)</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>NOA_Nitrate_Nitrite</attrlabl>
+        <attrdef>Nitrate Nitrite measured with Sievers Nitrix Oxide analyzer.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.0007</rdommin>
+            <rdommax>0.087</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>IC_Nitrate</attrlabl>
+        <attrdef>Nitrate measured with Dionex ICS-5000 ion chromatograph.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.014</rdommin>
+            <rdommax>0.075</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>NOA_Nitrite</attrlabl>
+        <attrdef>Nitrite measured with Sievers Nitric Oxide analyzer.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.0001</rdommin>
+            <rdommax>0.0004</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>IC_Ammonium</attrlabl>
+        <attrdef>Ammonium measured with Dionex ICS-5000 Ion chromatograph.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.035</rdommin>
+            <rdommax>0.523</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Skalar_TotalDN</attrlabl>
+        <attrdef>Skalar total dissolved nitrogen.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.05</rdommin>
+            <rdommax>2.72</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>pH</attrlabl>
+        <attrdef>Measured pH of the water sample.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>pH was not collected.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>6.08</rdommin>
+            <rdommax>9.65</rdommax>
+            <attrunit>pH</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>SC</attrlabl>
+        <attrdef>Specific conductivity of the water sample.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>No Data collected.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>1.0</rdommin>
+            <rdommax>645.0</rdommax>
+            <attrunit>Siemens per meter (S/m)</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Temp</attrlabl>
+        <attrdef>Temperature of the water sample at the time of collection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>No Data collected.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>2.06</rdommin>
+            <rdommax>24.04</rdommax>
+            <attrunit>Degrees Celsius</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>DO</attrlabl>
+        <attrdef>Dissolved Oxygen of the water sample.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>No Data collected.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>3.5</rdommin>
+            <rdommax>14.75</rdommax>
+            <attrunit>Milligrams per liter (mg/L)</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FU_DOC</attrlabl>
+        <attrdef>Filtered and unacidified measurement of total organic carbons.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>No Data collected.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>0.3</rdommin>
+            <rdommax>25.7</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FU_Alkalinity</attrlabl>
+        <attrdef>Filtered and unacidified measurement of alkalinity.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>1.7</rdommin>
+            <rdommax>302.0</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FU_F</attrlabl>
+        <attrdef>Filtered and unacidified measurement of Fluorine.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.05</rdommin>
+            <rdommax>0.26</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FU_Cl</attrlabl>
+        <attrdef>Filtered and unacidified measurement of Chlorine</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.05</rdommin>
+            <rdommax>13.2</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FU_SO4</attrlabl>
+        <attrdef>Filtered and unacidified measurement of Sulfate.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.1</rdommin>
+            <rdommax>154.7</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FU_Br</attrlabl>
+        <attrdef>Filtered and unacidified measurement of Bromine. All measurement were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.01</rdommin>
+            <rdommax>less than 0.01</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Al</attrlabl>
+        <attrdef>Filtered and acidified measurement of Aluminum.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.003</rdommin>
+            <rdommax>0.023</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_AsT</attrlabl>
+        <attrdef>Filtered and acidified measurement of Arsenic 3+ and Arsenate (inorganic arsenic).</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>less than 3</edomv>
+            <edomvd>Measurement was below the limit of detection, 3 mg/L</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 3</rdommin>
+            <rdommax>4</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_B</attrlabl>
+        <attrdef>Filtered and acidified measurement of Boron.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.004</rdommin>
+            <rdommax>0.021</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Ba</attrlabl>
+        <attrdef>Filtered and acidified measurement of Barium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.0005</rdommin>
+            <rdommax>0.052</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Be</attrlabl>
+        <attrdef>Filtered and acidified measurement of Berylium. All measurement were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.0005</rdommin>
+            <rdommax>less than 0.0005</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Ca</attrlabl>
+        <attrdef>Filtered and acidified measurement of Calcium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.01</rdommin>
+            <rdommax>83.8</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Cd</attrlabl>
+        <attrdef>Filtered and acidified measurement of Cadmium. All measurement were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.002</rdommin>
+            <rdommax>less than 0.002</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Co</attrlabl>
+        <attrdef>Filtered and acidified measurement for Cobalt. All measurement were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.002</rdommin>
+            <rdommax>less than 0.004</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Cr</attrlabl>
+        <attrdef>Filtered and acidified measurement of Chromium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.001</rdommin>
+            <rdommax>0.0013</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Cu</attrlabl>
+        <attrdef>Filtered and acidified measurement of Copper.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.001</rdommin>
+            <rdommax>0.011</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Fe</attrlabl>
+        <attrdef>Filtered and acidified measurement of Iron.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.001</rdommin>
+            <rdommax>0.061</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_K</attrlabl>
+        <attrdef>Filtered and acidified measurement of Potassium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.002</rdommin>
+            <rdommax>8.11</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Li</attrlabl>
+        <attrdef>Filtered and acidified measurement of Lithium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.0005</rdommin>
+            <rdommax>0.0308</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Mg</attrlabl>
+        <attrdef>Filtered and acidified measurement of Magnesium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.003</rdommin>
+            <rdommax>46</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Mn</attrlabl>
+        <attrdef>Filtered and acidified measurement of Manganese.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.001</rdommin>
+            <rdommax>0.265</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Mo</attrlabl>
+        <attrdef>Filtered and acidified measurement of Molybdenum.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.003</rdommin>
+            <rdommax>0.006</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Na</attrlabl>
+        <attrdef>Filtered and acidified measurement of Sodium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.02</rdommin>
+            <rdommax>9.8</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Ni</attrlabl>
+        <attrdef>Filtered and acidified measurement of Nickel. All measurement were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.003</rdommin>
+            <rdommax>less than 0.004</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_P</attrlabl>
+        <attrdef>Filtered and acidified measurement of Phosphorous.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.03</rdommin>
+            <rdommax>0.07</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Pb</attrlabl>
+        <attrdef>Filtered and acidified measurement of Lead. All measurements were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.4</rdommin>
+            <rdommax>less than 0.4</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Rb</attrlabl>
+        <attrdef>Filtered and acidified measurement of Rubidium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.001</rdommin>
+            <rdommax>0.006</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Sb</attrlabl>
+        <attrdef>Filtered and acidified measurement of Antimony. All measurements were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.03</rdommin>
+            <rdommax>less than 0.04</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Se</attrlabl>
+        <attrdef>Filtered and acidified measurement of Selenium. All measurements were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.03</rdommin>
+            <rdommax>less than 0.05</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_SiO2</attrlabl>
+        <attrdef>Filtered and acidified measurement of Silicon oxide.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.02</rdommin>
+            <rdommax>10.5</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Sr</attrlabl>
+        <attrdef>Filtered and acidified measurement of Strontium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.0005</rdommin>
+            <rdommax>0.217</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_U</attrlabl>
+        <attrdef>Filtered and acidified measurement of Uranium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.004</rdommin>
+            <rdommax>0.006</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_V</attrlabl>
+        <attrdef>Filtered and acidified measurement of Vanadium. All measurements were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.001</rdommin>
+            <rdommax>less than 0.003</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_W</attrlabl>
+        <attrdef>Filtered and acidified measurement of Tungsten. All measurements were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.006</rdommin>
+            <rdommax>less than 0.01</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>FA_Zn</attrlabl>
+        <attrdef>Filtered and acidified measurement of Zinc.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.001</rdommin>
+            <rdommax>0.009</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Al</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Aluminum.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.003</rdommin>
+            <rdommax>0.185</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_AsT</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Arsenic 3+ and Arsenate (inorganic arsenic).</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 3</rdommin>
+            <rdommax>4</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_B</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Boron.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.005</rdommin>
+            <rdommax>0.022</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_ba</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Barium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.0005</rdommin>
+            <rdommax>0.053</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Ra_Be</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Beryllium. All measurements were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.0005</rdommin>
+            <rdommax>less than 0.0005</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Ca</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Calcium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.01</rdommin>
+            <rdommax>84.6</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Cd</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Cadmium. All measurements were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.002</rdommin>
+            <rdommax>less than 0.02</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Co</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Cobalt. All measurements were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.002</rdommin>
+            <rdommax>less than 0.03</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Cr</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Chromium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.001</rdommin>
+            <rdommax>0.0015</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Cu</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Copper.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.001</rdommin>
+            <rdommax>0.001</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Fe</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Iron.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.001</rdommin>
+            <rdommax>0.291</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_K</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Potassium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.004</rdommin>
+            <rdommax>8.12</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Li</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Lithium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.0005</rdommin>
+            <rdommax>0.0303</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Mg</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Magnesium.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.003</rdommin>
+            <rdommax>46.2</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Mn</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Manganese.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.001</rdommin>
+            <rdommax>0.38</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Mo</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Molybdenum.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.003</rdommin>
+            <rdommax>0.006</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Na</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Sodium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.06</rdommin>
+            <rdommax>10.2</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Ni</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Nickel. All measurements were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.003</rdommin>
+            <rdommax>less than 0.03</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_P</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Phosphorous.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.03</rdommin>
+            <rdommax>0.08</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Pb</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Lead.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.4</rdommin>
+            <rdommax>0.7</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Rb</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Rubidium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.001</rdommin>
+            <rdommax>0.006</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Sb</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Antimony. All measurements were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.03</rdommin>
+            <rdommax>less than 0.4</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Se</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Selenium. All measurements were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.03</rdommin>
+            <rdommax>less than 0.5</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_SiO2</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Silicon oxide.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.02</rdommin>
+            <rdommax>12</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_Sr</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Strontium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.0005</rdommin>
+            <rdommax>0.223</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_U</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Uranium.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.0004</rdommin>
+            <rdommax>0.005</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_V</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Vanadium. All measurements were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.001</rdommin>
+            <rdommax>less than 0.01</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>RA_W</attrlabl>
+        <attrdef>Unfiltered and acidified measurement of Tungsten. All measurements were below the limit of detection.</attrdef>
+        <attrdefs>Author Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>n/a</edomv>
+            <edomvd>Measurement was not collected for this sample.</edomvd>
+            <edomvds>Author defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>less than 0.006</rdommin>
+            <rdommax>less than 0.1</rdommax>
+            <attrunit>mg/L</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>U.S. Geological Survey</cntorg>
+          <cntper>USGS ScienceBase Team</cntper>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>Mailing and Physical</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>Colorado</state>
+          <postal>80225</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <resdesc>The U.S. Geological Survey, Alaska Science Center is the authoritative source and distributor of these data.</resdesc>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey, no warranty expressed or implied is made regarding the display or utility of the data for other purposes or on all computer systems, nor shall the act of distribution constitute any such warranty. Any use of trade, firm, or product names is for descriptive purposes only and does not imply endorsement by the U.S. Government.</distliab>
+    <stdorder>
+      <digform>
+        <digtinfo>
+          <formname>CSV</formname>
+          <formcont>Tabular data in CSV format, with FGDC metadata in XML and HTML formats.</formcont>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.5066/P13INUVG</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20240517</metd>
+    <metc>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>U.S. Geological Survey, Alaska Science Center</cntorg>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>Mailing and Physical</addrtype>
+          <address>4210 University Drive</address>
+          <city>Anchorage</city>
+          <state>Alaska</state>
+          <postal>99508</postal>
+          <country>USA</country>
+        </cntaddr>
+        <cntvoice>907-786-7000</cntvoice>
+        <cntemail>gs-ak_asc_datamanagers@usgs.gov</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata (CSDGM)</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>

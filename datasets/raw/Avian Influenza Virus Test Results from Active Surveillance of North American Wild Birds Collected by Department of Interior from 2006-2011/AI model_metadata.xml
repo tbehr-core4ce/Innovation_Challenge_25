@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Hon S. Ip</origin>
+        <pubdate>2019-11-06</pubdate>
+        <title>Avian Influenza Virus Test Results from Active Surveillance of North American Wild Birds Collected by Department of Interior from 2006-2011</title>
+        <geoform>spreadsheet</geoform>
+        <onlink>https://doi.org/10.5066/P96YJRWR</onlink>
+        <lworkcit>
+          <citeinfo>
+            <origin>Daniel P. Walsh</origin>
+            <origin>Ting Fung Ma</origin>
+            <origin>Hon S. Ip</origin>
+            <origin>Jun Zhu</origin>
+            <pubdate>20190819</pubdate>
+            <title>Artificial intelligence and avian influenza: Using machine learning to enhance active surveillance for avian influenza viruses</title>
+            <geoform>publication</geoform>
+            <pubinfo>
+              <pubplace>n/a</pubplace>
+              <publish>Wiley</publish>
+            </pubinfo>
+            <onlink>https://doi.org/10.1111/tbed.13318</onlink>
+          </citeinfo>
+        </lworkcit>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>Influenza A viruses are one of the most significant viral groups globally with substantial impacts on human, domestic animal and wildlife health. Wild birds are the natural reservoirs for these viruses, and active surveillance within wild bird populations provides critical information about viral evolution forming the basis of risk assessments and counter measure development. Unfortunately, active surveillance programs are often resource-intensive, and thus enhancing programs for increased efficiency is paramount. Machine learning, a branch of artificial intelligence applications, provides statistical learning procedures that can be used to gain novel insights into disease surveillance systems. We use a form of machine learning, gradient boosted trees, to estimate the probability of isolating avian influenza viruses (AIV) from wild bird samples collected during surveillance for AIVs from 2006–2011 in the United States. We examined several predictive features including age, sex, bird type, geographic location and matrix gene rrRT-PCR results. Our final model had high predictive power, and only included geographic location and rRT-PCR results as important predictors. The highest predicted viral isolation probability was for samples collected from the north-central states and the south-eastern region of Alaska. Lower rRT-PCR Ct-values are associated with increased likelihood of AIV isolation, and the model estimated 16% probability of isolating AIV from samples declared negative (i.e., ≥ 35 Ct-value) using the rRT-PCR screening test and standard protocols. Our model can be used to prioritize previously collected samples for isolation and rapidly evaluate AIV surveillance designs to maximize the probability of viral isolation given limited resources and laboratory capacity.</abstract>
+      <purpose>The data collected by sampling for avian influenza viruses in live and dead wild birds throughout North America.  This data were collected as part of an active surveillance program for Influenza-A viruses from 2006-2011.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>20060101</begdate>
+          <enddate>20111231</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <bounding>
+        <westbc>134.44860</westbc>
+        <eastbc>-66.99930</eastbc>
+        <northbc>71.32390</northbc>
+        <southbc>-14.34630</southbc>
+      </bounding>
+      <descgeog>World</descgeog>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>wild birds</themekey>
+        <themekey>Influenza A virus</themekey>
+        <themekey>active surveillance</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Thesaurus</themekt>
+        <themekey>avian influenza</themekey>
+      </theme>
+      <theme>
+        <themekt>The National Map Product Extent Thesaurus</themekt>
+        <themekey>North America</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Metadata Identifier</themekt>
+        <themekey>USGS:5cc0a4f2e4b09b8c0b72537d</themekey>
+      </theme>
+      <place>
+        <placekt>Common geographic areas</placekt>
+        <placekey>North America</placekey>
+      </place>
+    </keywords>
+    <accconst>None.</accconst>
+    <useconst>None.  Users are advised to read the data set's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Hon S Ip</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntpos>Diagnostic Virologist</cntpos>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>6006 Schroeder Road</address>
+          <city>Madison</city>
+          <state>WI</state>
+          <postal>53711</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>608-270-2464</cntvoice>
+        <cntfax>608-270-2415</cntfax>
+        <cntemail>hip@usgs.gov</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <datacred>We would like to acknowledge all the scientists and personnel from the many agencies that contributed to the collection of samples for AI surveillance, in particular the scientists at USGS Alaska Science Center, USGS Patuxent Wildlife Research Center, US Fish and Wildlife Service, and many state, tribal and academic institutions from across the United States. At the USGS National Wildlife Health Center, we acknowledge the dedication and technical expertise of Elizabeth Bohuski, Katy Griffin, Alexandra Hauser, Melissa Houfe, Keynttisha Jefferson, Melissa Kanter, Alison Klein, Karin McMullen, Jeffrey Messer, Amy Miyamoto, Jessica Montez, Zachary Najacht, Rachel Raddington, Samantha Scott, Cari Schultz, Evan Sorley, Joshua TeSlaa and Jordan Weibel for laboratory testing of the samples.</datacred>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Visually assessed geographic location in ArcGIS to look for outliers.</attraccr>
+    </attracc>
+    <logic>yes</logic>
+    <complete>Data includes the lab results, but does not include all sample attributes from the field.</complete>
+    <lineage>
+      <procstep>
+        <procdesc>Briefly viral RNA were extracted from the transport media using the Applied Biosystems MagMax AI/ND Viral RNA extraction kit. The resultant RNA was tested for the presence of avian influenza in a rRT-PCR test for the matrix gene according to the method of Spackman et al. 2002. We inoculated all non-zero Ct samples into embryonating eggs for virus culture. Potential recovery of AIV in the egg’s allantoic fluid was detected by a hemeagglutination assay and confirmed by the matrix rRT-PCR test.
+
+Spackman, E.; Senne, D. A.; Myers, T. J.; Bulaga, L. L.; Garber, L. P.; Perdue, M. L.; Lohman, K.; Daum, L. T. &amp; Suarez, D. L.
+Development of a real-time reverse transcriptase PCR assay for type A influenza virus and the avian H5 and H7 hemagglutinin subtypes
+Journal of Clinical Microbiology, American Society for Microbiology Journals, 2002, 40, 3256-3260 
+
+Ip, H. S.; Flint, P. L.; Franson, J. C.; Dusek, R. J.; Derksen, D. V.; Gill, R. E.; Ely, C. R.; Pearce, J. M.; Lanctot, R. B.; Matsuoka, S. M.; Irons, D. B.; Fischer, J. B.; Oates, R. M.; Petersen, M. R.; Fondell, T. F.; Rocque, D. A.; Pedersen, J. C. &amp; Rothe, T. C.
+Prevalence of Influenza A viruses in wild migratory birds in Alaska: Patterns of variation in detection at a crossroads of intercontinental flyways Virology Journal, 2008, 5, 71</procdesc>
+        <procdate>20060101</procdate>
+        <proccont>
+          <cntinfo>
+            <cntperp>
+              <cntper>Hon S Ip</cntper>
+              <cntorg>U.S. Geological Survey</cntorg>
+            </cntperp>
+            <cntpos>Diagnostic Virologist</cntpos>
+            <cntaddr>
+              <addrtype>mailing address</addrtype>
+              <address>6006 Schroeder Road</address>
+              <city>Madison</city>
+              <state>WI</state>
+              <postal>53711</postal>
+              <country>United States</country>
+            </cntaddr>
+            <cntvoice>608-270-2464</cntvoice>
+            <cntfax>608-270-2415</cntfax>
+            <cntemail>hip@usgs.gov</cntemail>
+          </cntinfo>
+        </proccont>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>lab_full.csv</enttypl>
+        <enttypd>Real time Reverse-transcriptase-Polymerase Chain Reaction (rRT-PCR) test results for avian influenza-A viruses from live and dead wild birds sampled across North America.</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>VIma.call</attrlabl>
+        <attrdef>Indicator variable of detection of an avian influenza virus in the sample via virus isolation.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>1</edomv>
+            <edomvd>virus detected</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>0</edomv>
+            <edomvd>no virus detected</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>MApcr</attrlabl>
+        <attrdef>Cycle threshold (Ct-values) generated by the rRT-PCR test for the matrix (M) gene using the protocols as described in:
+
+Spackman, E.; Senne, D. A.; Myers, T. J.; Bulaga, L. L.; Garber, L. P.; Perdue, M. L.; Lohman, K.; Daum, L. T. &amp; Suarez, D. L.
+Development of a real-time reverse transcriptase PCR assay for type A influenza virus and the avian H5 and H7 hemagglutinin subtypes
+Journal of Clinical Microbiology, American Society for Microbiology Journals, 2002, 40, 3256-3260 
+
+Ip, H. S.; Flint, P. L.; Franson, J. C.; Dusek, R. J.; Derksen, D. V.; Gill, R. E.; Ely, C. R.; Pearce, J. M.; Lanctot, R. B.; Matsuoka, S. M.; Irons, D. B.; Fischer, J. B.; Oates, R. M.; Petersen, M. R.; Fondell, T. F.; Rocque, D. A.; Pedersen, J. C. &amp; Rothe, T. C.
+Prevalence of Influenza A viruses in wild migratory birds in Alaska: Patterns of variation in detection at a crossroads of intercontinental flyways
+Virology Journal, 2008, 5, 71</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>13.73</rdommin>
+            <rdommax>50.0</rdommax>
+            <attrunit>Number of PCR cycles</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Latitude</attrlabl>
+        <attrdef>North/South coordinate location of where the sample was collected.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>-14.34631</rdommin>
+            <rdommax>71.32395</rdommax>
+            <attrunit>Decimal degrees</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Longitude</attrlabl>
+        <attrdef>East/West coordinate location of where the sample was collected.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>-179.3567</rdommin>
+            <rdommax>166.646</rdommax>
+            <attrunit>Decimal degrees</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>U.S. Geological Survey</cntorg>
+          <cntper>GS ScienceBase</cntper>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data on any other system or for general or scientific purposes, nor shall the act of distribution constitute any such warranty.</distliab>
+  </distinfo>
+  <metainfo>
+    <metd>20200821</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Hon S Ip</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntpos>Diagnostic Virologist</cntpos>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>6006 Schroeder Road</address>
+          <city>Madison</city>
+          <state>WI</state>
+          <postal>53711</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>608-270-2464</cntvoice>
+        <cntfax>608-270-2415</cntfax>
+        <cntemail>hip@usgs.gov</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>

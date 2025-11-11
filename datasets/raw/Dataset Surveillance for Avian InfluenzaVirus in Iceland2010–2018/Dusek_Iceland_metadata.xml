@@ -1,0 +1,1101 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<metadata>
+  <idinfo>
+    <citation>
+      <citeinfo>
+        <origin>Robert J. Dusek</origin>
+        <origin>Jeffrey S. Hall</origin>
+        <origin>Gunnar Thor Hallgrimsson</origin>
+        <origin>Solvi Runar Vignisson</origin>
+        <origin>Sunna Bjork Ragnarsdottir</origin>
+        <origin>Jón Einar Jónsson</origin>
+        <pubdate>20220126</pubdate>
+        <title>Dataset: Surveillance for Avian Influenza Virus in Iceland, 2010 – 2018</title>
+        <geoform>spreadsheet</geoform>
+        <onlink>https://doi.org/10.5066/P9ODQJML</onlink>
+      </citeinfo>
+    </citation>
+    <descript>
+      <abstract>From 2010-2018 we investigated the occurrence of avian influenza virus in wild birds in Iceland. A total of 6635 swabs samples were collected from wild birds or fecal material directly associated with wild birds. We screened all samples by a real time - polymerase chain reaction (RT-PCR) test with 381 testing positive. Further testing of all RT-PCR positive samples and all negative samples collected in 2012 by virus isolation yielded 120 positives, with 92 of those testing positive by RT-PCR for avian influenza virus.</abstract>
+      <purpose>The data were collected to investigate the presence of avian influenza viruses in Iceland bird species to better understand the role migratory birds have in the movement of avian influenza viruses between the North American continent and the European Continent. Iceland sits within the East Atlantic Migratory Bird Flyway with birds that use the flyway breeding in Greenland and Northern Canada and winter along the European Continent into Africa. In these breeding and wintering areas they have the opportunity to mix with avian species that use other flyways either to migrate south into North America in the winter or north into other parts of Europe or Asia in the summers making Iceland an appropriate middle ground to investigate this hypothesized virus movement in migratory birds. This data can be used to understand the prevalence of avian influenza virus in the migratory birds sampled in Iceland by species, age class, season, or other variables reported and within the limitations of the sampling methods. The genetic data from the avian influenza viruses can be used to compare among other avian influenza viruses globally to better understand the relationships among these viruses and how they spread geographically.</purpose>
+    </descript>
+    <timeperd>
+      <timeinfo>
+        <rngdates>
+          <begdate>20100517</begdate>
+          <enddate>20180212</enddate>
+        </rngdates>
+      </timeinfo>
+      <current>ground condition</current>
+    </timeperd>
+    <status>
+      <progress>Complete</progress>
+      <update>None planned</update>
+    </status>
+    <spdom>
+      <descgeog>Iceland</descgeog>
+      <bounding>
+        <westbc>-24.5300</westbc>
+        <eastbc>-13.4900</eastbc>
+        <northbc>66.5300</northbc>
+        <southbc>63.3900</southbc>
+      </bounding>
+    </spdom>
+    <keywords>
+      <theme>
+        <themekt>ISO 19115 Topic Category</themekt>
+        <themekey>biota</themekey>
+      </theme>
+      <theme>
+        <themekt>None</themekt>
+        <themekey>East Atlantic Flyway</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Thesaurus</themekt>
+        <themekey>USGS-EMA-LOW-SB SMC: Migratory birds</themekey>
+        <themekey>avian influenza</themekey>
+        <themekey>viruses</themekey>
+      </theme>
+      <theme>
+        <themekt>USGS Metadata Identifier</themekt>
+        <themekey>USGS:6171a037d34ea36449a7c876</themekey>
+      </theme>
+      <place>
+        <placekt>None</placekt>
+        <placekey>Akureyri</placekey>
+        <placekey>Alftanes</placekey>
+        <placekey>Breidafjordur</placekey>
+        <placekey>Brimnes</placekey>
+        <placekey>Egilsstadir</placekey>
+        <placekey>Eyjafjordur</placekey>
+        <placekey>Faxafloi</placekey>
+        <placekey>Fljotsdalur</placekey>
+        <placekey>Garður</placekey>
+        <placekey>Grimsey</placekey>
+        <placekey>Grindavik</placekey>
+        <placekey>Grundarfjordur</placekey>
+        <placekey>Grundarhverfi</placekey>
+        <placekey>Hafnarfjordur</placekey>
+        <placekey>Hofn</placekey>
+        <placekey>Husavik</placekey>
+        <placekey>Hvalnes</placekey>
+        <placekey>Hveragerdi</placekey>
+        <placekey>Kollafjordur</placekey>
+        <placekey>Lon</placekey>
+        <placekey>Myrar</placekey>
+        <placekey>Njardvik</placekey>
+        <placekey>Reydarfjordur</placekey>
+        <placekey>Reykjanes</placekey>
+        <placekey>Rif</placekey>
+        <placekey>Sandgerdi</placekey>
+        <placekey>Seljalandsfoss</placekey>
+        <placekey>Seltjarnarnes</placekey>
+        <placekey>Skagafjordur</placekey>
+        <placekey>Snaefellsness</placekey>
+        <placekey>Sudursveit</placekey>
+        <placekey>Thveit</placekey>
+        <placekey>Vogar</placekey>
+        <placekey>Madison, Wisconsin</placekey>
+      </place>
+      <place>
+        <placekt>Common geographic areas</placekt>
+        <placekey>Iceland</placekey>
+      </place>
+    </keywords>
+    <accconst>None.  Please see 'Distribution Info' for details.</accconst>
+    <useconst>None.  Users are advised to read the dataset's metadata thoroughly to understand appropriate use and data limitations.</useconst>
+    <ptcontac>
+      <cntinfo>
+        <cntperp>
+          <cntper>Robert J Dusek</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntpos>Wildlife Biologist</cntpos>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>6006 Schroeder Road</address>
+          <city>Madison</city>
+          <state>WI</state>
+          <postal>53711</postal>
+          <country>US</country>
+        </cntaddr>
+        <cntvoice>608-270-2403</cntvoice>
+        <cntfax>608-270-2415</cntfax>
+        <cntemail>rdusek@usgs.gov</cntemail>
+      </cntinfo>
+    </ptcontac>
+    <datacred>This project was funded in part by the National Institute of Allergy and Infectious Diseases, National Institutes of Health, Department of Health and Human Services under contract no. HHS266200700007C.</datacred>
+  </idinfo>
+  <dataqual>
+    <attracc>
+      <attraccr>Spot checking data multiple times to account for potential data transcription or input errors. Positive and negative controls were used for all RNA extractions and RT-PCR assays. We compare these control results between assays to verify the assays are accurate and working properly. Virus isolates are confirmed to be avian influenza viruses by pathogen specific RT-PCR (Spackman et al 2002).</attraccr>
+    </attracc>
+    <logic>Data matches with details provided.</logic>
+    <complete>All data is included.</complete>
+    <lineage>
+      <procstep>
+        <procdesc>Field sample collection
+From May 2010 through February 2018, we obtained IAV isolates from various species of seabirds, shorebirds, and waterfowl as well as environmental sampling of avian fecal material from locations throughout Iceland. Live sampled birds were captured using a 18m x 12m cannon-propelled capture net, noose pole, or hand capture. Birds found dead or moribund were also sampled. Hunter-harvested waterfowl and fisheries-bycatch seabirds were sampled as available. All birds were identified to species and, for live birds, individually marked with metal bands if available (in some cases bands were not available of the appropriate size). Age characteristics were determined and age was documented for each bird: hatched in same calendar year as sampling (1CY), hatched previous calendar year (2CY), hatched previous calendar year or older, exact age unknown (2CY+), three calendar years since hatching (3CY), four calendar years since hatching (4CY), more than four calendar years since hatching (4CY+), or unknown if age could not be determined (U) (Olsen KM, 2004; Prater, Marchant, &amp; Vuorinen, 1977; USGS, 2020). Due to species specific differences, not all aging categories could be applied to all species sampled. All live birds were immediately released following completion of sampling.
+
+To sample for IAV, a single polyester-tipped swab was used to swab the cloaca only (2010-2013) or to first swab the oral cavity then the cloaca (2014-2017). Opportunistic environmental sampling of fecal material was also conducted using a direct swabbing method (2018). Each swab sample was immediately placed in individual cryovials containing 1.25 ml viral transport media (Docherty &amp; Slota, 1988). Vials were held on ice for up to 5 hours prior to being stored in liquid nitrogen or liquid nitrogen vapor. Samples were shipped on dry ice from Iceland to Madison, Wisconsin, USA by private courier with dry ice replenishment during shipping. Once received in the laboratory, samples were stored at -80o C until analysis.</procdesc>
+        <procdate>20100501</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>Virus extraction, RT-PCR, virus isolation
+Viral RNA was extracted from swab samples using the MagMAXTM-96 AI/ND Viral RNA Isolation Kit (Ambion, Austin, TX) following the manufacturer’s procedures. Real-time RT-PCR was performed using previously published procedures, primers, and probes (Spackman et al., 2002) designed to detect the IAV matrix gene. RT-PCR assays utilized reagents provided in the Qiagen OneStep® RT-PCR kit. Virus isolation was performed in embryonating chicken egg culture on all swab samples exhibiting positive Ct values from RT-PCR analysis (Woolcock, 2008), with a primary cut off value of 45 on primary screen and 22 on secondary screen. Egg-grown virus isolates and a single sample that exhibited a low Ct value but had no virus isolated were sequenced using multiple standard methods including Sanger, Roche 454, and Illumina (HiSeq 2000 and MiSeq) sequencing (Dusek et al., 2014; Guan et al., 2019; Hall et al., 2014). Resulting sequences deposited in GenBank (https://www.ncbi.nlm.nih.gov/genbank/).</procdesc>
+        <procdate>20180101</procdate>
+      </procstep>
+      <procstep>
+        <procdesc>Bao, Y., P. Bolotov, D. Dernovoy, B. Kiryutin, T. Tatusova. 2007. Flan: a web server for influenza virus genome annotation. Nucleic Acids Research 3: W280-W284
+
+Docherty, D. E., and P.G. Slota. 1988. Use of muscovy duck embryo fibroblasts for the isolation of viruses from wild birds. Journal of tissue culture methods, 11(3): 165-170. doi:10.1007/BF01404270
+
+Dusek, R.J., G.T. Hallgrímsson, H.S. Ip, J.E. Jónsson, S. Sreevatsan, S.W. Nashold, J.L. TeSlaa, S. Enomoto, R.A. Halpin, X. Lin, N. Fedorova, T.B. Stockwell, V. Dugan, D.E. Wentworth, and J.S. Hall. 2014. North Atlantic migratory bird flyways provide routes for intercontinental movement of avian influenza viruses.  PLoS ONE 9(3): e92075.
+
+Ghedin E, J Laplante, J DePasse, DE Wentworth, RP Santos, ML Lepow, J Porter, K Stellrecht, X Lin, D Operario, S Griesemer, A Fitch, RA Halpin, TB Stockwell, DJ Spiro, EC Holmes, and K St George. 2011. Deep sequencing reveals mixed infection with 2009 pandemic influenza A (H1N1) virus strains and the emergence of oseltamivir resistance. Journal of Infectious Diseases 203:168-174.
+
+Guan M., J.S. Hall, X. Zhang, R.J. Dusek, A. Olivier, L. Liu, S. Krauss, L. Li, A. Danner, T. Li, W. Rutvisutinunt, X. Lin, G.T. Hallgrimsson, S.B. Ragnarsdottier, S.R. Vignisson, J. TeSlaa, S. Nashold, R. Jarman, and X.-F. Wan. 2019. Aerosol Transmission of Gull-Origin Iceland Subtype H10N7 Influenza A Virus in Ferrets. Journal of Virology 93(13): 16 pp. DOI: 10.1128/JVI.00282-19. 
+
+Hall, J.S., G.T. Hallgrímsson, K. Suwannanarn, S. Sreevatsen, H.S. Ip, E. Magnusdottir, J.L. TeSlaa, S.W. Nashold, and R.J. Dusek. 2014.  Avian influenza virus ecology in Iceland shorebirds: intercontinental reassortment and movement. Infection, Genetics and Evolution 28: 130-136. 
+Langmead, B., Salzberg, S.L., 2012. Fast gapped-read alignment with Bowtie 2. Nat. Methods 4, 357–359.
+
+Li, H., B. Handsaker, A. Wysoker, T. Fennell, J. Ruan, N. Homer, G. Marth, G. Abecasis, R. Durbin, and 1000 Genome Project Data Processing Subgroup. 2009. The sequence alignment/map format and SAMtools. Bioinformatics 25: 2078–2079.
+
+Prater, A., J. Marchant, and J. Vuorinen. 1977. Guide to the identification and ageing of Holarctic waders: BTO Guide No. 17: BTO, Tring.
+
+Spackman, E., D.A. Senne, T.J. Myers, L.L. Bulaga, L.P. Garber, M.L.Perdue, K. Lohman, L.T. Daum and D.L. Suarez. 2002. Development of a real-time reverse transcriptase PCR assay for type A influenza virus and the avian H5 and H7 hemagglutinin subtypes. Journal of Clinical Microbiology, 40(9): 3256-3260. doi:10.1128/jcm.40.9.3256-3260.2002
+
+Woolcock, P. R. 2008. Avian influenza virus isolation and propagation in chicken eggs. Methods in molecular biology (Clifton, N.J.), 436, 35-46. doi:10.1007/978-1-59745-279-3_6
+
+Zhou B, M.E. Donnelly, D.T. Scholes, K. St George, M. Hatta, Y. Kawaoka, and D.E. Wentworth. 2009. Single-reaction genomic amplification accelerates sequencing and vaccine production for classical and swine origin human influenza A viruses. Journal of Virology 83: 10309–10313.
+
+Zhou B., and D.E. Wentworth. 2012. Influenza A virus molecular virology techniques. Methods in Molecular Biology 865: 175-192.</procdesc>
+        <procdate>20180101</procdate>
+      </procstep>
+    </lineage>
+  </dataqual>
+  <eainfo>
+    <detailed>
+      <enttyp>
+        <enttypl>Dusek_Iceland_data release list.csv</enttypl>
+        <enttypd>Spreadsheet</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Case-Acc #</attrlabl>
+        <attrdef>the individual sample unique number assigned at the time the animal entered the study</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>the individual sample unique number assigned at the time the animal entered the study</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Band No.</attrlabl>
+        <attrdef>If one was present or placed at the time of capture, a unique number or alpha-numeric character series assigned to the individual animal, issued by the wildlife authority in the country in which the bird was marked.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>If one was present or placed at the time of capture, a unique number or alpha-numeric character series assigned to the individual animal, issued by the wildlife authority in the country in which the bird was marked.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Species</attrlabl>
+        <attrdef>the common species name of the animal as identified as ‘valid’ in the Integrated Taxonomic Information System (ITIS; https://www.itis.gov/) or as found in Chesser et al. 2021 https://doi.org/10.1093/ornithology/ukab037 for the species ‘Common Gull’ with scientific name ‘Larus canus’.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <codesetd>
+            <codesetn>Integrated Taxonomic Information System</codesetn>
+            <codesets>www.itis.gov/</codesets>
+          </codesetd>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Scientific Name</attrlabl>
+        <attrdef>the scientific name consisting of genus and species of the animal and corresponding to the species identified and with the name identified as ‘valid’ in the Integrated Taxonomic Information System (ITIS; https://www.itis.gov/) or as found in Chesser et al. 2021 https://doi.org/10.1093/ornithology/ukab037 for the species ‘Common Gull’ with scientific name ‘Larus canus’.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <codesetd>
+            <codesetn>Integrated Taxonomic Information System</codesetn>
+            <codesets>www.itis.gov/</codesets>
+          </codesetd>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Order</attrlabl>
+        <attrdef>The taxonomic Order name of the species identified</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>Charadriiformes</edomv>
+            <edomvd>Charadriiformes</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Anseriformes</edomv>
+            <edomvd>Anseriformes</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Galliformes</edomv>
+            <edomvd>Galliformes</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Suliformes</edomv>
+            <edomvd>Suliformes</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Passeriformes</edomv>
+            <edomvd>Passeriformes</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Procellariiformes</edomv>
+            <edomvd>Procellariiformes</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Family</attrlabl>
+        <attrdef>The taxonomic Family name of the species identified</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>Laridae</edomv>
+            <edomvd>Laridae</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Anatidae</edomv>
+            <edomvd>Anatidae</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Scolopacidae</edomv>
+            <edomvd>Scolopacidae</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Alcidae</edomv>
+            <edomvd>Alcidae</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Haematopodidae</edomv>
+            <edomvd>Haematopodidae</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Phasianidae</edomv>
+            <edomvd>Phasianidae</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Phalacrocoracidae</edomv>
+            <edomvd>Phalacrocoracidae</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Charadriidae</edomv>
+            <edomvd>Charadriidae</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Sulidae</edomv>
+            <edomvd>Sulidae</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Corvidae</edomv>
+            <edomvd>Corvidae</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Procellariidae</edomv>
+            <edomvd>Procellariidae</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Sturnidae</edomv>
+            <edomvd>Sturnidae</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Stercorariidae</edomv>
+            <edomvd>Stercorariidae</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Capture Status</attrlabl>
+        <attrdef>the capture status of the animal in relationship to the study as determined by the presence of an individually identifiable numeric or alphanumeric band</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>N</edomv>
+            <edomvd>New, the bird had not been captured previously.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>R</edomv>
+            <edomvd>Recapture, the bird had been captured previously.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>F</edomv>
+            <edomvd>Fecal sample only, indicating the bird was not captured to collect this sample and therefore could not be marked with a band nor could a band be observed.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Age</attrlabl>
+        <attrdef>the age class of the animal as observed by known plumage differences between age classes. The ability to assign age class varied by species and the most accurate age class identifiable was assigned</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>4CY+</edomv>
+            <edomvd>Fourth calendar year plus, indicates bird was in the fourth calendar year of life or older when it was sampled.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>1CY</edomv>
+            <edomvd>First calendar year, indicates bird was hatched in the calendar year in which it was sampled</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>2CY+</edomv>
+            <edomvd>Second calendar year, indicates bird was in the second calendar year of life or older when it was sampled</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>U</edomv>
+            <edomvd>Unknown, if the age class could not be determined</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>3CY</edomv>
+            <edomvd>Third calendar year, indicates bird was in the third calendar year of life when it was sampled</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>2CY</edomv>
+            <edomvd>Second calendar year, indicates bird was in the second calendar year of life when it was sampled</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>4CY</edomv>
+            <edomvd>Fourth calendar year, indicates bird was in the fourth calendar year of life when it was sampled</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>3CY+</edomv>
+            <edomvd>Third calendar year, indicates bird was in the third calendar year of life or older when it was sampled</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>juv</edomv>
+            <edomvd>Juvenile, the bird was hatched in the calendar year it was sampled and at the nest and incapable of flight</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Sex</attrlabl>
+        <attrdef>the sex of the animal, either female (F), male (M), or unknown (U), as observed by known plumage or morphometric differences.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>U</edomv>
+            <edomvd>unknown</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>M</edomv>
+            <edomvd>male</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>F</edomv>
+            <edomvd>female</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Location</attrlabl>
+        <attrdef>the nearest town or other geographic feature to the capture location</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>Akureyri</edomv>
+            <edomvd>Akureyri</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Alftanes</edomv>
+            <edomvd>Alftanes</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Breidafjordur</edomv>
+            <edomvd>Breidafjordur</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Brimnes</edomv>
+            <edomvd>Brimnes</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Egilsstadir</edomv>
+            <edomvd>Egilsstadir</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Eyjafjordur</edomv>
+            <edomvd>Eyjafjordur</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Faxafloi</edomv>
+            <edomvd>Faxafloi</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Fljotsdalur</edomv>
+            <edomvd>Fljotsdalur</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Garður</edomv>
+            <edomvd>Garður</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Grimsey</edomv>
+            <edomvd>Grimsey</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Grindavik</edomv>
+            <edomvd>Grindavik</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Grundarfjordur</edomv>
+            <edomvd>Grundarfjordur</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Grundarhverfi</edomv>
+            <edomvd>Grundarhverfi</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Hafnarfjordur</edomv>
+            <edomvd>Hafnarfjordur</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Hofn</edomv>
+            <edomvd>Hofn</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Husavik</edomv>
+            <edomvd>Husavik</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Hvalnes</edomv>
+            <edomvd>Hvalnes</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Hveragerdi</edomv>
+            <edomvd>Hveragerdi</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Kollafjordur</edomv>
+            <edomvd>Kollafjordur</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Lon</edomv>
+            <edomvd>Lon</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Mid-South</edomv>
+            <edomvd>Mid-South</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Myrar</edomv>
+            <edomvd>Myrar</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Njardvik</edomv>
+            <edomvd>Njardvik</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Reydarfjordur</edomv>
+            <edomvd>Reydarfjordur</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Reykjanes</edomv>
+            <edomvd>Reykjanes</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Rif</edomv>
+            <edomvd>Rif</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Sandgerdi</edomv>
+            <edomvd>Sandgerdi</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Seljalandsfoss</edomv>
+            <edomvd>Seljalandsfoss</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Seltjarnarnes</edomv>
+            <edomvd>Seltjarnarnes</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Skagafjordur</edomv>
+            <edomvd>Skagafjordur</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Snaefellsness</edomv>
+            <edomvd>Snaefellsness</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Sudursveit</edomv>
+            <edomvd>Sudursveit</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Thveit</edomv>
+            <edomvd>Thveit</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Vogar</edomv>
+            <edomvd>Vogar</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Region</attrlabl>
+        <attrdef>the region of Iceland that contained the capture location. See https://www.worldatlas.com/maps/iceland (accessed 9/30/21).</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>Southwest</edomv>
+            <edomvd>Southwest</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>West</edomv>
+            <edomvd>West</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>South</edomv>
+            <edomvd>South</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>East</edomv>
+            <edomvd>East</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Northeast</edomv>
+            <edomvd>Northeast</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Northwest</edomv>
+            <edomvd>Northwest</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Date Collected</attrlabl>
+        <attrdef>the calendar date of sample collection</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>11/18/2010</rdommin>
+            <rdommax>06/22/2018</rdommax>
+            <attrunit>MM/DD/YYYY</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Season</attrlabl>
+        <attrdef>Which of the four seasons (Spring, Summer, Winter, Fall) the bird was captured in based on the month of capture.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>Spring</edomv>
+            <edomvd>March, April, and May.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Autumn</edomv>
+            <edomvd>September, October, November.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Winter</edomv>
+            <edomvd>December, January, February.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Summer</edomv>
+            <edomvd>June, July, August.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Year</attrlabl>
+        <attrdef>Year of sample collection</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>2010</rdommin>
+            <rdommax>2018</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Sample 1</attrlabl>
+        <attrdef>The sample type collected</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>Cloacal Swab</edomv>
+            <edomvd>the cloaca was sampled only</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Oral/Cloacal Combined Swab</edomv>
+            <edomvd>the oral cavity was swabbed first then the cloacal cavity was swabbed</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>Fecal swab</edomv>
+            <edomvd>feces found on the ground without a bird present was swabbed</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Result</attrlabl>
+        <attrdef>the result of the real-time reverse transcriptase polymerase chain reaction (RRT-PCR) test either as a P (positive) or N (negative) based on the avian influenza virus matrix gene. Positive indicates a cycle threshold (Ct) value was returned by the test. RRT-PCR testing was done following Spackman et al., 2002.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>P</edomv>
+            <edomvd>Positive</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>N</edomv>
+            <edomvd>Negative</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Ct</attrlabl>
+        <attrdef>The cycle threshold (Ct) value returned by the test. No Ct indicates no value was returned.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>No Ct</edomv>
+            <edomvd>no value was returned</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>15.41</rdommin>
+            <rdommax>44.87</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>PCR Date</attrlabl>
+        <attrdef>Date of test</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <rdom>
+            <rdommin>11/18/2010</rdommin>
+            <rdommax>06/22/2018</rdommax>
+            <attrunit>MM/DD/YYYY</attrunit>
+          </rdom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Final HA Result</attrlabl>
+        <attrdef>The result of virus isolation attempts either P (positive) or N (negative). Testing only performed on samples that returned a positive PCR_Result and all samples collected in 2012. Virus isolation was performed in embryonating chicken egg culture on all swab samples exhibiting positive Ct values from RRT-PCR analysis and all samples collected in 2012 (Woolcock, 2008).</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>P</edomv>
+            <edomvd>Positive</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <edom>
+            <edomv>N</edomv>
+            <edomvd>Negative</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>MA PCR of Egg Fluid</attrlabl>
+        <attrdef>the Ct value of the egg fluid obtained following virus isolation when tested by RRT-PCR based on the avian influenza virus matrix gene.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <edom>
+            <edomv>No Ct</edomv>
+            <edomvd>No Ct value.</edomvd>
+            <edomvds>Producer defined</edomvds>
+          </edom>
+        </attrdomv>
+        <attrdomv>
+          <rdom>
+            <rdommin>13.18</rdommin>
+            <rdommax>21.77</rdommax>
+          </rdom>
+        </attrdomv>
+      </attr>
+    </detailed>
+    <detailed>
+      <enttyp>
+        <enttypl>Dusek_sequence information.csv</enttypl>
+        <enttypd>Spreadsheet. All genetic sequences are deposited in a publicly accessible repository for genetic sequence data. https://www.ncbi.nlm.nih.gov/genbank/
+
+Chesser R.T., S.M. Billerman, K.J. Burns, C. Cicero, J.L. Dunn, B.E. Hernandez-Banos, A.W. Kratter, I.J. Lovette, N.A. Mason, P.C. Rasmussen, J.V. Remsen Jr., D.F. STotz, and K. Winker. 2021. Sixty-second supplement to the American Ornithological Society’s Check-List of North American Birds. Ornithology 138: 1-18.
+
+Spackman, E., D.A. Senne, T.J. Myers, L.L. Bulaga, L.P. Garber, M.L.Perdue, K. Lohman, L.T. Daum and D.L. Suarez. 2002. Development of a real-time reverse transcriptase PCR assay for type A influenza virus and the avian H5 and H7 hemagglutinin subtypes. Journal of Clinical Microbiology, 40(9): 3256-3260. doi:10.1128/jcm.40.9.3256-3260.2002
+
+Woolcock, P. R. 2008. Avian influenza virus isolation and propagation in chicken eggs. Methods in molecular biology (Clifton, N.J.), 436, 35-46. doi:10.1007/978-1-59745-279-3_6</enttypd>
+        <enttypds>Producer Defined</enttypds>
+      </enttyp>
+      <attr>
+        <attrlabl>Case-Acc #</attrlabl>
+        <attrdef>the individual sample unique number assigned at the time the animal entered the study.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>the individual sample unique number assigned at the time the animal entered the study.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Avian influenza virus isolate</attrlabl>
+        <attrdef>The name of the avian influenza virus for each Case-Acc# with genetically sequenced data. Case-Acc# may appear more than once if more than once sequence was identified for one or more avian influenza genes from that sample. The name is made of 6 components, 1) ‘A’ indicates an influenza a virus sequence; 2) species common name or sample type (if not directly from an animal); 3) country name where the sample originated; 4) a unique number identifying that particular sample, in this study that is the accession number; 5) the year in which the sample was obtained; and 6) the avian influenza subtype identified by the hemagglutinin gene (H) subtype and the neuraminidase gene (N) subtype in combination. More than one ‘N’ identified in the subtype indicates two neuraminidase genes of different subtypes were sequenced from that sample.</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>The name of the avian influenza virus for each Case-Acc# with genetically sequenced data. Case-Acc# may appear more than once if more than once sequence was identified for one or more avian influenza genes from that sample. The name is made of 6 components, 1) ‘A’ indicates an influenza a virus sequence; 2) species common name or sample type (if not directly from an animal); 3) country name where the sample originated; 4) a unique number identifying that particular sample, in this study that is the accession number; 5) the year in which the sample was obtained; and 6) the avian influenza subtype identified by the hemagglutinin gene (H) subtype and the neuraminidase gene (N) subtype in combination. More than one ‘N’ identified in the subtype indicates two neuraminidase genes of different subtypes were sequenced from that sample.</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Hemagglutinin gene</attrlabl>
+        <attrdef>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Matrix gene</attrlabl>
+        <attrdef>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Neuraminidase gene</attrlabl>
+        <attrdef>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Nucleocapsid protein gene</attrlabl>
+        <attrdef>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Nuclear export protein and nonstructural protein 1 genes</attrlabl>
+        <attrdef>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Polymerase PA and PA-X protein genes</attrlabl>
+        <attrdef>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Polymerase PB1 and PB1-F2 protein genes</attrlabl>
+        <attrdef>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</udom>
+        </attrdomv>
+      </attr>
+      <attr>
+        <attrlabl>Polymerase PB2 gene</attrlabl>
+        <attrdef>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</attrdef>
+        <attrdefs>Producer Defined</attrdefs>
+        <attrdomv>
+          <udom>The genbank accession number that corresponds with the avian influenza gene sequence deposited in the genbank repository. Individual sequences can be found using the accession number at https://www.ncbi.nlm.nih.gov/genbank/</udom>
+        </attrdomv>
+      </attr>
+    </detailed>
+  </eainfo>
+  <distinfo>
+    <distrib>
+      <cntinfo>
+        <cntorgp>
+          <cntorg>U.S. Geological Survey</cntorg>
+          <cntper>GS ScienceBase</cntper>
+        </cntorgp>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>Denver Federal Center, Building 810, Mail Stop 302</address>
+          <city>Denver</city>
+          <state>CO</state>
+          <postal>80225</postal>
+          <country>United States</country>
+        </cntaddr>
+        <cntvoice>1-888-275-8747</cntvoice>
+        <cntemail>sciencebase@usgs.gov</cntemail>
+      </cntinfo>
+    </distrib>
+    <distliab>Unless otherwise stated, all data, metadata and related materials are considered to satisfy the quality standards relative to the purpose for which the data were collected. Although these data and associated metadata have been reviewed for accuracy and completeness and approved for release by the U.S. Geological Survey (USGS), no warranty expressed or implied is made regarding the display or utility of the data on any other system or for general or scientific purposes, nor shall the act of distribution constitute any such warranty.</distliab>
+    <stdorder>
+      <digform>
+        <digtinfo>
+          <formname>Digital Data</formname>
+        </digtinfo>
+        <digtopt>
+          <onlinopt>
+            <computer>
+              <networka>
+                <networkr>https://doi.org/10.5066/P9ODQJML</networkr>
+              </networka>
+            </computer>
+          </onlinopt>
+        </digtopt>
+      </digform>
+      <fees>None</fees>
+    </stdorder>
+  </distinfo>
+  <metainfo>
+    <metd>20220126</metd>
+    <metc>
+      <cntinfo>
+        <cntperp>
+          <cntper>Robert J Dusek</cntper>
+          <cntorg>U.S. Geological Survey</cntorg>
+        </cntperp>
+        <cntpos>Wildlife Biologist</cntpos>
+        <cntaddr>
+          <addrtype>mailing address</addrtype>
+          <address>6006 Schroeder Road</address>
+          <city>Madison</city>
+          <state>WI</state>
+          <postal>53711</postal>
+          <country>US</country>
+        </cntaddr>
+        <cntvoice>608-270-2403</cntvoice>
+        <cntfax>608-270-2415</cntfax>
+        <cntemail>rdusek@usgs.gov</cntemail>
+      </cntinfo>
+    </metc>
+    <metstdn>FGDC Biological Data Profile of the Content Standard for Digital Geospatial Metadata</metstdn>
+    <metstdv>FGDC-STD-001.1-1999</metstdv>
+  </metainfo>
+</metadata>
