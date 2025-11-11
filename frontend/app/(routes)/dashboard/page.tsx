@@ -1,3 +1,5 @@
+'use client'
+//frontend/app/(routes)/dashboard/page.tsx
 import React from 'react'
 import BETSMapVisualization, {
   H5N1Case,

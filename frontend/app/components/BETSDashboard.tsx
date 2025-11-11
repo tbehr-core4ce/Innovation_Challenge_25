@@ -1,6 +1,7 @@
 /**
  * BETS Dashboard - Complete Integration Example
  * Shows how to connect the map visualization with the FastAPI backend
+ * frontend/app/components/BETSDashboard.tsx
  */
 
 import React, { useState, useEffect } from 'react'

@@ -1,3 +1,5 @@
+'use client'
+//frontend/app/components/BETSMapVisualization.tsx
 import React, { useState, useEffect, useRef } from 'react'
 import {
   MapContainer,
@@ -23,8 +25,6 @@ let DefaultIcon = L.icon({
   iconAnchor: [12, 41]
 })
 
-export default BETSMapVisualization
-export type { H5N1Case, HotspotZone }
 L.Marker.prototype.options.icon = DefaultIcon
 
 // ==================== TYPE DEFINITIONS ====================
@@ -439,3 +439,7 @@ const BETSMapVisualization: React.FC<MapViewProps> = ({
     </div>
   )
 }
+
+// ==================== EXPORTS ====================
+export default BETSMapVisualization
+export type { H5N1Case, HotspotZone }
