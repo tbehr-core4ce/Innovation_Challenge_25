@@ -3,6 +3,10 @@ name: bets
 # PRODUCTION only
 services:
   backend:
+    profiles:
+      - dev
+      - staging
+      - prod
     build:
       context: ./backend
       dockerfile: Dockerfile
@@ -27,6 +31,9 @@ services:
       start_period: 40s
 
   frontend:
+    profiles:
+      - staging
+      - prod
     build:
       context: ./frontend
       dockerfile: Dockerfile
@@ -45,6 +52,8 @@ services:
       - bets-network
 
   postgres:
+    profiles:
+      - dev
     image: postgis/postgis:18-3.6
     platform: linux/amd64
     environment:
