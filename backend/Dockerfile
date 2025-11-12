@@ -25,8 +25,6 @@ RUN poetry install --no-root
 
 COPY src /app
 
-# Create necessary directories
-RUN mkdir -p /tmp/uploads /tmp/outputs /app/data/template /app/data/demo
 
 EXPOSE 8000
 
