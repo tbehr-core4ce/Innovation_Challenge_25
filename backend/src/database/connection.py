@@ -3,6 +3,7 @@ from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 from geoalchemy2 import Geometry
 import os
+import settings # TODO make sure to set that up o-0
 
 DATABASE_URL = os.getenv(
     "DATABASE_URL",
