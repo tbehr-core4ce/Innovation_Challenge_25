@@ -2,7 +2,7 @@
 Data Ingestion Router for BETS (Bird flu Early Tracking System)
 Handles CSV file uploads and parsing for H5N1 surveillance data
 """
-from fastapi import APIRouter, UploadFile, File, HTTPException, Query
+from fastapi import APIRouter, UploadFile, File, HTTPException, Query, Depends
 from fastapi.responses import JSONResponse
 from typing import List, Dict, Optional, Any
 from datetime import datetime
@@ -11,6 +11,11 @@ import io
 from enum import Enum
 from pydantic import BaseModel, validator, Field
 import logging
+from sqlalchemy.orm import Session
+from geoalchemy2.elements import WKTElement
+
+from ...database.connection import get_db
+from ...database.models import H5N1Detection
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -175,7 +180,8 @@ def validate_and_transform_record(record: Dict[str, Any], row_number: int) -> tu
 async def upload_csv(
     file: UploadFile = File(...),
     delimiter: str = Query(',', description="CSV delimiter character"),
-    validate_only: bool = Query(False, description="Only validate without storing data")
+    validate_only: bool = Query(False, description="Only validate without storing data"),
+    db: Session = Depends(get_db)
 ):
     """
     Upload and parse CSV file containing H5N1 case data
@@ -223,12 +229,55 @@ async def upload_csv(
                     "data": record
                 })
 
-        # If not validate_only, here you would insert into database
-        # For now, we'll just return the validated data
-        if not validate_only:
-            # TODO: Insert valid_records into database
-            logger.info(f"Would insert {len(valid_records)} records into database")
-            pass
+        # If not validate_only, insert into database
+        if not validate_only and valid_records:
+            try:
+                inserted_count = 0
+                for record in valid_records:
+                    # Parse date string to date object
+                    date_str = record['date']
+                    date_obj = None
+                    for fmt in ['%Y-%m-%d', '%m/%d/%Y', '%d/%m/%Y', '%Y/%m/%d']:
+                        try:
+                            date_obj = datetime.strptime(date_str, fmt).date()
+                            break
+                        except ValueError:
+                            continue
+
+                    if not date_obj:
+                        logger.warning(f"Skipping record with invalid date: {date_str}")
+                        continue
+
+                    # Create PostGIS POINT geometry from lat/lon
+                    lat = record['latitude']
+                    lon = record['longitude']
+                    point_wkt = f'POINT({lon} {lat})'
+
+                    # Create database record
+                    db_record = H5N1Detection(
+                        detection_date=date_obj,
+                        country=record.get('country'),
+                        state=record.get('region'),
+                        lat=str(lat),
+                        lon=str(lon),
+                        geom=WKTElement(point_wkt, srid=4326),
+                        category=record['animal_category'],
+                        species=record.get('species'),
+                        flock_size=record.get('num_cases'),  # Map num_cases to flock_size
+                        source_dataset=record.get('source')
+                    )
+
+                    db.add(db_record)
+                    inserted_count += 1
+
+                # Commit all records
+                db.commit()
+                logger.info(f"Successfully inserted {inserted_count} records into database")
+
+            except Exception as e:
+                db.rollback()
+                logger.error(f"Database insertion error: {str(e)}")
+                raise HTTPException(status_code=500, detail=f"Database error: {str(e)}")
 
         return IngestionResponse(
             success=True,
@@ -308,7 +357,7 @@ async def get_validation_template():
     }
     return template
 
-# TODO add in 
+
 @router.post("/validate-data", response_model=IngestionResponse)
 async def validate_data(records: List[Dict[str, Any]]):
     """
