@@ -23,12 +23,13 @@ import argparse
 from datetime import datetime, timedelta
 import random
 
-from app.core.database import (
+from src.core.database import (
     engine, Base, SessionLocal, 
     init_db, drop_all_tables, check_db_connection
 )
-from app.core.logging import setup_logging, get_logger
-from app.models import (
+from src.core.logging import setup_logging, get_logger
+
+from src.models import (
     H5N1Case, Alert, DataImport, User,
     AnimalCategory, CaseStatus, Severity, DataSource, AlertType
 )
