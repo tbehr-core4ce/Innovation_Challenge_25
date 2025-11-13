@@ -1,11 +1,8 @@
--- Database initialization script for BETS
--- This runs automatically when the PostgreSQL container starts for the first time
-
 -- Enable PostGIS extension
 CREATE EXTENSION IF NOT EXISTS postgis;
 CREATE EXTENSION IF NOT EXISTS postgis_topology;
 
--- Verify PostGIS installation
+-- Verify PostGIS is installed
 SELECT PostGIS_version();
 
 -- Create additional schemas if needed

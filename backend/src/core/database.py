@@ -15,7 +15,7 @@ logger = get_logger(__name__)
 
 # Database URL from environment variable
 DATABASE_URL = os.getenv(
-    "DATABASE_URL",
+    "DATABASE_URL", # TODO add this to .env 
     "postgresql://bets_user:bets_password@localhost:5432/bets_db"
 )
 

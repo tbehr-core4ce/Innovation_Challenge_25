@@ -28,11 +28,14 @@ if config.config_file_name is not None:
 setup_logging("INFO")
 logger = get_logger("alembic.env")
 
-# add your model's MetaData object here
-# for 'autogenerate' support
-# from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-target_metadata = None
+# Import all models for 'autogenerate' support
+from core.database import Base
+from core.models import (
+    H5N1Case, Alert, DataImport, GeographicBoundary, User
+)
+
+# Set target_metadata to Base.metadata so Alembic can detect model changes
+target_metadata = Base.metadata
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -63,6 +66,8 @@ def run_migrations_offline() -> None:
     with context.begin_transaction():
         context.run_migrations()
 
+    logger.info("Offline migrations completed")
+
 
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode.
@@ -71,6 +76,8 @@ def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
+    logger.info("Running migrations in online mode")
+    
     connectable = engine_from_config(
         config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",
