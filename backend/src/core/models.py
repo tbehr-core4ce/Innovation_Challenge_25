@@ -1,6 +1,7 @@
 """
 Database models for BETS H5N1 tracking system.
 Includes support for WOAH categorization and geospatial data.
+backend/src/core/models.py
 """
 
 from sqlalchemy import (
@@ -14,7 +15,7 @@ from datetime import datetime
 from enum import Enum
 from typing import Optional
 
-from app.core.database import Base
+from .database import Base
 
 
 # ============================================================================
@@ -122,7 +123,7 @@ class H5N1Case(Base):
                         comment="Additional case details and notes")
     control_measures = Column(Text, nullable=True,
                              comment="Control measures taken")
-    metadata = Column(JSON, nullable=True,
+    extra_metadata = Column(JSON, nullable=True,
                      comment="Additional structured metadata")
     
     # Audit Fields
@@ -284,7 +285,7 @@ class GeographicBoundary(Base):
     area_sq_km = Column(Float, nullable=True)
     
     # Metadata
-    metadata = Column(JSON, nullable=True)
+    extra_metadata = Column(JSON, nullable=True)
     
     # Audit
     created_at = Column(DateTime, server_default=func.now(), nullable=False)

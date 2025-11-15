@@ -2,7 +2,7 @@
 """
 Database management utility script for BETS.
 Provides commands for database setup, migration, and seeding.
-
+backend/scripts/db_manager.py
 Usage:
     python scripts/db_manager.py init      # Initialize database
     python scripts/db_manager.py migrate   # Run migrations
@@ -29,7 +29,7 @@ from src.core.database import (
 )
 from src.core.logging import setup_logging, get_logger
 
-from src.models import (
+from src.core.models import (
     H5N1Case, Alert, DataImport, User,
     AnimalCategory, CaseStatus, Severity, DataSource, AlertType
 )

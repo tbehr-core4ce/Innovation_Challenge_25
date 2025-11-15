@@ -1,5 +1,6 @@
 """
 Database configuration and connection management for BETS.
+backend/src/core/database.py
 """
 
 from sqlalchemy import create_engine, event
@@ -9,15 +10,16 @@ from sqlalchemy.pool import StaticPool
 import os
 from typing import Generator
 
-from core.logging import get_logger
+from .logging import get_logger
+from src.utils.settings import settings
+
+DATABASE_URL = settings.DATABASE_URL
 
 logger = get_logger(__name__)
 
 # Database URL from environment variable
-DATABASE_URL = os.getenv(
-    "DATABASE_URL", # TODO add this to .env 
-    "postgresql://bets_user:bets_password@localhost:5432/bets_db"
-)
+
+
 
 # Create SQLAlchemy engine
 # For production, adjust pool settings as needed

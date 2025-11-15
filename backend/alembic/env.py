@@ -6,14 +6,16 @@ from logging.config import fileConfig
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
+from src.utils.settings import settings
+
 from alembic import context
 
 # Add the backend app to the path so we can import our modules
+# Add backend to path so 'src' imports work
 backend_path = Path(__file__).parent.parent
 sys.path.insert(0, str(backend_path))
 
-# Import our centralized logging
-from src.core.logging import setup_logging, get_logger
+# NOW your imports will work
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -24,18 +26,19 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
+# config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
+
 # Initialize our structlog logger for Alembic operations
+from src.core.logging import setup_logging, get_logger
 setup_logging("INFO")
+
 logger = get_logger("alembic.env")
 
 # Import all models for 'autogenerate' support
-from core.database import Base
-from core.models import (
-    H5N1Case, Alert, DataImport, GeographicBoundary, User
-)
+from src.core.database import Base
+from src.core.models import *  # Import all models
 
-# Set target_metadata to Base.metadata so Alembic can detect model changes
-target_metadata = Base.metadata
+target_metadata = Base.metadata  # This line is key!
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -70,28 +73,34 @@ def run_migrations_offline() -> None:
 
 
 def run_migrations_online() -> None:
-    """Run migrations in 'online' mode.
-
-    In this scenario we need to create an Engine
-    and associate a connection with the context.
-
-    """
+    """Run migrations in 'online' mode."""
     logger.info("Running migrations in online mode")
     
+    # Set the database URL from settings BEFORE creating the engine
+    config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
+    
+    # Now create the engine using the config section
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),
+        config.get_section(config.config_ini_section, {}),  # Fixed!
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection, 
+            target_metadata=target_metadata,
+            include_schemas=False,  # Don't track other schemas
+            compare_type=True,
+            include_object=lambda obj, name, type_, reflected, compare_to: 
+                not name.startswith('tiger_') and  # Ignore TIGER tables
+                name not in ['spatial_ref_sys', 'topology', 'layer', 'pagc_gaz', 
+                            'pagc_lex', 'pagc_rules']  # Ignore PostGIS system tables
         )
-
         with context.begin_transaction():
             context.run_migrations()
-    logger.info("Online migrations completed") # TODO double check this works x-x
+    
+    logger.info("Online migrations completed")
 
 if context.is_offline_mode():
     run_migrations_offline()

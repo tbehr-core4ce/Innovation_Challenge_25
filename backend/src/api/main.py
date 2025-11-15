@@ -1,4 +1,5 @@
 """
+src/api/main.py
 BETS Backend API - H5N1 Case Data Service
 FastAPI backend for serving map visualization data
 """
@@ -11,7 +12,7 @@ import uuid
 import time
 import os
 import structlog
-from settings import settings
+from utils.settings import settings
 from routes import data_ingestion
 from core.models import H5N1Case, HotspotZone, MapDataResponse, CaseType, Severity, RiskLevel, Status, StatsResponse
 from parsers.csv_parser import parse_h5n1_csv
