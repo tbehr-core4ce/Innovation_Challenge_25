@@ -121,3 +121,21 @@ mock_hotspots = [
         "riskLevel": "high"
     }
 ]
+
+
+
+
+
+def seed():
+    from src.parsers.ingestors import CommercialBackyardFlock_Ingestor
+
+    ingest = CommercialBackyardFlock_Ingestor(file_path=)
+
+    df = ingest.ingest()
+
+    
+
+
+
+if __name__ = main
+    seed()
