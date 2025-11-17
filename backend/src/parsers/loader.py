@@ -146,6 +146,7 @@ class H5N1DataLoader:
         failed = 0
         duplicates = 0
         errors = []
+        duplicate_samples = []  # Track sample duplicates for reporting
 
         # Convert DataFrame to records
         records = df.to_dict('records')
@@ -166,6 +167,16 @@ class H5N1DataLoader:
                     if external_id and external_id in seen_ids:
                         batch_duplicates += 1
                         duplicates += 1
+                        # Track first 10 duplicates for reporting
+                        if len(duplicate_samples) < 10:
+                            duplicate_samples.append({
+                                'type': 'within-batch',
+                                'external_id': external_id,
+                                'species': record.get('animal_species'),
+                                'date': str(record.get('case_date')),
+                                'county': record.get('county'),
+                                'state': record.get('state_province')
+                            })
                     else:
                         if external_id:
                             seen_ids.add(external_id)
@@ -227,6 +238,16 @@ class H5N1DataLoader:
                             except IntegrityError:
                                 self.session.rollback()
                                 duplicates += 1
+                                # Track cross-batch duplicates (already in DB from previous batch)
+                                if len(duplicate_samples) < 20:
+                                    duplicate_samples.append({
+                                        'type': 'cross-batch',
+                                        'external_id': case.external_id,
+                                        'species': case.animal_species,
+                                        'date': str(case.case_date),
+                                        'county': case.county,
+                                        'state': case.state_province
+                                    })
 
             except Exception as e:
                 self.session.rollback()
@@ -257,9 +278,30 @@ class H5N1DataLoader:
         print(f"  ≈ Duplicates: {duplicates}")
         print(f"  ⏱ Duration: {duration:.2f}s")
 
+        # Print sample duplicates for analysis
+        if duplicate_samples:
+            within_batch = [d for d in duplicate_samples if d['type'] == 'within-batch']
+            cross_batch = [d for d in duplicate_samples if d['type'] == 'cross-batch']
+
+            print(f"\n⚠ Sample Duplicates (showing up to 20):")
+
+            if within_batch:
+                print(f"\n  Within-Batch Duplicates ({len(within_batch)} samples):")
+                print(f"  {'─'*58}")
+                for i, dup in enumerate(within_batch[:10], 1):
+                    print(f"  {i}. ID: {dup['external_id'][:16]}...")
+                    print(f"     {dup['species']} | {dup['county']}, {dup['state']} | {dup['date'][:10]}")
+
+            if cross_batch:
+                print(f"\n  Cross-Batch Duplicates ({len(cross_batch)} samples):")
+                print(f"  {'─'*58}")
+                for i, dup in enumerate(cross_batch[:10], 1):
+                    print(f"  {i}. ID: {dup['external_id'][:16]}...")
+                    print(f"     {dup['species']} | {dup['county']}, {dup['state']} | {dup['date'][:10]}")
+
         # Print sample errors for debugging
         if errors:
-            print(f"\n⚠ Sample errors (showing first 5):")
+            print(f"\n⚠ Sample Errors (showing first 5):")
             for i, error in enumerate(errors[:5], 1):
                 print(f"  {i}. {error['error']}")
                 if 'record' in error:
