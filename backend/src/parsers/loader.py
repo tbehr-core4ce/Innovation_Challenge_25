@@ -161,19 +161,19 @@ class H5N1DataLoader:
                 for record in batch:
                     try:
                         # Convert enum string values to enum objects if needed
-                        if isinstance(record.get('animal_category'), str):
-                            from core.models import AnimalCategory
+                        # (Parsers typically provide enum objects, but pandas may convert to strings)
+                        from src.core.models import AnimalCategory, CaseStatus, Severity
+
+                        if 'animal_category' in record and isinstance(record['animal_category'], str):
                             record['animal_category'] = AnimalCategory(record['animal_category'])
 
-                        if isinstance(record.get('status'), str):
-                            from core.models import CaseStatus
+                        if 'status' in record and isinstance(record['status'], str):
                             record['status'] = CaseStatus(record['status'])
 
-                        if isinstance(record.get('severity'), str):
-                            from core.models import Severity
+                        if 'severity' in record and isinstance(record['severity'], str):
                             record['severity'] = Severity(record['severity'])
 
-                        if isinstance(record.get('data_source'), str):
+                        if 'data_source' in record and isinstance(record['data_source'], str):
                             record['data_source'] = DataSource(record['data_source'])
 
                         # Create case object
