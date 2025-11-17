@@ -1,0 +1,116 @@
+{
+  "timestamp": "2025-11-17T13:56:03.719189",
+  "dataset": "usda",
+  "source_file": "/Users/tiffanybehrcore4ce/Documents/Work-Projects/Innovation_Challenge_25/datasets/raw/HPAI Detections in Mammals.csv",
+  "file_hash": "46fc88bef209aefd51d1bdbd04a6440f32447fda24f785ea71c4777aaf83ac68",
+  "parsing": {
+    "rows_read": 657,
+    "columns_read": 13,
+    "parse_errors": 0,
+    "sample_parse_errors": []
+  },
+  "geocoding": {
+    "total_records": 657,
+    "geocoded_count": "657",
+    "success_rate": "100.0%"
+  },
+  "validation": {
+    "validated": false,
+    "valid_records": 657,
+    "error_count": 0,
+    "sample_errors": []
+  },
+  "import": {
+    "successful": 467,
+    "failed": 0,
+    "duplicates": 190,
+    "total_records": 657,
+    "duration_seconds": 0.04
+  },
+  "duplicate_samples": {
+    "within_batch": [
+      {
+        "type": "within-batch",
+        "external_id": "MAMM_cb7fc50c46ea",
+        "species": "House Mouse",
+        "date": "2025-10-15 00:00:00",
+        "county": "Grant",
+        "state": "Washington"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "MAMM_cb7fc50c46ea",
+        "species": "House Mouse",
+        "date": "2025-10-15 00:00:00",
+        "county": "Grant",
+        "state": "Washington"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "MAMM_cb7fc50c46ea",
+        "species": "House Mouse",
+        "date": "2025-10-15 00:00:00",
+        "county": "Grant",
+        "state": "Washington"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "MAMM_cb7fc50c46ea",
+        "species": "House Mouse",
+        "date": "2025-10-15 00:00:00",
+        "county": "Grant",
+        "state": "Washington"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "MAMM_cb7fc50c46ea",
+        "species": "House Mouse",
+        "date": "2025-10-15 00:00:00",
+        "county": "Grant",
+        "state": "Washington"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "MAMM_bd9033eb0dd7",
+        "species": "Red Fox",
+        "date": "2025-03-31 00:00:00",
+        "county": "Loudoun",
+        "state": "Virginia"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "MAMM_bd9033eb0dd7",
+        "species": "Red Fox",
+        "date": "2025-03-31 00:00:00",
+        "county": "Loudoun",
+        "state": "Virginia"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "MAMM_01cb7a5f10f3",
+        "species": "Skunk (Unidentified)",
+        "date": "2025-03-31 00:00:00",
+        "county": "Cache",
+        "state": "Utah"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "MAMM_43d182ba29dd",
+        "species": "Domestic Cat",
+        "date": "2025-01-16 00:00:00",
+        "county": "Orange",
+        "state": "California"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "MAMM_0d17528d7e0e",
+        "species": "Domestic Cat",
+        "date": "2025-02-14 00:00:00",
+        "county": "Franklin",
+        "state": "Ohio"
+      }
+    ],
+    "cross_batch": []
+  },
+  "error_samples": []
+}
