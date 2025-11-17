@@ -135,6 +135,8 @@ class GeocodingService:
             'Colorado': (39.059811, -105.311104),
             'Connecticut': (41.597782, -72.755371),
             'Delaware': (39.318523, -75.507141),
+            'District Of Columbia': (38.9072, -77.0369),
+            'Dc': (38.9072, -77.0369),  # Handle DC abbreviation
             'Florida': (27.766279, -81.686783),
             'Georgia': (33.040619, -83.643074),
             'Hawaii': (21.094318, -157.498337),
