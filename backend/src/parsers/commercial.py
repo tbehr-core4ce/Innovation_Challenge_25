@@ -80,6 +80,36 @@ class CommercialPoultryParser(BaseParser):
 
         return df
 
+    def generate_external_id(self, row: pd.Series, source_prefix: str) -> str:
+        """
+        Generate unique external_id for commercial poultry.
+
+        Includes flock size to differentiate multiple outbreaks in same county on same day.
+
+        Args:
+            row: DataFrame row
+            source_prefix: Prefix for external_id (e.g., 'COMM')
+
+        Returns:
+            Unique external_id string
+        """
+        import hashlib
+
+        # Combine key fields for uniqueness - include flock size to distinguish different farms
+        key_parts = [
+            str(row.get('county', '')),
+            str(row.get('state_province', '')),
+            str(row.get('case_date', ''))[:10],  # Date only (YYYY-MM-DD)
+            str(row.get('animal_species', '')),
+            str(row.get('animals_affected', ''))  # Different flock size = different farm
+        ]
+
+        key_string = '|'.join(key_parts)
+        hash_obj = hashlib.md5(key_string.encode())
+        hash_hex = hash_obj.hexdigest()[:12]
+
+        return f"{source_prefix}_{hash_hex}"
+
     def add_defaults(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Add default values and generate external IDs.

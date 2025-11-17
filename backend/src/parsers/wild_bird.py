@@ -86,6 +86,38 @@ class WildBirdParser(BaseParser):
 
         return df
 
+    def generate_external_id(self, row: pd.Series, source_prefix: str) -> str:
+        """
+        Generate unique external_id for wild bird detections.
+
+        Includes report_date and HPAI strain to differentiate multiple detections
+        in same county on same day.
+
+        Args:
+            row: DataFrame row
+            source_prefix: Prefix for external_id (e.g., 'WILD')
+
+        Returns:
+            Unique external_id string
+        """
+        import hashlib
+
+        # Combine key fields for uniqueness - include report_date and strain for unique detections
+        key_parts = [
+            str(row.get('county', '')),
+            str(row.get('state_province', '')),
+            str(row.get('case_date', ''))[:10],  # Collection date
+            str(row.get('report_date', ''))[:10] if pd.notna(row.get('report_date')) else '',  # Report date
+            str(row.get('animal_species', '')),
+            str(row.get('HPAI Strain', '')) if pd.notna(row.get('HPAI Strain')) else ''  # Different strain = different record
+        ]
+
+        key_string = '|'.join(key_parts)
+        hash_obj = hashlib.md5(key_string.encode())
+        hash_hex = hash_obj.hexdigest()[:12]
+
+        return f"{source_prefix}_{hash_hex}"
+
     def add_defaults(self, df: pd.DataFrame) -> pd.DataFrame:
         """
         Add default values, generate external IDs, and create metadata.
