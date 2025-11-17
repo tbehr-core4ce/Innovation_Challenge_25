@@ -12,8 +12,8 @@ from datetime import datetime
 import hashlib
 import time
 
-from core.models import H5N1Case, DataImport, DataSource
-from core.database import get_db
+from src.core.models import H5N1Case, DataImport, DataSource
+from src.core.database import get_db
 
 
 class H5N1DataLoader:

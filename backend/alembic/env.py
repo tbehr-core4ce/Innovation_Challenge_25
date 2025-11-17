@@ -1,44 +1,42 @@
 import sys
 from pathlib import Path
-
 from logging.config import fileConfig
+from src.utils.settings import settings
 
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
-from src.utils.settings import settings
-
 from alembic import context
+import geoalchemy2
 
-# Add the backend app to the path so we can import our modules
-# Add backend to path so 'src' imports work
 backend_path = Path(__file__).parent.parent
+
 sys.path.insert(0, str(backend_path))
-
-# NOW your imports will work
-
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
 
-# Interpret the config file for Python logging. # Setup our custom logging
-# This line sets up loggers basically. # You can comment out the next two lines to use Alembic's default file-based logging
+# Interpret the config file for Python logging.
+# This line sets up loggers basically.
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
-
-# Initialize our structlog logger for Alembic operations
+# add your model's MetaData object here
+# for 'autogenerate' support
+# from myapp import mymodel
+# target_metadata = mymodel.Base.metadata
 from src.core.logging import setup_logging, get_logger
+
 setup_logging("INFO")
 
 logger = get_logger("alembic.env")
 
 # Import all models for 'autogenerate' support
-from src.core.database import Base
-from src.core.models import *  # Import all models
 
-target_metadata = Base.metadata  # This line is key!
+from src.core.database import Base
+from src.core.models import * # Import all models
+
+target_metadata = Base.metadata # This line is key!
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -68,52 +66,93 @@ def run_migrations_offline() -> None:
 
     with context.begin_transaction():
         context.run_migrations()
-
-    logger.info("Offline migrations completed")
+        logger.info("Offline migrations completed")
 
 def include_object(object, name, type_, reflected, compare_to):
+    """
+    Filter out PostGIS extension tables from Alembic's consideration.
+    
+    PostGIS creates system tables that should never be managed by Alembic:
+    - spatial_ref_sys: Spatial reference system definitions
+    - geometry_columns: Geometry column registry (if not using typmod)
+    - geography_columns: Geography column registry
+    - topology: Topology extension tables
+    - layer: Topology layer definitions
+    - Tiger geocoder tables: geocode_*, zip_*, tiger_*, loader_*, etc.
+    """
     if type_ == "table":
+        # Get schema
         schema = getattr(object, "schema", None)
-        if schema in ("tiger", "tiger_data"):
+        
+        # Exclude tiger and tiger_data schemas entirely
+        if schema in ("tiger", "tiger_data", "topology"):
             return False
-        if name.startswith(("zip_lookup", "zip_state", "zip_state_loc", "geocode_", "tiger_", "pagc_")):
+        
+        # PostGIS core system tables (always in public schema)
+        postgis_system_tables = {
+            'spatial_ref_sys',
+            'geometry_columns',
+            'geography_columns',
+            'raster_columns',
+            'raster_overviews'
+        }
+        
+        # PostGIS topology extension tables
+        topology_tables = {
+            'topology',
+            'layer'
+        }
+        
+        # Tiger geocoder tables (partial list - match by prefix)
+        tiger_prefixes = (
+            'geocode_', 'zip_', 'tiger_', 'loader_',
+            'pagc_', 'addrfeat', 'bg', 'tabblock',
+            'county', 'cousub', 'edges', 'faces',
+            'featnames', 'place', 'state', 'tract'
+        )
+        
+        # Check exact matches
+        if name in postgis_system_tables or name in topology_tables:
             return False
+        
+        # Check prefix matches
+        if name.startswith(tiger_prefixes):
+            return False
+    
     return True
 
 
 def run_migrations_online() -> None:
-    """Run migrations in 'online' mode."""
+    """Run migrations in 'online' mode.
+
+    In this scenario we need to create an Engine
+    and associate a connection with the context.
+
+    """
     logger.info("Running migrations in online mode")
-    
-    # Set the database URL from settings BEFORE creating the engine
     config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
-    
-    # Now create the engine using the config section
+
     connectable = engine_from_config(
-        config.get_section(config.config_ini_section, {}),  # Fixed!
+        config.get_section(config.config_ini_section, {}),
         prefix="sqlalchemy.",
         poolclass=pool.NullPool,
     )
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, 
+            connection=connection,
             target_metadata=target_metadata,
             include_object=include_object,
-            include_schemas=False,  # Don't track other schemas
-            compare_type=True,
-            # include_object=lambda obj, name, type_, reflected, compare_to: 
-            #     not name.startswith('tiger_') and  # Ignore TIGER tables
-            #     name not in ['spatial_ref_sys', 'topology', 'layer', 'pagc_gaz', 
-            #                 'pagc_lex', 'pagc_rules']  # Ignore PostGIS system tables
+            include_schemas=False, # Don't track other schemas AI-Generated
+            compare_type=True, # AI-Generated
         )
+
         with context.begin_transaction():
             context.run_migrations()
-    
-    logger.info("Online migrations completed")
+            logger.info("Online migrations completed")
+
 
 if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
-

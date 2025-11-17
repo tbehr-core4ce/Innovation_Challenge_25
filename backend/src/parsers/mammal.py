@@ -8,7 +8,7 @@ import pandas as pd
 from typing import Dict, Any
 import json
 
-from core.models import AnimalCategory, DataSource, CaseStatus
+from src.core.models import AnimalCategory, DataSource, CaseStatus
 from .base import BaseParser
 
 
@@ -175,7 +175,7 @@ class MammalParser(BaseParser):
         Returns:
             Severity enum value
         """
-        from core.models import Severity
+        from src.core.models import Severity
 
         category = row.get('animal_category', AnimalCategory.WILD_MAMMAL)
 
