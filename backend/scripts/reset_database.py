@@ -39,20 +39,21 @@ def main():
 
     # Database configuration (adjust if needed)
     DB_NAME = os.environ.get('DB_NAME', 'bets_db')
-    DB_USER = os.environ.get('DB_USER', 'postgres')
+    DB_USER = os.environ.get('DB_USER', 'bets_user')
     DB_HOST = os.environ.get('DB_HOST', 'localhost')
+    DOCKER_COMMAND = 'docker exec -it bets-postgres-1'
 
     # Step 1: Drop existing database
     print("\nStep 1: Dropping existing database...")
     run_command(
-        f'psql -U {DB_USER} -h {DB_HOST} -d postgres -c "DROP DATABASE IF EXISTS {DB_NAME};" 2>/dev/null || true',
+        f'{DOCKER_COMMAND} psql -U {DB_USER} -h {DB_HOST} -d postgres -c "DROP DATABASE IF EXISTS {DB_NAME};" 2>/dev/null || true',
         "Dropping old database if exists..."
     )
 
     # Step 2: Create fresh database
     print("\nStep 2: Creating fresh database...")
     if not run_command(
-        f'psql -U {DB_USER} -h {DB_HOST} -d postgres -c "CREATE DATABASE {DB_NAME};"',
+        f'{DOCKER_COMMAND} psql -U {DB_USER} -h {DB_HOST} -d postgres -c "CREATE DATABASE {DB_NAME};"',
         "Creating new database..."
     ):
         print("Failed to create database")
@@ -61,7 +62,7 @@ def main():
     # Step 3: Enable PostGIS
     print("\nStep 3: Enabling PostGIS extension...")
     if not run_command(
-        f'psql -U {DB_USER} -h {DB_HOST} -d {DB_NAME} -c "CREATE EXTENSION IF NOT EXISTS postgis;"',
+        f'{DOCKER_COMMAND} psql -U {DB_USER} -h {DB_HOST} -d {DB_NAME} -c "CREATE EXTENSION IF NOT EXISTS postgis;"',
         "Enabling PostGIS..."
     ):
         print("Failed to enable PostGIS")
