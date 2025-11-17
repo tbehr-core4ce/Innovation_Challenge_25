@@ -1,7 +1,13 @@
 'use client'
+// TODO: Add error boundary component in frontend/components to handle API failures and display user-friendly error messages
+// TODO: Implement dark/light toggle mode to address the usability aspect of this project, not a high priority task though
+// TODO: Add accessibility and usability improvements, without clunking up user interface, not a high priority
+// TODO: Add tooltips with more detailed information for user interface components that make sense to have them 
+// TODO: Either replace existing timeline chart with an animated one where you can have a slider to animate case progression over time in reason of data
+// TODO: If possible, add filtering and search options either on dashboard or 
+// TODO: Add real-time notifications/alerts when new critical cases are detected
 
 // frontend/app/(routes)/dashboard/page.tsx
-// TO DO: ADD CHARTS / COMPONENTS THAT MAKE SENSE WITH THE DATA WE HAVE! 
 import { useState, useEffect } from 'react'
 import { Map, Activity, AlertTriangle, Users, Bird, TrendingUp } from 'lucide-react'
 import { betsApi, AnalyticsData, TimelineDataPoint, RegionDataPoint, AnimalCategoryData, StatusData, DataSourceData, RecentAlert
