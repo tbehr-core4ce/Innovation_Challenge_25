@@ -121,6 +121,10 @@ class WildBirdParser(BaseParser):
         if 'extra_metadata' not in df.columns:
             df['extra_metadata'] = df.apply(create_metadata, axis=1)
 
+        # Drop metadata source columns (they're now in extra_metadata JSON)
+        # These columns don't exist in H5N1Case model
+        df = df.drop(columns=[col for col in metadata_fields if col in df.columns], errors='ignore')
+
         return df
 
     def calculate_severity(self, row: pd.Series):

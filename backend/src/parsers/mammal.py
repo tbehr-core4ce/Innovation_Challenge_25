@@ -158,6 +158,11 @@ class MammalParser(BaseParser):
         if 'extra_metadata' not in df.columns and 'HPAI Strain' in df.columns:
             df['extra_metadata'] = df.apply(create_metadata, axis=1)
 
+        # Drop metadata source columns (they're now in extra_metadata JSON)
+        # These columns don't exist in H5N1Case model
+        if 'HPAI Strain' in df.columns:
+            df = df.drop(columns=['HPAI Strain'], errors='ignore')
+
         return df
 
     def calculate_severity(self, row: pd.Series):
