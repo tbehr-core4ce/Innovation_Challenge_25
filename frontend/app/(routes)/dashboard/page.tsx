@@ -67,9 +67,9 @@ export default function DashboardPage() {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center" style={{ backgroundColor: '#E4E5ED' }}>
         <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 mx-auto" style={{ borderColor: '#F05323' }}></div>
           <p className="mt-4 text-gray-600">Loading dashboard...</p>
         </div>
       </div>
@@ -81,32 +81,18 @@ export default function DashboardPage() {
   const mortalityRate = ((analytics.animalsDeceased / analytics.animalsAffected) * 100).toFixed(1)
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      
-      {/* HEADER */}
-      <div className="bg-white border-b border-gray-200">
-        <div className="px-6 py-4">
-          <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-3xl font-bold text-gray-900">
-                H5N1 Surveillance Dashboard
-              </h1>
-              <p className="text-sm text-gray-500 mt-1">
-                Real-time Monitoring and Surveillance  
-              </p>
-            </div>
-              <a 
-                href="/map" 
-                className="px-3 py- bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
-              >
-                <Map className="w-5 h-5" />
-                View Map
-              </a>
-          </div>
-        </div>
-      </div>
-
+    <div className="min-h-screen" style={{ backgroundColor: '#E4E5ED' }}>
       <div className="max-w-7xl mx-auto p-6 space-y-6">
+
+        {/* PAGE TITLE */}
+        <div className="mb-6">
+          <h1 className="text-3xl font-bold" style={{ color: '#2C425A' }}>
+            H5N1 Surveillance Dashboard
+          </h1>
+          <p className="text-sm text-gray-600 mt-1">
+            Real-time monitoring and surveillance
+          </p>
+        </div>
 
         {/*  KEY METRICS  */}
         <section>

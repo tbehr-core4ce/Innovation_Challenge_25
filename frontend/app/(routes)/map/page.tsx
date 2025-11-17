@@ -252,10 +252,10 @@ export default function DashboardPage() {
   // Loading state
   if (loading && cases.length === 0) {
     return (
-      <div className="flex items-center justify-center w-full h-screen bg-gray-100">
+      <div className="flex items-center justify-center w-full h-screen" style={{ backgroundColor: '#E4E5ED' }}>
         <div className="text-center">
-          <div className="animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600 mx-auto mb-4"></div>
-          <p className="text-lg text-gray-700">Loading BETS data...</p>
+          <div className="animate-spin rounded-full h-16 w-16 border-b-4 mx-auto mb-4" style={{ borderColor: '#F05323' }}></div>
+          <p className="text-lg text-gray-700">Loading BETS map data...</p>
         </div>
       </div>
     )
@@ -264,7 +264,7 @@ export default function DashboardPage() {
   // Error state
   if (error) {
     return (
-      <div className="flex items-center justify-center w-full h-screen bg-gray-100">
+      <div className="flex items-center justify-center w-full h-screen" style={{ backgroundColor: '#E4E5ED' }}>
         <div className="bg-white rounded-lg shadow-lg p-8 max-w-md">
           <div className="text-red-600 text-xl font-bold mb-4">
             Error Loading Data
@@ -272,7 +272,10 @@ export default function DashboardPage() {
           <p className="text-gray-700 mb-4">{error}</p>
           <button
             onClick={fetchMapData}
-            className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition"
+            className="text-white px-6 py-2 rounded transition"
+            style={{ backgroundColor: '#2C425A' }}
+            onMouseEnter={(e) => e.currentTarget.style.backgroundColor = '#F05323'}
+            onMouseLeave={(e) => e.currentTarget.style.backgroundColor = '#2C425A'}
           >
             Retry
           </button>
@@ -282,16 +285,16 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="relative w-full h-screen">
+    <div className="relative w-full" style={{ height: 'calc(100vh - 0px)' }}>
       {/* Header Bar */}
       <div className="absolute top-0 left-0 right-0 z-[1001] bg-white border-b shadow-sm">
         <div className="flex items-center justify-between px-6 py-3">
           <div className="flex items-center space-x-4">
-            <h1 className="text-2xl font-bold text-gray-800">
-              BETS - Bio-Event Tracking System
+            <h1 className="text-2xl font-bold" style={{ color: '#2C425A' }}>
+              Map View
             </h1>
             <span className="text-sm text-gray-500">
-              H5N1 Surveillance Dashboard
+              Interactive H5N1 Case Tracking
             </span>
           </div>
 
@@ -303,7 +306,10 @@ export default function DashboardPage() {
             <button
               onClick={fetchMapData}
               disabled={loading}
-              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="text-white px-4 py-2 rounded transition disabled:opacity-50 disabled:cursor-not-allowed"
+              style={{ backgroundColor: loading ? '#DAD5CB' : '#2C425A' }}
+              onMouseEnter={(e) => !loading && (e.currentTarget.style.backgroundColor = '#F05323')}
+              onMouseLeave={(e) => !loading && (e.currentTarget.style.backgroundColor = '#2C425A')}
             >
               {loading ? 'Refreshing...' : 'Refresh Data'}
             </button>
@@ -335,7 +341,7 @@ export default function DashboardPage() {
 
       {/* Loading Overlay */}
       {loading && cases.length > 0 && (
-        <div className="absolute top-20 right-4 z-[1001] bg-blue-600 text-white px-4 py-2 rounded shadow-lg">
+        <div className="absolute top-20 right-4 z-[1001] text-white px-4 py-2 rounded shadow-lg" style={{ backgroundColor: '#F05323' }}>
           <div className="flex items-center space-x-2">
             <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
             <span className="text-sm">Updating...</span>
