@@ -108,7 +108,8 @@ class H5N1Case(Base):
     
     # Geospatial Data (PostGIS)
     # SRID 4326 is WGS84 (standard for GPS coordinates)
-    location = Column(Geometry('POINT', srid=4326), nullable=True,
+    # spatial_index=False prevents GeoAlchemy2 from auto-creating duplicate indexes
+    location = Column(Geometry('POINT', srid=4326, spatial_index=False), nullable=True,
                      comment="Geographic coordinates (longitude, latitude)")
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
@@ -280,8 +281,9 @@ class GeographicBoundary(Base):
     state_province = Column(String(100), nullable=True)
     
     # Geospatial Data
-    boundary = Column(Geometry('POLYGON', srid=4326), nullable=False)
-    centroid = Column(Geometry('POINT', srid=4326), nullable=True)
+    # spatial_index=False prevents GeoAlchemy2 from auto-creating duplicate indexes
+    boundary = Column(Geometry('POLYGON', srid=4326, spatial_index=False), nullable=False)
+    centroid = Column(Geometry('POINT', srid=4326, spatial_index=False), nullable=True)
     area_sq_km = Column(Float, nullable=True)
     
     # Metadata
