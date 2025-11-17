@@ -85,8 +85,8 @@ def main():
     print("=" * 60)
     print("\nNext steps:")
     print("  1. Run the data ingestion pipeline:")
-    print("     python backend/scripts/run_ingestion.py --all")
-    print()
+    print("     python backend/scripts/run_ingestion.py --dataset all")
+    print("\n ")
 
 
 if __name__ == '__main__':
