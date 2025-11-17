@@ -17,7 +17,7 @@ services:
       - PYTHONUNBUFFERED=1
       - UVICORN_RELOAD=true
       - PROJECT_BASE_PATH=/app
-      - PROJECT_BASE_PATH=/app
+      - DATABASE_URL=postgresql+psycopg://bets_user:bets_password@postgres:5432/bets_db
     volumes:
       - ./backend:/app
     restart: unless-stopped # always instead ?
