@@ -4,19 +4,18 @@ Includes support for WOAH categorization and geospatial data.
 backend/src/core/models.py
 """
 
-from sqlalchemy import (
-    Column, Integer, String, Float, DateTime, Boolean, Text,
-    ForeignKey, Index, Enum as SQLEnum, JSON
-)
-from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
-from geoalchemy2 import Geometry
 from datetime import datetime
 from enum import Enum
 from typing import Optional
 
-from .database import Base
+from geoalchemy2 import Geometry
+from sqlalchemy import JSON, Boolean, Column, DateTime
+from sqlalchemy import Enum as SQLEnum
+from sqlalchemy import Float, ForeignKey, Index, Integer, String, Text
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 
+from .database import Base
 
 # ============================================================================
 # Enums for H5N1 Classification
@@ -108,7 +107,8 @@ class H5N1Case(Base):
     
     # Geospatial Data (PostGIS)
     # SRID 4326 is WGS84 (standard for GPS coordinates)
-    location = Column(Geometry('POINT', srid=4326), nullable=True,
+    # spatial_index=False prevents GeoAlchemy2 from auto-creating duplicate indexes
+    location = Column(Geometry('POINT', srid=4326, spatial_index=False), nullable=True,
                      comment="Geographic coordinates (longitude, latitude)")
     latitude = Column(Float, nullable=True)
     longitude = Column(Float, nullable=True)
@@ -280,8 +280,9 @@ class GeographicBoundary(Base):
     state_province = Column(String(100), nullable=True)
     
     # Geospatial Data
-    boundary = Column(Geometry('POLYGON', srid=4326), nullable=False)
-    centroid = Column(Geometry('POINT', srid=4326), nullable=True)
+    # spatial_index=False prevents GeoAlchemy2 from auto-creating duplicate indexes
+    boundary = Column(Geometry('POLYGON', srid=4326, spatial_index=False), nullable=False)
+    centroid = Column(Geometry('POINT', srid=4326, spatial_index=False), nullable=True)
     area_sq_km = Column(Float, nullable=True)
     
     # Metadata

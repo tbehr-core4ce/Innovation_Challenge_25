@@ -8,7 +8,7 @@ let logContext: string | undefined
 /**
  * Set a context string that will be included in all subsequent log messages.
  * Useful for tracking operations across multiple log calls.
- * 
+ *
  * @param context - Context identifier (e.g., "MapVisualization", "API:fetchCases")
  */
 export function setLogContext(context: string): void {
@@ -30,14 +30,18 @@ const getContext = (): string => (logContext ? ` [${logContext}] |` : '')
 /**
  * Format a log message with optional additional data.
  */
-const formatMessage = (level: string, message: unknown, data?: unknown): string => {
+const formatMessage = (
+  level: string,
+  message: unknown,
+  data?: unknown
+): string => {
   const contextStr = getContext()
   let msg = `[${level}]${contextStr} ${message}`
-  
+
   if (data !== undefined) {
     msg += ` | Data: ${JSON.stringify(data)}`
   }
-  
+
   return msg
 }
 
@@ -92,14 +96,23 @@ export function fatal(message: unknown, data?: unknown): void {
 /**
  * Log an API request with consistent formatting.
  */
-export function logApiRequest(method: string, url: string, params?: unknown): void {
+export function logApiRequest(
+  method: string,
+  url: string,
+  params?: unknown
+): void {
   debug(`API ${method} ${url}`, params)
 }
 
 /**
  * Log an API response with consistent formatting.
  */
-export function logApiResponse(method: string, url: string, status: number, data?: unknown): void {
+export function logApiResponse(
+  method: string,
+  url: string,
+  status: number,
+  data?: unknown
+): void {
   if (status >= 200 && status < 300) {
     debug(`API ${method} ${url} [${status}]`, data)
   } else if (status >= 400 && status < 500) {
@@ -112,7 +125,7 @@ export function logApiResponse(method: string, url: string, status: number, data
 /**
  * Create a scoped logger that automatically includes context.
  * Useful for component-specific logging.
- * 
+ *
  * @param scope - The scope name (e.g., component name)
  * @returns An object with logging methods that include the scope
  */
@@ -135,8 +148,8 @@ export function createScopedLogger(scope: string) {
     },
     fatal: (message: unknown, data?: unknown) => {
       console.error(formatMessage('FATAL', `[${scope}] ${message}`, data))
-    },
-  };
+    }
+  }
 }
 
 // Export an alias for 'error' to match the backend naming

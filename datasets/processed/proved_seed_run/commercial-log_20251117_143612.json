@@ -1,0 +1,100 @@
+{
+  "timestamp": "2025-11-17T14:36:12.949507",
+  "dataset": "commercial",
+  "source_file": "/Users/tiffanybehrcore4ce/Documents/Work-Projects/Innovation_Challenge_25/datasets/raw/commercial-backyard-flocks.csv",
+  "file_hash": "f25dc2bceea619f1471fd10301afc28f1e84823037553b85186788467101c456",
+  "parsing": {
+    "rows_read": 1708,
+    "columns_read": 11,
+    "parse_errors": 0,
+    "sample_parse_errors": []
+  },
+  "geocoding": {
+    "total_records": 1708,
+    "geocoded_count": "1707",
+    "success_rate": "99.9%"
+  },
+  "validation": {
+    "validated": false,
+    "valid_records": 1708,
+    "error_count": 0,
+    "sample_errors": []
+  },
+  "import": {
+    "successful": 1700,
+    "failed": 0,
+    "duplicates": 8,
+    "total_records": 1708,
+    "duration_seconds": 0.24
+  },
+  "duplicate_samples": {
+    "within_batch": [
+      {
+        "type": "within-batch",
+        "external_id": "COMM_3222e86e2831",
+        "species": "WOAH Non-Poultry",
+        "date": "2022-05-19 00:00:00",
+        "county": "Canyon",
+        "state": "Idaho"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "COMM_62decb2e7cc2",
+        "species": "WOAH Poultry",
+        "date": "2022-05-17 00:00:00",
+        "county": "Canyon",
+        "state": "Idaho"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "COMM_4f62a4f92cd8",
+        "species": "WOAH Non-Poultry",
+        "date": "2022-05-11 00:00:00",
+        "county": "Clallam",
+        "state": "Washington"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "COMM_5a070c146fc8",
+        "species": "WOAH Poultry",
+        "date": "2023-03-14 00:00:00",
+        "county": "Lancaster",
+        "state": "Pennsylvania"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "COMM_80513bbacb4f",
+        "species": "WOAH Poultry",
+        "date": "2023-03-14 00:00:00",
+        "county": "Lancaster",
+        "state": "Pennsylvania"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "COMM_d43d41a703cb",
+        "species": "Commercial Turkey Meat Bird",
+        "date": "2025-01-15 00:00:00",
+        "county": "Darke",
+        "state": "Ohio"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "COMM_40b832942b48",
+        "species": "WOAH Non-Poultry",
+        "date": "2025-01-03 00:00:00",
+        "county": "Canyon",
+        "state": "Idaho"
+      },
+      {
+        "type": "within-batch",
+        "external_id": "COMM_40b832942b48",
+        "species": "WOAH Non-Poultry",
+        "date": "2025-01-03 00:00:00",
+        "county": "Canyon",
+        "state": "Idaho"
+      }
+    ],
+    "cross_batch": []
+  },
+  "error_samples": []
+}

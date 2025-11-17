@@ -1,12 +1,21 @@
-# ingestors.py - all ingestors in one file (can separate later into different files depending on structure as I wasn't sure what exactly it needed to look like)
-# Note: As I was not sure what data would be needed at this point, I ingested all of the datasets without limiting what columns to ingest, as I figured it would be easy to go in and remove what data is needed rather than have to add it back in.
-import pandas as pd
-import os
-from src.core.models import H5N1Detection, CommercialOutbreak
-from core.models import H5N1Case
-from typing import List
-from datetime import datetime
+# ingestors.py - Legacy ingestor classes (DEPRECATED)
+#
+# NOTE: These old ingestor classes have been REPLACED by the new parser architecture:
+# - base.py: BaseParser abstract class
+# - commercial.py: CommercialPoultryParser
+# - wild_bird.py: WildBirdParser
+# - mammal.py: MammalParser
+# - loader.py: H5N1DataLoader for database insertion
+#
+# See backend/scripts/run_ingestion.py for the new end-to-end pipeline.
+#
+# This file is kept for reference only and should not be used in production.
 
+import os
+from datetime import datetime
+from typing import List
+
+import pandas as pd
 
 
 class CommercialBackyardFlock_Ingestor:
@@ -47,15 +56,9 @@ class CommercialBackyardFlock_Ingestor:
         print(f"Parsed {len(df)} records")
         return df
 
-    def convert() -> H5N1Case:
-
-        #df I know what columns it has
-        
-        for item in df:
-            entry: H5N1Case = {
-                external_id: item.id
-                case_date: 
-            }
+    # DEPRECATED: Use CommercialPoultryParser from commercial.py instead
+    # def convert() -> H5N1Case:
+    #     This method is no longer needed with the new parser architecture
 
 
 

@@ -1,0 +1,56 @@
+{
+  "timestamp": "2025-11-17T15:32:27.324601",
+  "dataset": "wild_bird",
+  "source_file": "/Users/tiffanybehrcore4ce/Documents/Work-Projects/Innovation_Challenge_25/datasets/raw/HPAI Detections in Wild Birds.csv",
+  "file_hash": "529d735c2aace48aaaf4f7815772f4489cc1752d95783f0577dd9e90b5f1d95a",
+  "parsing": {
+    "rows_read": 9590,
+    "columns_read": 14,
+    "parse_errors": 0,
+    "sample_parse_errors": []
+  },
+  "geocoding": {
+    "total_records": 9590,
+    "geocoded_count": "9587",
+    "failed_count": 3,
+    "success_rate": "100.0%",
+    "failures": [
+      {
+        "index": 2704,
+        "county": "District Of Columbia",
+        "state": "Dc",
+        "reason": "County not found in lookup table"
+      },
+      {
+        "index": 2705,
+        "county": "District Of Columbia",
+        "state": "Dc",
+        "reason": "County not found in lookup table"
+      },
+      {
+        "index": 2706,
+        "county": "District Of Columbia",
+        "state": "Dc",
+        "reason": "County not found in lookup table"
+      }
+    ]
+  },
+  "validation": {
+    "validated": false,
+    "valid_records": 9427,
+    "error_count": 0,
+    "sample_errors": []
+  },
+  "import": {
+    "successful": 9427,
+    "failed": 0,
+    "duplicates": 0,
+    "total_records": 9427,
+    "duration_seconds": 0.55
+  },
+  "duplicate_samples": {
+    "within_batch": [],
+    "cross_batch": []
+  },
+  "error_samples": []
+}

@@ -3,26 +3,25 @@ src/api/main.py
 BETS Backend API - H5N1 Case Data Service
 FastAPI backend for serving map visualization data
 """
-from fastapi import FastAPI, HTTPException, Query, Request, status
-from fastapi.responses import JSONResponse
-from fastapi.middleware.cors import CORSMiddleware
+import os
+import time
+import uuid
 from datetime import datetime, timedelta
 from typing import Optional
-import uuid
-import time
-import os
+
 import structlog
-from utils.settings import settings
+from fastapi import FastAPI, HTTPException, Query, Request, status
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from routes import data_ingestion
-from core.models import H5N1Case, HotspotZone, MapDataResponse, CaseType, Severity, RiskLevel, Status, StatsResponse
-from parsers.csv_parser import parse_h5n1_csv
-from core.logging import (
-    get_logger,
-    setup_logging,
-    configure_json_logging,
-    configure_console_logging,
-)
+
 from core.errors import BETSError
+from core.logging import (configure_console_logging, configure_json_logging,
+                          get_logger, setup_logging)
+from core.models import (CaseType, H5N1Case, HotspotZone, MapDataResponse,
+                         RiskLevel, Severity, StatsResponse, Status)
+from parsers.csv_parser import parse_h5n1_csv
+from utils.settings import settings
 
 app = FastAPI(title="BETS API", version="1.0.0")
 

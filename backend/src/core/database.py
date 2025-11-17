@@ -3,15 +3,17 @@ Database configuration and connection management for BETS.
 backend/src/core/database.py
 """
 
-from sqlalchemy import create_engine, event
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, Session
-from sqlalchemy.pool import StaticPool
 import os
 from typing import Generator
 
-from .logging import get_logger
+from sqlalchemy import create_engine, event
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import Session, sessionmaker
+from sqlalchemy.pool import StaticPool
+
 from src.utils.settings import settings
+
+from .logging import get_logger
 
 DATABASE_URL = settings.DATABASE_URL
 

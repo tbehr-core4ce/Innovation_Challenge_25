@@ -1,4 +1,5 @@
 import logging.config
+
 import structlog
 
 from utils.settings import settings

@@ -2,15 +2,16 @@
 Data Ingestion Router for BETS (Bird flu Early Tracking System)
 Handles CSV file uploads and parsing for H5N1 surveillance data
 """
-from fastapi import APIRouter, UploadFile, File, HTTPException, Query
-from fastapi.responses import JSONResponse
-from typing import List, Dict, Optional, Any
-from datetime import datetime
 import csv
 import io
-from enum import Enum
-from pydantic import BaseModel, validator, Field
 import logging
+from datetime import datetime
+from enum import Enum
+from typing import Any, Dict, List, Optional
+
+from fastapi import APIRouter, File, HTTPException, Query, UploadFile
+from fastapi.responses import JSONResponse
+from pydantic import BaseModel, Field, validator
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
