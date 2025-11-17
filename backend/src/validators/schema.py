@@ -4,13 +4,12 @@ Validates DataFrame columns match expected schema and enum values.
 backend/src/validators/schema.py
 """
 
-import pandas as pd
-from typing import List, Dict, Tuple, Any
 from datetime import datetime
+from typing import Any, Dict, List, Tuple
 
-from src.core.models import (
-    AnimalCategory, CaseStatus, Severity, DataSource
-)
+import pandas as pd
+
+from src.core.models import AnimalCategory, CaseStatus, DataSource, Severity
 
 
 class SchemaValidator:

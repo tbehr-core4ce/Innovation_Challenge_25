@@ -11,11 +11,11 @@
 #
 # This file is kept for reference only and should not be used in production.
 
-import pandas as pd
 import os
-from typing import List
 from datetime import datetime
+from typing import List
 
+import pandas as pd
 
 
 class CommercialBackyardFlock_Ingestor:

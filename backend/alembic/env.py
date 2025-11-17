@@ -1,13 +1,12 @@
 import sys
-from pathlib import Path
 from logging.config import fileConfig
-from src.utils.settings import settings
+from pathlib import Path
 
-from sqlalchemy import engine_from_config
-from sqlalchemy import pool
+import geoalchemy2
+from sqlalchemy import engine_from_config, pool
 
 from alembic import context
-import geoalchemy2
+from src.utils.settings import settings
 
 backend_path = Path(__file__).parent.parent
 
@@ -25,7 +24,7 @@ if config.config_file_name is not None:
 # for 'autogenerate' support
 # from myapp import mymodel
 # target_metadata = mymodel.Base.metadata
-from src.core.logging import setup_logging, get_logger
+from src.core.logging import get_logger, setup_logging
 
 setup_logging("INFO")
 
@@ -34,7 +33,7 @@ logger = get_logger("alembic.env")
 # Import all models for 'autogenerate' support
 
 from src.core.database import Base
-from src.core.models import * # Import all models
+from src.core.models import *  # Import all models
 
 target_metadata = Base.metadata # This line is key!
 

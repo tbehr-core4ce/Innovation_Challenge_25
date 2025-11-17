@@ -4,19 +4,20 @@ Handles bulk insertion into database with DataImport tracking.
 backend/src/parsers/loader.py
 """
 
-import pandas as pd
-from sqlalchemy.orm import Session
-from sqlalchemy.exc import IntegrityError
-from typing import List, Dict, Tuple, Optional
-from datetime import datetime
 import hashlib
-import time
 import json
 import os
+import time
+from datetime import datetime
 from pathlib import Path
+from typing import Dict, List, Optional, Tuple
 
-from src.core.models import H5N1Case, DataImport, DataSource
+import pandas as pd
+from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm import Session
+
 from src.core.database import get_db
+from src.core.models import DataImport, DataSource, H5N1Case
 
 
 class H5N1DataLoader:
@@ -234,7 +235,8 @@ class H5N1DataLoader:
                     try:
                         # Convert enum string values to enum objects if needed
                         # (Parsers typically provide enum objects, but pandas may convert to strings)
-                        from src.core.models import AnimalCategory, CaseStatus, Severity
+                        from src.core.models import (AnimalCategory,
+                                                     CaseStatus, Severity)
 
                         if 'animal_category' in record and isinstance(record['animal_category'], str):
                             record['animal_category'] = AnimalCategory(record['animal_category'])

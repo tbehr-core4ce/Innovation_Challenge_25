@@ -4,19 +4,18 @@ Includes support for WOAH categorization and geospatial data.
 backend/src/core/models.py
 """
 
-from sqlalchemy import (
-    Column, Integer, String, Float, DateTime, Boolean, Text,
-    ForeignKey, Index, Enum as SQLEnum, JSON
-)
-from sqlalchemy.orm import relationship
-from sqlalchemy.sql import func
-from geoalchemy2 import Geometry
 from datetime import datetime
 from enum import Enum
 from typing import Optional
 
-from .database import Base
+from geoalchemy2 import Geometry
+from sqlalchemy import JSON, Boolean, Column, DateTime
+from sqlalchemy import Enum as SQLEnum
+from sqlalchemy import Float, ForeignKey, Index, Integer, String, Text
+from sqlalchemy.orm import relationship
+from sqlalchemy.sql import func
 
+from .database import Base
 
 # ============================================================================
 # Enums for H5N1 Classification

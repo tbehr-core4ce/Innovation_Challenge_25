@@ -4,10 +4,11 @@ Uses simple lookup table approach for US counties.
 backend/src/validators/geocoder.py
 """
 
-import pandas as pd
-from typing import Optional, Tuple, Dict
 import os
 from pathlib import Path
+from typing import Dict, Optional, Tuple
+
+import pandas as pd
 
 
 class GeocodingService:

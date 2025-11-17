@@ -4,6 +4,7 @@ Loads from environment variables with sensible defaults
 """
 import os
 from typing import Any, Dict, Optional
+
 # from dotenv import load_dotenv
 
 # # Find the .env file (go up from src/utils/ to backend/)

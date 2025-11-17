@@ -4,16 +4,15 @@ Provides common parsing logic and abstract methods for specific parsers.
 backend/src/parsers/base.py
 """
 
-import pandas as pd
-from abc import ABC, abstractmethod
-from typing import Dict, List, Optional, Tuple, Any
-from datetime import datetime
 import hashlib
+from abc import ABC, abstractmethod
+from datetime import datetime
+from typing import Any, Dict, List, Optional, Tuple
 
-from src.core.models import (
-    H5N1Case, AnimalCategory, CaseStatus,
-    Severity, DataSource
-)
+import pandas as pd
+
+from src.core.models import (AnimalCategory, CaseStatus, DataSource, H5N1Case,
+                             Severity)
 
 
 class BaseParser(ABC):

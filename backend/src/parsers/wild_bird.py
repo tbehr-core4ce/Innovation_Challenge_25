@@ -4,11 +4,13 @@ Handles USDA HPAI Detections in Wild Birds.csv dataset.
 backend/src/parsers/wild_bird.py
 """
 
-import pandas as pd
-from typing import Dict, Any
 import json
+from typing import Any, Dict
 
-from src.core.models import AnimalCategory, DataSource, CaseStatus
+import pandas as pd
+
+from src.core.models import AnimalCategory, CaseStatus, DataSource
+
 from .base import BaseParser
 
 

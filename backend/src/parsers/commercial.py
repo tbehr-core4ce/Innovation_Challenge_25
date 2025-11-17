@@ -4,10 +4,12 @@ Handles USDA commercial-backyard-flocks.csv dataset.
 backend/src/parsers/commercial.py
 """
 
-import pandas as pd
-from typing import Dict, Any
+from typing import Any, Dict
 
-from src.core.models import AnimalCategory, DataSource, CaseStatus
+import pandas as pd
+
+from src.core.models import AnimalCategory, CaseStatus, DataSource
+
 from .base import BaseParser
 
 
