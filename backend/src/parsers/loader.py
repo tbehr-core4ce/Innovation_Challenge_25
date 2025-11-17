@@ -355,7 +355,21 @@ class H5N1DataLoader:
         print(f"{'='*60}\n")
 
         # Write comprehensive log file
-        dataset_name = source.value.lower() if hasattr(source, 'value') else str(source).lower()
+        # Extract dataset name from file path instead of DataSource enum
+        # e.g., "commercial-backyard-flocks.csv" -> "commercial"
+        # e.g., "HPAI Detections in Wild Birds.csv" -> "wild_bird"
+        # e.g., "HPAI Detections in Mammals.csv" -> "mammal"
+        filename = os.path.basename(file_path).lower()
+        if 'commercial' in filename or 'backyard' in filename:
+            dataset_name = 'commercial'
+        elif 'wild' in filename and 'bird' in filename:
+            dataset_name = 'wild_bird'
+        elif 'mammal' in filename:
+            dataset_name = 'mammal'
+        else:
+            # Fallback to source enum
+            dataset_name = source.value.lower() if hasattr(source, 'value') else str(source).lower()
+
         log_data = {
             'timestamp': datetime.now().isoformat(),
             'dataset': dataset_name,

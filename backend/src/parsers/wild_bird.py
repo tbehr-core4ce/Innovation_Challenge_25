@@ -26,7 +26,8 @@ class WildBirdParser(BaseParser):
         "County": "county",
         "Collection Date": "case_date",
         "Date Detected": "report_date",
-        "Bird Species": "animal_species"
+        "Bird Species": "animal_species",
+        "Flock Size": "animals_affected"  # Added by aggregation
     }
 
     DEFAULTS = {
@@ -84,14 +85,71 @@ class WildBirdParser(BaseParser):
             if col in df.columns:
                 df[col] = df[col].str.strip()
 
+        # Aggregate duplicate detections BEFORE column standardization
+        # (Need original column names for grouping)
+        df = self.aggregate_duplicates(df)
+
         return df
+
+    def aggregate_duplicates(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Aggregate duplicate detections into single records.
+
+        Multiple detections of same species in same county on same day
+        are combined into one record with detection count.
+
+        Args:
+            df: DataFrame with ORIGINAL column names (before standardization)
+
+        Returns:
+            DataFrame with duplicates aggregated
+        """
+        # Group by key fields that define a unique "event" - using ORIGINAL column names
+        group_cols = ['County', 'State', 'Collection Date', 'Date Detected',
+                      'Bird Species', 'HPAI Strain']
+
+        # Only use columns that exist
+        group_cols = [col for col in group_cols if col in df.columns]
+
+        if not group_cols:
+            return df
+
+        # Count detections per group
+        detection_counts = df.groupby(group_cols, dropna=False).size().reset_index(name='detection_count')
+
+        # Keep first row of each group (has all the metadata)
+        df_agg = df.groupby(group_cols, dropna=False).first().reset_index()
+
+        # Add detection counts
+        df_agg = df_agg.merge(detection_counts, on=group_cols, how='left')
+
+        # Add Flock Size column with detection count (will be mapped to animals_affected)
+        df_agg['Flock Size'] = df_agg['detection_count']
+
+        # Add description for multi-detection records (lowercase for model compatibility)
+        def create_description(row):
+            count = row.get('detection_count', 1)
+            if count > 1:
+                return f"Aggregated from {count} individual bird detections"
+            return None
+
+        df_agg['description'] = df_agg.apply(create_description, axis=1)
+
+        # Drop the temporary count column
+        df_agg = df_agg.drop(columns=['detection_count'])
+
+        original_count = len(df)
+        aggregated_count = len(df_agg)
+        if original_count > aggregated_count:
+            print(f"  📊 Aggregated {original_count} detections into {aggregated_count} unique records")
+
+        return df_agg
 
     def generate_external_id(self, row: pd.Series, source_prefix: str) -> str:
         """
         Generate unique external_id for wild bird detections.
 
-        Includes report_date and HPAI strain to differentiate multiple detections
-        in same county on same day.
+        After aggregation, each unique detection event gets one external_id.
 
         Args:
             row: DataFrame row
@@ -102,7 +160,7 @@ class WildBirdParser(BaseParser):
         """
         import hashlib
 
-        # Combine key fields for uniqueness - include report_date and strain for unique detections
+        # Combine key fields for uniqueness - these match the aggregation grouping
         key_parts = [
             str(row.get('county', '')),
             str(row.get('state_province', '')),
