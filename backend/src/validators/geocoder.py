@@ -121,10 +121,10 @@ class GeocodingService:
 
     def _get_state_centroids(self) -> Dict[str, Tuple[float, float]]:
         """
-        Get approximate centroids for US states.
+        Get approximate centroids for US states and territories.
 
         Returns:
-            Dictionary of state name -> (lat, lon)
+            Dictionary of state/territory name -> (lat, lon)
         """
         return {
             'Alabama': (32.806671, -86.791130),
@@ -176,7 +176,13 @@ class GeocodingService:
             'Washington': (47.400902, -121.490494),
             'West Virginia': (38.491226, -80.954453),
             'Wisconsin': (44.268543, -89.616508),
-            'Wyoming': (42.755966, -107.302490)
+            'Wyoming': (42.755966, -107.302490),
+            # US Territories
+            'Puerto Rico': (18.2208, -66.5901),
+            'Guam': (13.4443, 144.7937),
+            'U.S. Virgin Islands': (18.3358, -64.8963),
+            'American Samoa': (-14.2710, -170.1322),
+            'Northern Mariana Islands': (15.0979, 145.6739)
         }
 
     def geocode_dataframe(
