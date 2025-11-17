@@ -59,8 +59,9 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['parent_id'], ['geographic_boundaries.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
+    # Spatial index for boundary geometry
     op.create_index('idx_boundary_spatial', 'geographic_boundaries', ['boundary'], unique=False, postgresql_using='gist')
-    op.create_index('idx_geographic_boundaries_boundary', 'geographic_boundaries', ['boundary'], unique=False, postgresql_using='gist')
+    # Spatial index for centroid
     op.create_index('idx_geographic_boundaries_centroid', 'geographic_boundaries', ['centroid'], unique=False, postgresql_using='gist')
     op.create_index(op.f('ix_geographic_boundaries_boundary_type'), 'geographic_boundaries', ['boundary_type'], unique=False)
     op.create_index(op.f('ix_geographic_boundaries_code'), 'geographic_boundaries', ['code'], unique=False)
@@ -98,9 +99,9 @@ def upgrade() -> None:
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index('idx_case_date_status', 'h5n1_cases', ['case_date', 'status'], unique=False)
-    op.create_index('idx_h5n1_cases_location', 'h5n1_cases', ['location'], unique=False, postgresql_using='gist')
     op.create_index('idx_location_category', 'h5n1_cases', ['country', 'animal_category'], unique=False)
     op.create_index('idx_severity_date', 'h5n1_cases', ['severity', 'case_date'], unique=False)
+    # Spatial index for location geometry
     op.create_index('idx_spatial', 'h5n1_cases', ['location'], unique=False, postgresql_using='gist')
     op.create_index(op.f('ix_h5n1_cases_animal_category'), 'h5n1_cases', ['animal_category'], unique=False)
     op.create_index(op.f('ix_h5n1_cases_case_date'), 'h5n1_cases', ['case_date'], unique=False)
@@ -784,17 +785,17 @@ def downgrade() -> None:
     op.drop_index(op.f('ix_h5n1_cases_country'), table_name='h5n1_cases')
     op.drop_index(op.f('ix_h5n1_cases_case_date'), table_name='h5n1_cases')
     op.drop_index(op.f('ix_h5n1_cases_animal_category'), table_name='h5n1_cases')
+    # Drop spatial index for location
     op.drop_index('idx_spatial', table_name='h5n1_cases', postgresql_using='gist')
     op.drop_index('idx_severity_date', table_name='h5n1_cases')
     op.drop_index('idx_location_category', table_name='h5n1_cases')
-    op.drop_index('idx_h5n1_cases_location', table_name='h5n1_cases', postgresql_using='gist')
     op.drop_index('idx_case_date_status', table_name='h5n1_cases')
     op.drop_table('h5n1_cases')
     op.drop_index(op.f('ix_geographic_boundaries_id'), table_name='geographic_boundaries')
     op.drop_index(op.f('ix_geographic_boundaries_code'), table_name='geographic_boundaries')
     op.drop_index(op.f('ix_geographic_boundaries_boundary_type'), table_name='geographic_boundaries')
+    # Drop spatial indexes
     op.drop_index('idx_geographic_boundaries_centroid', table_name='geographic_boundaries', postgresql_using='gist')
-    op.drop_index('idx_geographic_boundaries_boundary', table_name='geographic_boundaries', postgresql_using='gist')
     op.drop_index('idx_boundary_spatial', table_name='geographic_boundaries', postgresql_using='gist')
     op.drop_table('geographic_boundaries')
     op.drop_index(op.f('ix_data_imports_id'), table_name='data_imports')
