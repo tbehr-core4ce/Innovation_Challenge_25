@@ -25,7 +25,8 @@ class MammalParser(BaseParser):
         "County": "county",
         "Date Collected": "case_date",
         "Date Detected": "report_date",
-        "Species": "animal_species"
+        "Species": "animal_species",
+        "Animals Affected": "animals_affected"  # Added by aggregation
     }
 
     DEFAULTS = {
@@ -96,7 +97,66 @@ class MammalParser(BaseParser):
         if 'HPAI Strain' in df.columns:
             df['HPAI Strain'] = df['HPAI Strain'].str.strip()
 
+        # Aggregate duplicate detections BEFORE column standardization
+        # (Need original column names for grouping)
+        df = self.aggregate_duplicates(df)
+
         return df
+
+    def aggregate_duplicates(self, df: pd.DataFrame) -> pd.DataFrame:
+        """
+        Aggregate duplicate detections into single records.
+
+        Multiple detections of same species in same county on same day
+        are combined into one record with detection count.
+
+        Args:
+            df: DataFrame with ORIGINAL column names (before standardization)
+
+        Returns:
+            DataFrame with duplicates aggregated
+        """
+        # Group by key fields that define a unique "event" - using ORIGINAL column names
+        group_cols = ['County', 'State', 'Date Collected', 'Date Detected',
+                      'Species', 'HPAI Strain']
+
+        # Only use columns that exist
+        group_cols = [col for col in group_cols if col in df.columns]
+
+        if not group_cols:
+            return df
+
+        # Count detections per group
+        detection_counts = df.groupby(group_cols, dropna=False).size().reset_index(name='detection_count')
+
+        # Keep first row of each group (has all the metadata)
+        df_agg = df.groupby(group_cols, dropna=False).first().reset_index()
+
+        # Add detection counts
+        df_agg = df_agg.merge(detection_counts, on=group_cols, how='left')
+
+        # Add a column with detection count (will be mapped to animals_affected)
+        # For mammals, we create a new column since original doesn't have Flock Size
+        df_agg['Animals Affected'] = df_agg['detection_count']
+
+        # Add description for multi-detection records (lowercase for model compatibility)
+        def create_description(row):
+            count = row.get('detection_count', 1)
+            if count > 1:
+                return f"Aggregated from {count} individual mammal detections"
+            return None
+
+        df_agg['description'] = df_agg.apply(create_description, axis=1)
+
+        # Drop the temporary count column
+        df_agg = df_agg.drop(columns=['detection_count'])
+
+        original_count = len(df)
+        aggregated_count = len(df_agg)
+        if original_count > aggregated_count:
+            print(f"  📊 Aggregated {original_count} detections into {aggregated_count} unique records")
+
+        return df_agg
 
     def determine_animal_category(self, species: str) -> AnimalCategory:
         """
