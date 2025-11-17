@@ -1,143 +1,16 @@
 'use client'
 
 // frontend/app/(routes)/dashboard/page.tsx
-// Dashboard based on YOUR actual H5N1Case database model
-
+// TO DO: ADD CHARTS / COMPONENTS THAT MAKE SENSE WITH THE DATA WE HAVE! 
 import { useState, useEffect } from 'react'
 import { Map, Activity, AlertTriangle, Users, Bird, TrendingUp } from 'lucide-react'
+import { betsApi, AnalyticsData, TimelineDataPoint, RegionDataPoint, AnimalCategoryData, StatusData, DataSourceData, RecentAlert
+} from '@/services/betsApi'  
 import MetricCard from '@/app/components/MetricCard'
 import BarChart from '@/app/components/BarChart'
 import LineChart from '@/app/components/LineChart'
 import PieChart from '@/app/components/PieChart'
 import Tooltip from '@/app/components/Tooltip'
-
-// ==================== DATA TYPES (Based on YOUR models.py) ====================
-
-interface AnalyticsData {
-  totalCases: number
-  confirmedCases: number
-  suspectedCases: number
-  underInvestigation: number
-  criticalSeverity: number
-  highSeverity: number
-  animalsAffected: number
-  animalsDeceased: number
-}
-
-interface TimelineDataPoint {
-  month: string
-  total: number
-  poultry: number
-  dairy_cattle: number
-  wild_bird: number
-  wild_mammal: number
-}
-
-interface RegionDataPoint {
-  name: string
-  value: number
-}
-
-interface AnimalCategoryData {
-  name: string
-  value: number
-  color: string
-}
-
-interface StatusData {
-  name: string
-  value: number
-  color: string
-}
-
-interface DataSourceData {
-  name: string
-  value: number
-}
-
-interface RecentAlert {
-  date: string
-  type: string
-  location: string
-  severity: string
-  message: string
-}
-
-//  DATA FETCHER 
-
-async function fetchDashboardData() {
-  
-  return {
-    analytics: {
-      totalCases: 247,
-      confirmedCases: 189,
-      suspectedCases: 34,
-      underInvestigation: 24,
-      criticalSeverity: 8,
-      highSeverity: 34,
-      animalsAffected: 12450,
-      animalsDeceased: 3890
-    },
-    timeline: [
-      { month: 'Jan', total: 45, poultry: 38, dairy_cattle: 5, wild_bird: 2, wild_mammal: 0 },
-      { month: 'Feb', total: 62, poultry: 52, dairy_cattle: 7, wild_bird: 3, wild_mammal: 0 },
-      { month: 'Mar', total: 78, poultry: 65, dairy_cattle: 8, wild_bird: 4, wild_mammal: 1 },
-      { month: 'Apr', total: 95, poultry: 79, dairy_cattle: 10, wild_bird: 5, wild_mammal: 1 },
-      { month: 'May', total: 134, poultry: 112, dairy_cattle: 14, wild_bird: 6, wild_mammal: 2 },
-      { month: 'Jun', total: 189, poultry: 165, dairy_cattle: 14, wild_bird: 8, wild_mammal: 2 },
-      { month: 'Jul', total: 247, poultry: 189, dairy_cattle: 46, wild_bird: 10, wild_mammal: 2 }
-    ],
-    regions: [
-      { name: 'California', value: 45 },
-      { name: 'Texas', value: 38 },
-      { name: 'Michigan', value: 32 },
-      { name: 'Wisconsin', value: 28 },
-      { name: 'New York', value: 24 },
-      { name: 'Florida', value: 21 },
-      { name: 'Others', value: 59 }
-    ],
-    animalCategories: [
-      { name: 'Poultry', value: 189, color: '#f97316' },
-      { name: 'Dairy Cattle', value: 46, color: '#eab308' },
-      { name: 'Wild Bird', value: 10, color: '#3b82f6' },
-      { name: 'Wild Mammal', value: 2, color: '#8b5cf6' }
-    ],
-    statusBreakdown: [
-      { name: 'Confirmed', value: 189, color: '#10b981' },
-      { name: 'Suspected', value: 34, color: '#f59e0b' },
-      { name: 'Under Investigation', value: 24, color: '#3b82f6' }
-    ],
-    dataSources: [
-      { name: 'WOAH', value: 120 },
-      { name: 'CDC', value: 45 },
-      { name: 'USDA', value: 67 },
-      { name: 'State Agency', value: 15 }
-    ],
-    recentAlerts: [
-      {
-        date: '2024-07-15',
-        type: 'New Outbreak',
-        location: 'California',
-        severity: 'high',
-        message: 'Cluster detected in dairy farms'
-      },
-      {
-        date: '2024-07-14',
-        type: 'Geographic Spread',
-        location: 'Texas',
-        severity: 'medium',
-        message: 'Cases spreading to neighboring counties'
-      },
-      {
-        date: '2024-07-13',
-        type: 'Severity Increase',
-        location: 'Michigan',
-        severity: 'high',
-        message: 'Multiple high-severity cases reported'
-      }
-    ]
-  }
-}
 
 //  MAIN DASHBOARD 
 
@@ -152,24 +25,39 @@ export default function DashboardPage() {
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const loadData = async () => {
-      setLoading(true)
-      await new Promise(resolve => setTimeout(resolve, 500))
+  const loadData = async () => {
+    setLoading(true)
+    
+    try {
+      // Fetch all data from API
+      const [overview, timeline, regions, animals, status, sources, alerts] = await Promise.all([
+        betsApi.getDashboardOverview(),
+        betsApi.getDashboardTimeline(),
+        betsApi.getDashboardRegions(),
+        betsApi.getAnimalCategories(),
+        betsApi.getStatusBreakdown(),
+        betsApi.getDataSources(),
+        betsApi.getDashboardAlerts()
+      ])
       
-      const data = await fetchDashboardData()
+      // Update state with API data
+      setAnalytics(overview)
+      setTimelineData(timeline)
+      setRegionData(regions)
+      setAnimalCategories(animals)
+      setStatusData(status)
+      setDataSources(sources)
+      setRecentAlerts(alerts)
       
-      setAnalytics(data.analytics)
-      setTimelineData(data.timeline)
-      setRegionData(data.regions)
-      setAnimalCategories(data.animalCategories)
-      setStatusData(data.statusBreakdown)
-      setDataSources(data.dataSources)
-      setRecentAlerts(data.recentAlerts)
+    } catch (error) {
+      console.error('Failed to load dashboard:', error)
+    } finally {
       setLoading(false)
     }
+  }
 
-    loadData()
-  }, [])
+  loadData()
+}, [])
 
   if (loading) {
     return (
