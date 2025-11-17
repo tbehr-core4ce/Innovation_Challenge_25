@@ -8,7 +8,7 @@ import pandas as pd
 from typing import Dict, Any
 import json
 
-from src.core.models import AnimalCategory, DataSource, CaseStatus
+from core.models import AnimalCategory, DataSource, CaseStatus
 from .base import BaseParser
 
 
@@ -136,5 +136,5 @@ class WildBirdParser(BaseParser):
         Returns:
             Severity.LOW (individual bird detections)
         """
-        from src.core.models import Severity
+        from core.models import Severity
         return Severity.LOW

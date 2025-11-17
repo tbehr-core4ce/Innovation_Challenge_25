@@ -7,7 +7,7 @@ backend/src/parsers/commercial.py
 import pandas as pd
 from typing import Dict, Any
 
-from src.core.models import AnimalCategory, DataSource, CaseStatus
+from core.models import AnimalCategory, DataSource, CaseStatus
 from .base import BaseParser
 
 

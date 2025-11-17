@@ -8,7 +8,7 @@ import pandas as pd
 from typing import List, Dict, Tuple, Any
 from datetime import datetime
 
-from src.core.models import (
+from core.models import (
     AnimalCategory, CaseStatus, Severity, DataSource
 )
 

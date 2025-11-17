@@ -12,8 +12,8 @@ from datetime import datetime
 import hashlib
 import time
 
-from src.core.models import H5N1Case, DataImport, DataSource
-from src.core.database import get_db
+from core.models import H5N1Case, DataImport, DataSource
+from core.database import get_db
 
 
 class H5N1DataLoader:
@@ -162,15 +162,15 @@ class H5N1DataLoader:
                     try:
                         # Convert enum string values to enum objects if needed
                         if isinstance(record.get('animal_category'), str):
-                            from src.core.models import AnimalCategory
+                            from core.models import AnimalCategory
                             record['animal_category'] = AnimalCategory(record['animal_category'])
 
                         if isinstance(record.get('status'), str):
-                            from src.core.models import CaseStatus
+                            from core.models import CaseStatus
                             record['status'] = CaseStatus(record['status'])
 
                         if isinstance(record.get('severity'), str):
-                            from src.core.models import Severity
+                            from core.models import Severity
                             record['severity'] = Severity(record['severity'])
 
                         if isinstance(record.get('data_source'), str):

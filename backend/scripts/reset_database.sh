@@ -10,7 +10,7 @@ echo "================================"
 
 # Database configuration (adjust these if needed)
 DB_NAME="bets_db"
-DB_USER="postgres"
+DB_USER="bets_user"
 DB_HOST="localhost"
 
 echo ""

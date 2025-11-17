@@ -10,7 +10,7 @@ from typing import Dict, List, Optional, Tuple, Any
 from datetime import datetime
 import hashlib
 
-from src.core.models import (
+from core.models import (
     H5N1Case, AnimalCategory, CaseStatus,
     Severity, DataSource
 )

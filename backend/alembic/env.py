@@ -71,6 +71,15 @@ def run_migrations_offline() -> None:
 
     logger.info("Offline migrations completed")
 
+def include_object(object, name, type_, reflected, compare_to):
+    if type_ == "table":
+        schema = getattr(object, "schema", None)
+        if schema in ("tiger", "tiger_data"):
+            return False
+        if name.startswith(("zip_lookup", "zip_state", "zip_state_loc", "geocode_", "tiger_", "pagc_")):
+            return False
+    return True
+
 
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode."""
@@ -90,12 +99,13 @@ def run_migrations_online() -> None:
         context.configure(
             connection=connection, 
             target_metadata=target_metadata,
+            include_object=include_object,
             include_schemas=False,  # Don't track other schemas
             compare_type=True,
-            include_object=lambda obj, name, type_, reflected, compare_to: 
-                not name.startswith('tiger_') and  # Ignore TIGER tables
-                name not in ['spatial_ref_sys', 'topology', 'layer', 'pagc_gaz', 
-                            'pagc_lex', 'pagc_rules']  # Ignore PostGIS system tables
+            # include_object=lambda obj, name, type_, reflected, compare_to: 
+            #     not name.startswith('tiger_') and  # Ignore TIGER tables
+            #     name not in ['spatial_ref_sys', 'topology', 'layer', 'pagc_gaz', 
+            #                 'pagc_lex', 'pagc_rules']  # Ignore PostGIS system tables
         )
         with context.begin_transaction():
             context.run_migrations()
@@ -106,3 +116,4 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
+

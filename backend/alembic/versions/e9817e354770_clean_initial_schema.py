@@ -1,8 +1,8 @@
-"""Initial schema
+"""clean initial schema
 
-Revision ID: 0e6e7d5e4dd0
+Revision ID: e9817e354770
 Revises: 
-Create Date: 2025-11-15 16:36:44.957293
+Create Date: 2025-11-17 11:21:38.924258
 
 """
 from typing import Sequence, Union
@@ -13,7 +13,7 @@ from sqlalchemy.dialects import postgresql
 import geoalchemy2
 
 # revision identifiers, used by Alembic.
-revision: str = '0e6e7d5e4dd0'
+revision: str = 'e9817e354770'
 down_revision: Union[str, Sequence[str], None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
@@ -50,8 +50,8 @@ def upgrade() -> None:
     sa.Column('parent_id', sa.Integer(), nullable=True),
     sa.Column('country', sa.String(length=100), nullable=True),
     sa.Column('state_province', sa.String(length=100), nullable=True),
-    sa.Column('boundary', geoalchemy2.types.Geometry(geometry_type='POLYGON', srid=4326, dimension=2, from_text='ST_GeomFromEWKT', name='geometry', nullable=False), nullable=False),
-    sa.Column('centroid', geoalchemy2.types.Geometry(geometry_type='POINT', srid=4326, dimension=2, from_text='ST_GeomFromEWKT', name='geometry'), nullable=True),
+    sa.Column('boundary', geoalchemy2.types.Geometry(geometry_type='POLYGON', srid=4326, dimension=2, spatial_index=False, from_text='ST_GeomFromEWKT', name='geometry', nullable=False), nullable=False),
+    sa.Column('centroid', geoalchemy2.types.Geometry(geometry_type='POINT', srid=4326, dimension=2, spatial_index=False, from_text='ST_GeomFromEWKT', name='geometry'), nullable=True),
     sa.Column('area_sq_km', sa.Float(), nullable=True),
     sa.Column('extra_metadata', sa.JSON(), nullable=True),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text('now()'), nullable=False),
@@ -59,10 +59,7 @@ def upgrade() -> None:
     sa.ForeignKeyConstraint(['parent_id'], ['geographic_boundaries.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
-    # Spatial index for boundary geometry
     op.create_index('idx_boundary_spatial', 'geographic_boundaries', ['boundary'], unique=False, postgresql_using='gist')
-    # Spatial index for centroid
-    op.create_index('idx_geographic_boundaries_centroid', 'geographic_boundaries', ['centroid'], unique=False, postgresql_using='gist')
     op.create_index(op.f('ix_geographic_boundaries_boundary_type'), 'geographic_boundaries', ['boundary_type'], unique=False)
     op.create_index(op.f('ix_geographic_boundaries_code'), 'geographic_boundaries', ['code'], unique=False)
     op.create_index(op.f('ix_geographic_boundaries_id'), 'geographic_boundaries', ['id'], unique=False)
@@ -82,7 +79,7 @@ def upgrade() -> None:
     sa.Column('county', sa.String(length=100), nullable=True),
     sa.Column('city', sa.String(length=100), nullable=True),
     sa.Column('location_name', sa.String(length=255), nullable=True, comment='Farm name, facility name, etc.'),
-    sa.Column('location', geoalchemy2.types.Geometry(geometry_type='POINT', srid=4326, dimension=2, from_text='ST_GeomFromEWKT', name='geometry'), nullable=True, comment='Geographic coordinates (longitude, latitude)'),
+    sa.Column('location', geoalchemy2.types.Geometry(geometry_type='POINT', srid=4326, dimension=2, spatial_index=False, from_text='ST_GeomFromEWKT', name='geometry'), nullable=True, comment='Geographic coordinates (longitude, latitude)'),
     sa.Column('latitude', sa.Float(), nullable=True),
     sa.Column('longitude', sa.Float(), nullable=True),
     sa.Column('data_source', sa.Enum('WOAH', 'CDC', 'USDA', 'STATE_AGENCY', 'MANUAL_ENTRY', 'OTHER', name='datasource'), nullable=False),
@@ -101,7 +98,6 @@ def upgrade() -> None:
     op.create_index('idx_case_date_status', 'h5n1_cases', ['case_date', 'status'], unique=False)
     op.create_index('idx_location_category', 'h5n1_cases', ['country', 'animal_category'], unique=False)
     op.create_index('idx_severity_date', 'h5n1_cases', ['severity', 'case_date'], unique=False)
-    # Spatial index for location geometry
     op.create_index('idx_spatial', 'h5n1_cases', ['location'], unique=False, postgresql_using='gist')
     op.create_index(op.f('ix_h5n1_cases_animal_category'), 'h5n1_cases', ['animal_category'], unique=False)
     op.create_index(op.f('ix_h5n1_cases_case_date'), 'h5n1_cases', ['case_date'], unique=False)
@@ -156,91 +152,67 @@ def upgrade() -> None:
     op.create_index(op.f('ix_alerts_alert_type'), 'alerts', ['alert_type'], unique=False)
     op.create_index(op.f('ix_alerts_id'), 'alerts', ['id'], unique=False)
     op.create_index(op.f('ix_alerts_is_active'), 'alerts', ['is_active'], unique=False)
-    op.drop_table('tract')
-    op.drop_table('zcta5')
-    op.drop_table('geocode_settings')
-    op.drop_table('state_lookup')
-    op.drop_table('zip_lookup_base')
-    op.drop_table('zip_lookup_all')
+    op.drop_table('loader_lookuptables')
+    op.drop_table('spatial_ref_sys')
+    op.drop_index(op.f('place_lookup_name_idx'), table_name='place_lookup')
+    op.drop_index(op.f('place_lookup_state_idx'), table_name='place_lookup')
+    op.drop_table('place_lookup')
+    op.drop_index(op.f('county_lookup_name_idx'), table_name='county_lookup')
+    op.drop_index(op.f('county_lookup_state_idx'), table_name='county_lookup')
+    op.drop_table('county_lookup')
+    op.drop_index(op.f('idx_tiger_state_the_geom_gist'), table_name='state', postgresql_using='gist')
+    op.drop_table('state')
+    op.drop_index(op.f('idx_tiger_county'), table_name='county')
+    op.drop_table('county')
+    op.drop_index(op.f('idx_tiger_addr_tlid_statefp'), table_name='addr')
+    op.drop_index(op.f('idx_tiger_addr_zip'), table_name='addr')
+    op.drop_table('addr')
+    op.drop_index(op.f('street_type_lookup_abbrev_idx'), table_name='street_type_lookup')
+    op.drop_table('street_type_lookup')
     op.drop_index(op.f('countysub_lookup_name_idx'), table_name='countysub_lookup')
     op.drop_index(op.f('countysub_lookup_state_idx'), table_name='countysub_lookup')
     op.drop_table('countysub_lookup')
-    op.drop_index(op.f('idx_tiger_state_the_geom_gist'), table_name='state', postgresql_using='gist')
-    op.drop_table('state')
-    op.drop_index(op.f('idx_tiger_featnames_lname'), table_name='featnames')
-    op.drop_index(op.f('idx_tiger_featnames_snd_name'), table_name='featnames')
-    op.drop_index(op.f('idx_tiger_featnames_tlid_statefp'), table_name='featnames')
-    op.drop_table('featnames')
     op.drop_index(op.f('idx_edges_tlid'), table_name='edges')
     op.drop_index(op.f('idx_tiger_edges_countyfp'), table_name='edges')
     op.drop_index(op.f('idx_tiger_edges_the_geom_gist'), table_name='edges', postgresql_using='gist')
     op.drop_table('edges')
-    op.drop_table('loader_lookuptables')
-    op.drop_index(op.f('idx_tiger_faces_countyfp'), table_name='faces')
-    op.drop_index(op.f('idx_tiger_faces_tfid'), table_name='faces')
-    op.drop_table('faces')
-    op.drop_table('geocode_settings_default')
-    op.drop_table('loader_platform')
-    op.drop_index(op.f('idx_tiger_county'), table_name='county')
-    op.drop_table('county')
-    op.drop_table('place')
-    op.drop_table('zip_lookup')
-    op.drop_index(op.f('secondary_unit_lookup_abbrev_idx'), table_name='secondary_unit_lookup')
-    op.drop_table('secondary_unit_lookup')
-    op.drop_table('tabblock20')
+    op.drop_table('tabblock')
     op.drop_index(op.f('idx_addrfeat_geom_gist'), table_name='addrfeat', postgresql_using='gist')
     op.drop_index(op.f('idx_addrfeat_tlid'), table_name='addrfeat')
     op.drop_index(op.f('idx_addrfeat_zipl'), table_name='addrfeat')
     op.drop_index(op.f('idx_addrfeat_zipr'), table_name='addrfeat')
     op.drop_table('addrfeat')
+    op.drop_index(op.f('idx_tiger_faces_countyfp'), table_name='faces')
+    op.drop_index(op.f('idx_tiger_faces_tfid'), table_name='faces')
+    op.drop_index(op.f('tiger_faces_the_geom_gist'), table_name='faces', postgresql_using='gist')
+    op.drop_table('faces')
+    op.drop_table('tabblock20')
     op.drop_table('loader_variables')
-    op.drop_index(op.f('county_lookup_name_idx'), table_name='county_lookup')
-    op.drop_index(op.f('county_lookup_state_idx'), table_name='county_lookup')
-    op.drop_table('county_lookup')
-    op.drop_index(op.f('idx_tiger_addr_tlid_statefp'), table_name='addr')
-    op.drop_index(op.f('idx_tiger_addr_zip'), table_name='addr')
-    op.drop_table('addr')
-    op.drop_table('zip_state_loc')
-    op.drop_table('zip_state')
-    op.drop_table('tabblock')
     op.drop_table('bg')
-    op.drop_index(op.f('tige_cousub_the_geom_gist'), table_name='cousub', postgresql_using='gist')
-    op.drop_table('cousub')
-    op.drop_index(op.f('street_type_lookup_abbrev_idx'), table_name='street_type_lookup')
-    op.drop_table('street_type_lookup')
+    op.drop_table('topology')
+    op.drop_table('tract')
+    op.drop_index(op.f('tiger_place_the_geom_gist'), table_name='place', postgresql_using='gist')
+    op.drop_table('place')
+    op.drop_table('zcta5')
+    op.drop_table('state_lookup')
+    op.drop_table('layer')
+    op.drop_table('loader_platform')
     op.drop_index(op.f('direction_lookup_abbrev_idx'), table_name='direction_lookup')
     op.drop_table('direction_lookup')
-    op.drop_index(op.f('place_lookup_name_idx'), table_name='place_lookup')
-    op.drop_index(op.f('place_lookup_state_idx'), table_name='place_lookup')
-    op.drop_table('place_lookup')
+    op.drop_index(op.f('idx_tiger_featnames_lname'), table_name='featnames')
+    op.drop_index(op.f('idx_tiger_featnames_snd_name'), table_name='featnames')
+    op.drop_index(op.f('idx_tiger_featnames_tlid_statefp'), table_name='featnames')
+    op.drop_table('featnames')
+    op.drop_index(op.f('secondary_unit_lookup_abbrev_idx'), table_name='secondary_unit_lookup')
+    op.drop_table('secondary_unit_lookup')
+    op.drop_index(op.f('tige_cousub_the_geom_gist'), table_name='cousub', postgresql_using='gist')
+    op.drop_table('cousub')
     # ### end Alembic commands ###
 
 
 def downgrade() -> None:
     """Downgrade schema."""
     # ### commands auto generated by Alembic - please adjust! ###
-    op.create_table('place_lookup',
-    sa.Column('st_code', sa.INTEGER(), autoincrement=False, nullable=False),
-    sa.Column('state', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('pl_code', sa.INTEGER(), autoincrement=False, nullable=False),
-    sa.Column('name', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('st_code', 'pl_code', name=op.f('place_lookup_pkey'))
-    )
-    op.create_index(op.f('place_lookup_state_idx'), 'place_lookup', ['state'], unique=False)
-    op.create_index(op.f('place_lookup_name_idx'), 'place_lookup', [sa.literal_column('soundex(name::text)')], unique=False)
-    op.create_table('direction_lookup',
-    sa.Column('name', sa.VARCHAR(length=20), autoincrement=False, nullable=False),
-    sa.Column('abbrev', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('name', name=op.f('direction_lookup_pkey'))
-    )
-    op.create_index(op.f('direction_lookup_abbrev_idx'), 'direction_lookup', ['abbrev'], unique=False)
-    op.create_table('street_type_lookup',
-    sa.Column('name', sa.VARCHAR(length=50), autoincrement=False, nullable=False),
-    sa.Column('abbrev', sa.VARCHAR(length=50), autoincrement=False, nullable=True),
-    sa.Column('is_hw', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=False),
-    sa.PrimaryKeyConstraint('name', name=op.f('street_type_lookup_pkey'))
-    )
-    op.create_index(op.f('street_type_lookup_abbrev_idx'), 'street_type_lookup', ['abbrev'], unique=False)
     op.create_table('cousub',
     sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
     sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
@@ -266,169 +238,94 @@ def downgrade() -> None:
     sa.UniqueConstraint('gid', name=op.f('uidx_cousub_gid'), postgresql_include=[], postgresql_nulls_not_distinct=False)
     )
     op.create_index(op.f('tige_cousub_the_geom_gist'), 'cousub', ['the_geom'], unique=False, postgresql_using='gist')
-    op.create_table('bg',
-    sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
-    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('countyfp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
-    sa.Column('tractce', sa.VARCHAR(length=6), autoincrement=False, nullable=True),
-    sa.Column('blkgrpce', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('bg_id', sa.VARCHAR(length=12), autoincrement=False, nullable=False),
-    sa.Column('namelsad', sa.VARCHAR(length=13), autoincrement=False, nullable=True),
-    sa.Column('mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('funcstat', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('aland', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
-    sa.Column('awater', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
-    sa.Column('intptlat', sa.VARCHAR(length=11), autoincrement=False, nullable=True),
-    sa.Column('intptlon', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
-    sa.Column('the_geom', geoalchemy2.types.Geometry(dimension=2, spatial_index=False, from_text='ST_GeomFromEWKT', name='geometry', _spatial_index_reflected=True), autoincrement=False, nullable=True),
-    sa.CheckConstraint("geometrytype(the_geom) = 'MULTIPOLYGON'::text OR the_geom IS NULL", name=op.f('enforce_geotype_geom')),
-    sa.CheckConstraint('st_ndims(the_geom) = 2', name=op.f('enforce_dims_geom')),
-    sa.CheckConstraint('st_srid(the_geom) = 4269', name=op.f('enforce_srid_geom')),
-    sa.PrimaryKeyConstraint('bg_id', name=op.f('bg_pkey')),
-    comment='block groups'
-    )
-    op.create_table('tabblock',
-    sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
-    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('countyfp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
-    sa.Column('tractce', sa.VARCHAR(length=6), autoincrement=False, nullable=True),
-    sa.Column('blockce', sa.VARCHAR(length=4), autoincrement=False, nullable=True),
-    sa.Column('tabblock_id', sa.VARCHAR(length=16), autoincrement=False, nullable=False),
-    sa.Column('name', sa.VARCHAR(length=20), autoincrement=False, nullable=True),
-    sa.Column('mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('ur', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('uace', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('funcstat', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('aland', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
-    sa.Column('awater', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
-    sa.Column('intptlat', sa.VARCHAR(length=11), autoincrement=False, nullable=True),
-    sa.Column('intptlon', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
-    sa.Column('the_geom', geoalchemy2.types.Geometry(dimension=2, spatial_index=False, from_text='ST_GeomFromEWKT', name='geometry', _spatial_index_reflected=True), autoincrement=False, nullable=True),
-    sa.CheckConstraint("geometrytype(the_geom) = 'MULTIPOLYGON'::text OR the_geom IS NULL", name=op.f('enforce_geotype_geom')),
-    sa.CheckConstraint('st_ndims(the_geom) = 2', name=op.f('enforce_dims_geom')),
-    sa.CheckConstraint('st_srid(the_geom) = 4269', name=op.f('enforce_srid_geom')),
-    sa.PrimaryKeyConstraint('tabblock_id', name=op.f('tabblock_pkey'))
-    )
-    op.create_table('zip_state',
-    sa.Column('zip', sa.VARCHAR(length=5), autoincrement=False, nullable=False),
-    sa.Column('stusps', sa.VARCHAR(length=2), autoincrement=False, nullable=False),
-    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('zip', 'stusps', name=op.f('zip_state_pkey'))
-    )
-    op.create_table('zip_state_loc',
-    sa.Column('zip', sa.VARCHAR(length=5), autoincrement=False, nullable=False),
-    sa.Column('stusps', sa.VARCHAR(length=2), autoincrement=False, nullable=False),
-    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('place', sa.VARCHAR(length=100), autoincrement=False, nullable=False),
-    sa.PrimaryKeyConstraint('zip', 'stusps', 'place', name=op.f('zip_state_loc_pkey'))
-    )
-    op.create_table('addr',
-    sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
-    sa.Column('tlid', sa.BIGINT(), autoincrement=False, nullable=True),
-    sa.Column('fromhn', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
-    sa.Column('tohn', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
-    sa.Column('side', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('zip', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('plus4', sa.VARCHAR(length=4), autoincrement=False, nullable=True),
-    sa.Column('fromtyp', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('totyp', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('fromarmid', sa.INTEGER(), autoincrement=False, nullable=True),
-    sa.Column('toarmid', sa.INTEGER(), autoincrement=False, nullable=True),
-    sa.Column('arid', sa.VARCHAR(length=22), autoincrement=False, nullable=True),
-    sa.Column('mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('gid', name=op.f('addr_pkey'))
-    )
-    op.create_index(op.f('idx_tiger_addr_zip'), 'addr', ['zip'], unique=False)
-    op.create_index(op.f('idx_tiger_addr_tlid_statefp'), 'addr', ['tlid', 'statefp'], unique=False)
-    op.create_table('county_lookup',
-    sa.Column('st_code', sa.INTEGER(), autoincrement=False, nullable=False),
-    sa.Column('state', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('co_code', sa.INTEGER(), autoincrement=False, nullable=False),
-    sa.Column('name', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('st_code', 'co_code', name=op.f('county_lookup_pkey'))
-    )
-    op.create_index(op.f('county_lookup_state_idx'), 'county_lookup', ['state'], unique=False)
-    op.create_index(op.f('county_lookup_name_idx'), 'county_lookup', [sa.literal_column('soundex(name::text)')], unique=False)
-    op.create_table('loader_variables',
-    sa.Column('tiger_year', sa.VARCHAR(length=4), autoincrement=False, nullable=False),
-    sa.Column('website_root', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('staging_fold', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('data_schema', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('staging_schema', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('tiger_year', name=op.f('loader_variables_pkey'))
-    )
-    op.create_table('addrfeat',
-    sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
-    sa.Column('tlid', sa.BIGINT(), autoincrement=False, nullable=True),
-    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=False),
-    sa.Column('aridl', sa.VARCHAR(length=22), autoincrement=False, nullable=True),
-    sa.Column('aridr', sa.VARCHAR(length=22), autoincrement=False, nullable=True),
-    sa.Column('linearid', sa.VARCHAR(length=22), autoincrement=False, nullable=True),
-    sa.Column('fullname', sa.VARCHAR(length=100), autoincrement=False, nullable=True),
-    sa.Column('lfromhn', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
-    sa.Column('ltohn', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
-    sa.Column('rfromhn', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
-    sa.Column('rtohn', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
-    sa.Column('zipl', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('zipr', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('edge_mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('parityl', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('parityr', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('plus4l', sa.VARCHAR(length=4), autoincrement=False, nullable=True),
-    sa.Column('plus4r', sa.VARCHAR(length=4), autoincrement=False, nullable=True),
-    sa.Column('lfromtyp', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('ltotyp', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('rfromtyp', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('rtotyp', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('offsetl', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('offsetr', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('the_geom', geoalchemy2.types.Geometry(geometry_type='LINESTRING', srid=4329, dimension=2, from_text='ST_GeomFromEWKT', name='geometry', _spatial_index_reflected=True), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('gid', name=op.f('addrfeat_pkey'))
-    )
-    op.create_index(op.f('idx_addrfeat_zipr'), 'addrfeat', ['zipr'], unique=False)
-    op.create_index(op.f('idx_addrfeat_zipl'), 'addrfeat', ['zipl'], unique=False)
-    op.create_index(op.f('idx_addrfeat_tlid'), 'addrfeat', ['tlid'], unique=False)
-    op.create_index(op.f('idx_addrfeat_geom_gist'), 'addrfeat', ['the_geom'], unique=False, postgresql_using='gist')
-    op.create_table('tabblock20',
-    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('countyfp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
-    sa.Column('tractce', sa.VARCHAR(length=6), autoincrement=False, nullable=True),
-    sa.Column('blockce', sa.VARCHAR(length=4), autoincrement=False, nullable=True),
-    sa.Column('geoid', sa.VARCHAR(length=15), autoincrement=False, nullable=False),
-    sa.Column('name', sa.VARCHAR(length=10), autoincrement=False, nullable=True),
-    sa.Column('mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('ur', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('uace', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('uatype', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('funcstat', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('aland', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
-    sa.Column('awater', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
-    sa.Column('intptlat', sa.VARCHAR(length=11), autoincrement=False, nullable=True),
-    sa.Column('intptlon', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
-    sa.Column('the_geom', geoalchemy2.types.Geometry(geometry_type='MULTIPOLYGON', srid=4269, dimension=2, spatial_index=False, from_text='ST_GeomFromEWKT', name='geometry', _spatial_index_reflected=True), autoincrement=False, nullable=True),
-    sa.Column('housing', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
-    sa.Column('pop', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('geoid', name=op.f('pk_tabblock20'))
-    )
     op.create_table('secondary_unit_lookup',
     sa.Column('name', sa.VARCHAR(length=20), autoincrement=False, nullable=False),
     sa.Column('abbrev', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
     sa.PrimaryKeyConstraint('name', name=op.f('secondary_unit_lookup_pkey'))
     )
     op.create_index(op.f('secondary_unit_lookup_abbrev_idx'), 'secondary_unit_lookup', ['abbrev'], unique=False)
-    op.create_table('zip_lookup',
-    sa.Column('zip', sa.INTEGER(), autoincrement=False, nullable=False),
-    sa.Column('st_code', sa.INTEGER(), autoincrement=False, nullable=True),
-    sa.Column('state', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('co_code', sa.INTEGER(), autoincrement=False, nullable=True),
-    sa.Column('county', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
-    sa.Column('cs_code', sa.INTEGER(), autoincrement=False, nullable=True),
-    sa.Column('cousub', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
-    sa.Column('pl_code', sa.INTEGER(), autoincrement=False, nullable=True),
-    sa.Column('place', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
-    sa.Column('cnt', sa.INTEGER(), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('zip', name=op.f('zip_lookup_pkey'))
+    op.create_table('featnames',
+    sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
+    sa.Column('tlid', sa.BIGINT(), autoincrement=False, nullable=True),
+    sa.Column('fullname', sa.VARCHAR(length=100), autoincrement=False, nullable=True),
+    sa.Column('name', sa.VARCHAR(length=100), autoincrement=False, nullable=True),
+    sa.Column('predirabrv', sa.VARCHAR(length=15), autoincrement=False, nullable=True),
+    sa.Column('pretypabrv', sa.VARCHAR(length=50), autoincrement=False, nullable=True),
+    sa.Column('prequalabr', sa.VARCHAR(length=15), autoincrement=False, nullable=True),
+    sa.Column('sufdirabrv', sa.VARCHAR(length=15), autoincrement=False, nullable=True),
+    sa.Column('suftypabrv', sa.VARCHAR(length=50), autoincrement=False, nullable=True),
+    sa.Column('sufqualabr', sa.VARCHAR(length=15), autoincrement=False, nullable=True),
+    sa.Column('predir', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.Column('pretyp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
+    sa.Column('prequal', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.Column('sufdir', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.Column('suftyp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
+    sa.Column('sufqual', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.Column('linearid', sa.VARCHAR(length=22), autoincrement=False, nullable=True),
+    sa.Column('mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
+    sa.Column('paflag', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.PrimaryKeyConstraint('gid', name=op.f('featnames_pkey'))
+    )
+    op.create_index(op.f('idx_tiger_featnames_tlid_statefp'), 'featnames', ['tlid', 'statefp'], unique=False)
+    op.create_index(op.f('idx_tiger_featnames_snd_name'), 'featnames', [sa.literal_column('soundex(name::text)')], unique=False)
+    op.create_index(op.f('idx_tiger_featnames_lname'), 'featnames', [sa.literal_column('lower(name::text)')], unique=False)
+    op.create_table('direction_lookup',
+    sa.Column('name', sa.VARCHAR(length=20), autoincrement=False, nullable=False),
+    sa.Column('abbrev', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
+    sa.PrimaryKeyConstraint('name', name=op.f('direction_lookup_pkey'))
+    )
+    op.create_index(op.f('direction_lookup_abbrev_idx'), 'direction_lookup', ['abbrev'], unique=False)
+    op.create_table('loader_platform',
+    sa.Column('os', sa.VARCHAR(length=50), autoincrement=False, nullable=False),
+    sa.Column('declare_sect', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.Column('pgbin', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.Column('wget', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.Column('unzip_command', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.Column('psql', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.Column('path_sep', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.Column('loader', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.Column('environ_set_command', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.Column('county_process_command', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.PrimaryKeyConstraint('os', name=op.f('loader_platform_pkey'))
+    )
+    op.create_table('layer',
+    sa.Column('topology_id', sa.INTEGER(), autoincrement=False, nullable=False),
+    sa.Column('layer_id', sa.INTEGER(), autoincrement=False, nullable=False),
+    sa.Column('schema_name', sa.VARCHAR(), autoincrement=False, nullable=False),
+    sa.Column('table_name', sa.VARCHAR(), autoincrement=False, nullable=False),
+    sa.Column('feature_column', sa.VARCHAR(), autoincrement=False, nullable=False),
+    sa.Column('feature_type', sa.INTEGER(), autoincrement=False, nullable=False),
+    sa.Column('level', sa.INTEGER(), server_default=sa.text('0'), autoincrement=False, nullable=False),
+    sa.Column('child_id', sa.INTEGER(), autoincrement=False, nullable=True),
+    sa.ForeignKeyConstraint(['topology_id'], ['topology.id'], name=op.f('layer_topology_id_fkey')),
+    sa.PrimaryKeyConstraint('topology_id', 'layer_id', name=op.f('layer_pkey')),
+    sa.UniqueConstraint('schema_name', 'table_name', 'feature_column', name=op.f('layer_schema_name_table_name_feature_column_key'), postgresql_include=[], postgresql_nulls_not_distinct=False)
+    )
+    op.create_table('state_lookup',
+    sa.Column('st_code', sa.INTEGER(), autoincrement=False, nullable=False),
+    sa.Column('name', sa.VARCHAR(length=40), autoincrement=False, nullable=True),
+    sa.Column('abbrev', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
+    sa.Column('statefp', sa.CHAR(length=2), autoincrement=False, nullable=True),
+    sa.PrimaryKeyConstraint('st_code', name=op.f('state_lookup_pkey')),
+    sa.UniqueConstraint('abbrev', name=op.f('state_lookup_abbrev_key'), postgresql_include=[], postgresql_nulls_not_distinct=False),
+    sa.UniqueConstraint('name', name=op.f('state_lookup_name_key'), postgresql_include=[], postgresql_nulls_not_distinct=False),
+    sa.UniqueConstraint('statefp', name=op.f('state_lookup_statefp_key'), postgresql_include=[], postgresql_nulls_not_distinct=False)
+    )
+    op.create_table('zcta5',
+    sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
+    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=False),
+    sa.Column('zcta5ce', sa.VARCHAR(length=5), autoincrement=False, nullable=False),
+    sa.Column('classfp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.Column('mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
+    sa.Column('funcstat', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('aland', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
+    sa.Column('awater', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
+    sa.Column('intptlat', sa.VARCHAR(length=11), autoincrement=False, nullable=True),
+    sa.Column('intptlon', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
+    sa.Column('partflg', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('the_geom', geoalchemy2.types.Geometry(geometry_type='MULTIPOLYGON', srid=4269, dimension=2, spatial_index=False, from_text='ST_GeomFromEWKT', name='geometry', _spatial_index_reflected=True), autoincrement=False, nullable=True),
+    sa.PrimaryKeyConstraint('zcta5ce', 'statefp', name=op.f('pk_tiger_zcta5_zcta5ce'))
     )
     op.create_table('place',
     sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
@@ -453,50 +350,86 @@ def downgrade() -> None:
     sa.PrimaryKeyConstraint('plcidfp', name=op.f('place_pkey')),
     sa.UniqueConstraint('gid', name=op.f('uidx_tiger_place_gid'), postgresql_include=[], postgresql_nulls_not_distinct=False)
     )
-    op.create_table('county',
+    op.create_index(op.f('tiger_place_the_geom_gist'), 'place', ['the_geom'], unique=False, postgresql_using='gist')
+    op.create_table('tract',
     sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
     sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
     sa.Column('countyfp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
-    sa.Column('countyns', sa.VARCHAR(length=8), autoincrement=False, nullable=True),
-    sa.Column('cntyidfp', sa.VARCHAR(length=5), autoincrement=False, nullable=False),
-    sa.Column('name', sa.VARCHAR(length=100), autoincrement=False, nullable=True),
-    sa.Column('namelsad', sa.VARCHAR(length=100), autoincrement=False, nullable=True),
-    sa.Column('lsad', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('classfp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.Column('tractce', sa.VARCHAR(length=6), autoincrement=False, nullable=True),
+    sa.Column('tract_id', sa.VARCHAR(length=11), autoincrement=False, nullable=False),
+    sa.Column('name', sa.VARCHAR(length=7), autoincrement=False, nullable=True),
+    sa.Column('namelsad', sa.VARCHAR(length=20), autoincrement=False, nullable=True),
     sa.Column('mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('csafp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
-    sa.Column('cbsafp', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('metdivfp', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
     sa.Column('funcstat', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('aland', sa.BIGINT(), autoincrement=False, nullable=True),
+    sa.Column('aland', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
+    sa.Column('awater', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
+    sa.Column('intptlat', sa.VARCHAR(length=11), autoincrement=False, nullable=True),
+    sa.Column('intptlon', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
+    sa.Column('the_geom', geoalchemy2.types.Geometry(dimension=2, spatial_index=False, from_text='ST_GeomFromEWKT', name='geometry', _spatial_index_reflected=True), autoincrement=False, nullable=True),
+    sa.CheckConstraint("geometrytype(the_geom) = 'MULTIPOLYGON'::text OR the_geom IS NULL", name=op.f('enforce_geotype_geom')),
+    sa.CheckConstraint('st_ndims(the_geom) = 2', name=op.f('enforce_dims_geom')),
+    sa.CheckConstraint('st_srid(the_geom) = 4269', name=op.f('enforce_srid_geom')),
+    sa.PrimaryKeyConstraint('tract_id', name=op.f('tract_pkey'))
+    )
+    op.create_table('topology',
+    sa.Column('id', sa.INTEGER(), autoincrement=True, nullable=False),
+    sa.Column('name', sa.VARCHAR(), autoincrement=False, nullable=False),
+    sa.Column('srid', sa.INTEGER(), autoincrement=False, nullable=False),
+    sa.Column('precision', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=False),
+    sa.Column('hasz', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=False),
+    sa.Column('useslargeids', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=False),
+    sa.PrimaryKeyConstraint('id', name=op.f('topology_pkey')),
+    sa.UniqueConstraint('name', name=op.f('topology_name_key'), postgresql_include=[], postgresql_nulls_not_distinct=False)
+    )
+    op.create_table('bg',
+    sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
+    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.Column('countyfp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
+    sa.Column('tractce', sa.VARCHAR(length=6), autoincrement=False, nullable=True),
+    sa.Column('blkgrpce', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('bg_id', sa.VARCHAR(length=12), autoincrement=False, nullable=False),
+    sa.Column('namelsad', sa.VARCHAR(length=13), autoincrement=False, nullable=True),
+    sa.Column('mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
+    sa.Column('funcstat', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('aland', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
+    sa.Column('awater', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
+    sa.Column('intptlat', sa.VARCHAR(length=11), autoincrement=False, nullable=True),
+    sa.Column('intptlon', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
+    sa.Column('the_geom', geoalchemy2.types.Geometry(dimension=2, spatial_index=False, from_text='ST_GeomFromEWKT', name='geometry', _spatial_index_reflected=True), autoincrement=False, nullable=True),
+    sa.CheckConstraint("geometrytype(the_geom) = 'MULTIPOLYGON'::text OR the_geom IS NULL", name=op.f('enforce_geotype_geom')),
+    sa.CheckConstraint('st_ndims(the_geom) = 2', name=op.f('enforce_dims_geom')),
+    sa.CheckConstraint('st_srid(the_geom) = 4269', name=op.f('enforce_srid_geom')),
+    sa.PrimaryKeyConstraint('bg_id', name=op.f('bg_pkey')),
+    comment='block groups'
+    )
+    op.create_table('loader_variables',
+    sa.Column('tiger_year', sa.VARCHAR(length=4), autoincrement=False, nullable=False),
+    sa.Column('website_root', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.Column('staging_fold', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.Column('data_schema', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.Column('staging_schema', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.PrimaryKeyConstraint('tiger_year', name=op.f('loader_variables_pkey'))
+    )
+    op.create_table('tabblock20',
+    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.Column('countyfp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
+    sa.Column('tractce', sa.VARCHAR(length=6), autoincrement=False, nullable=True),
+    sa.Column('blockce', sa.VARCHAR(length=4), autoincrement=False, nullable=True),
+    sa.Column('geoid', sa.VARCHAR(length=15), autoincrement=False, nullable=False),
+    sa.Column('name', sa.VARCHAR(length=10), autoincrement=False, nullable=True),
+    sa.Column('mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
+    sa.Column('ur', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('uace', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
+    sa.Column('uatype', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('funcstat', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('aland', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
     sa.Column('awater', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
     sa.Column('intptlat', sa.VARCHAR(length=11), autoincrement=False, nullable=True),
     sa.Column('intptlon', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
     sa.Column('the_geom', geoalchemy2.types.Geometry(geometry_type='MULTIPOLYGON', srid=4269, dimension=2, spatial_index=False, from_text='ST_GeomFromEWKT', name='geometry', _spatial_index_reflected=True), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('cntyidfp', name=op.f('pk_tiger_county')),
-    sa.UniqueConstraint('gid', name=op.f('uidx_county_gid'), postgresql_include=[], postgresql_nulls_not_distinct=False)
-    )
-    op.create_index(op.f('idx_tiger_county'), 'county', ['countyfp'], unique=False)
-    op.create_table('loader_platform',
-    sa.Column('os', sa.VARCHAR(length=50), autoincrement=False, nullable=False),
-    sa.Column('declare_sect', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('pgbin', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('wget', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('unzip_command', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('psql', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('path_sep', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('loader', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('environ_set_command', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('county_process_command', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('os', name=op.f('loader_platform_pkey'))
-    )
-    op.create_table('geocode_settings_default',
-    sa.Column('name', sa.TEXT(), autoincrement=False, nullable=False),
-    sa.Column('setting', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('unit', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('category', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('short_desc', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('name', name=op.f('geocode_settings_default_pkey'))
+    sa.Column('housing', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
+    sa.Column('pop', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
+    sa.PrimaryKeyConstraint('geoid', name=op.f('pk_tabblock20'))
     )
     op.create_table('faces',
     sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
@@ -576,24 +509,62 @@ def downgrade() -> None:
     sa.Column('statefp20', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
     sa.PrimaryKeyConstraint('gid', name=op.f('faces_pkey'))
     )
+    op.create_index(op.f('tiger_faces_the_geom_gist'), 'faces', ['the_geom'], unique=False, postgresql_using='gist')
     op.create_index(op.f('idx_tiger_faces_tfid'), 'faces', ['tfid'], unique=False)
     op.create_index(op.f('idx_tiger_faces_countyfp'), 'faces', ['countyfp'], unique=False)
-    op.create_table('loader_lookuptables',
-    sa.Column('process_order', sa.INTEGER(), server_default=sa.text('1000'), autoincrement=False, nullable=False),
-    sa.Column('lookup_name', sa.TEXT(), autoincrement=False, nullable=False, comment='This is the table name to inherit from and suffix of resulting output table -- how the table will be named --  edges here would mean -- ma_edges , pa_edges etc. except in the case of national tables. national level tables have no prefix'),
-    sa.Column('table_name', sa.TEXT(), autoincrement=False, nullable=True, comment='suffix of the tables to load e.g.  edges would load all tables like *edges.dbf(shp)  -- so tl_2010_42129_edges.dbf .  '),
-    sa.Column('single_mode', sa.BOOLEAN(), server_default=sa.text('true'), autoincrement=False, nullable=False),
-    sa.Column('load', sa.BOOLEAN(), server_default=sa.text('true'), autoincrement=False, nullable=False, comment="Whether or not to load the table.  For states and zcta5 (you may just want to download states10, zcta510 nationwide file manually) load your own into a single table that inherits from tiger.states, tiger.zcta5.  You'll get improved performance for some geocoding cases."),
-    sa.Column('level_county', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=False),
-    sa.Column('level_state', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=False),
-    sa.Column('level_nation', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=False, comment='These are tables that contain all data for the whole US so there is just a single file'),
-    sa.Column('post_load_process', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('single_geom_mode', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=True),
-    sa.Column('insert_mode', sa.CHAR(length=1), server_default=sa.text("'c'::bpchar"), autoincrement=False, nullable=False),
-    sa.Column('pre_load_process', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('columns_exclude', postgresql.ARRAY(sa.TEXT()), autoincrement=False, nullable=True, comment='List of columns to exclude as an array. This is excluded from both input table and output table and rest of columns remaining are assumed to be in same order in both tables. gid, geoid,cpi,suffix1ce are excluded if no columns are specified.'),
-    sa.Column('website_root_override', sa.TEXT(), autoincrement=False, nullable=True, comment='Path to use for wget instead of that specified in year table.  Needed currently for zcta where they release that only for 2000 and 2010'),
-    sa.PrimaryKeyConstraint('lookup_name', name=op.f('loader_lookuptables_pkey'))
+    op.create_table('addrfeat',
+    sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
+    sa.Column('tlid', sa.BIGINT(), autoincrement=False, nullable=True),
+    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=False),
+    sa.Column('aridl', sa.VARCHAR(length=22), autoincrement=False, nullable=True),
+    sa.Column('aridr', sa.VARCHAR(length=22), autoincrement=False, nullable=True),
+    sa.Column('linearid', sa.VARCHAR(length=22), autoincrement=False, nullable=True),
+    sa.Column('fullname', sa.VARCHAR(length=100), autoincrement=False, nullable=True),
+    sa.Column('lfromhn', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
+    sa.Column('ltohn', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
+    sa.Column('rfromhn', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
+    sa.Column('rtohn', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
+    sa.Column('zipl', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
+    sa.Column('zipr', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
+    sa.Column('edge_mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
+    sa.Column('parityl', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('parityr', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('plus4l', sa.VARCHAR(length=4), autoincrement=False, nullable=True),
+    sa.Column('plus4r', sa.VARCHAR(length=4), autoincrement=False, nullable=True),
+    sa.Column('lfromtyp', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('ltotyp', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('rfromtyp', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('rtotyp', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('offsetl', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('offsetr', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('the_geom', geoalchemy2.types.Geometry(geometry_type='LINESTRING', srid=4329, dimension=2, from_text='ST_GeomFromEWKT', name='geometry', _spatial_index_reflected=True), autoincrement=False, nullable=True),
+    sa.PrimaryKeyConstraint('gid', name=op.f('addrfeat_pkey'))
+    )
+    op.create_index(op.f('idx_addrfeat_zipr'), 'addrfeat', ['zipr'], unique=False)
+    op.create_index(op.f('idx_addrfeat_zipl'), 'addrfeat', ['zipl'], unique=False)
+    op.create_index(op.f('idx_addrfeat_tlid'), 'addrfeat', ['tlid'], unique=False)
+    op.create_index(op.f('idx_addrfeat_geom_gist'), 'addrfeat', ['the_geom'], unique=False, postgresql_using='gist')
+    op.create_table('tabblock',
+    sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
+    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.Column('countyfp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
+    sa.Column('tractce', sa.VARCHAR(length=6), autoincrement=False, nullable=True),
+    sa.Column('blockce', sa.VARCHAR(length=4), autoincrement=False, nullable=True),
+    sa.Column('tabblock_id', sa.VARCHAR(length=16), autoincrement=False, nullable=False),
+    sa.Column('name', sa.VARCHAR(length=20), autoincrement=False, nullable=True),
+    sa.Column('mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
+    sa.Column('ur', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('uace', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
+    sa.Column('funcstat', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('aland', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
+    sa.Column('awater', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
+    sa.Column('intptlat', sa.VARCHAR(length=11), autoincrement=False, nullable=True),
+    sa.Column('intptlon', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
+    sa.Column('the_geom', geoalchemy2.types.Geometry(dimension=2, spatial_index=False, from_text='ST_GeomFromEWKT', name='geometry', _spatial_index_reflected=True), autoincrement=False, nullable=True),
+    sa.CheckConstraint("geometrytype(the_geom) = 'MULTIPOLYGON'::text OR the_geom IS NULL", name=op.f('enforce_geotype_geom')),
+    sa.CheckConstraint('st_ndims(the_geom) = 2', name=op.f('enforce_dims_geom')),
+    sa.CheckConstraint('st_srid(the_geom) = 4269', name=op.f('enforce_srid_geom')),
+    sa.PrimaryKeyConstraint('tabblock_id', name=op.f('tabblock_pkey'))
     )
     op.create_table('edges',
     sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
@@ -634,32 +605,67 @@ def downgrade() -> None:
     op.create_index(op.f('idx_tiger_edges_the_geom_gist'), 'edges', ['the_geom'], unique=False, postgresql_using='gist')
     op.create_index(op.f('idx_tiger_edges_countyfp'), 'edges', ['countyfp'], unique=False)
     op.create_index(op.f('idx_edges_tlid'), 'edges', ['tlid'], unique=False)
-    op.create_table('featnames',
+    op.create_table('countysub_lookup',
+    sa.Column('st_code', sa.INTEGER(), autoincrement=False, nullable=False),
+    sa.Column('state', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.Column('co_code', sa.INTEGER(), autoincrement=False, nullable=False),
+    sa.Column('county', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
+    sa.Column('cs_code', sa.INTEGER(), autoincrement=False, nullable=False),
+    sa.Column('name', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
+    sa.PrimaryKeyConstraint('st_code', 'co_code', 'cs_code', name=op.f('countysub_lookup_pkey'))
+    )
+    op.create_index(op.f('countysub_lookup_state_idx'), 'countysub_lookup', ['state'], unique=False)
+    op.create_index(op.f('countysub_lookup_name_idx'), 'countysub_lookup', [sa.literal_column('soundex(name::text)')], unique=False)
+    op.create_table('street_type_lookup',
+    sa.Column('name', sa.VARCHAR(length=50), autoincrement=False, nullable=False),
+    sa.Column('abbrev', sa.VARCHAR(length=50), autoincrement=False, nullable=True),
+    sa.Column('is_hw', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=False),
+    sa.PrimaryKeyConstraint('name', name=op.f('street_type_lookup_pkey'))
+    )
+    op.create_index(op.f('street_type_lookup_abbrev_idx'), 'street_type_lookup', ['abbrev'], unique=False)
+    op.create_table('addr',
     sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
     sa.Column('tlid', sa.BIGINT(), autoincrement=False, nullable=True),
-    sa.Column('fullname', sa.VARCHAR(length=100), autoincrement=False, nullable=True),
-    sa.Column('name', sa.VARCHAR(length=100), autoincrement=False, nullable=True),
-    sa.Column('predirabrv', sa.VARCHAR(length=15), autoincrement=False, nullable=True),
-    sa.Column('pretypabrv', sa.VARCHAR(length=50), autoincrement=False, nullable=True),
-    sa.Column('prequalabr', sa.VARCHAR(length=15), autoincrement=False, nullable=True),
-    sa.Column('sufdirabrv', sa.VARCHAR(length=15), autoincrement=False, nullable=True),
-    sa.Column('suftypabrv', sa.VARCHAR(length=50), autoincrement=False, nullable=True),
-    sa.Column('sufqualabr', sa.VARCHAR(length=15), autoincrement=False, nullable=True),
-    sa.Column('predir', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('pretyp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
-    sa.Column('prequal', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('sufdir', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('suftyp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
-    sa.Column('sufqual', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('linearid', sa.VARCHAR(length=22), autoincrement=False, nullable=True),
+    sa.Column('fromhn', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
+    sa.Column('tohn', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
+    sa.Column('side', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('zip', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
+    sa.Column('plus4', sa.VARCHAR(length=4), autoincrement=False, nullable=True),
+    sa.Column('fromtyp', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('totyp', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('fromarmid', sa.INTEGER(), autoincrement=False, nullable=True),
+    sa.Column('toarmid', sa.INTEGER(), autoincrement=False, nullable=True),
+    sa.Column('arid', sa.VARCHAR(length=22), autoincrement=False, nullable=True),
     sa.Column('mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('paflag', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
     sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('gid', name=op.f('featnames_pkey'))
+    sa.PrimaryKeyConstraint('gid', name=op.f('addr_pkey'))
     )
-    op.create_index(op.f('idx_tiger_featnames_tlid_statefp'), 'featnames', ['tlid', 'statefp'], unique=False)
-    op.create_index(op.f('idx_tiger_featnames_snd_name'), 'featnames', [sa.literal_column('soundex(name::text)')], unique=False)
-    op.create_index(op.f('idx_tiger_featnames_lname'), 'featnames', [sa.literal_column('lower(name::text)')], unique=False)
+    op.create_index(op.f('idx_tiger_addr_zip'), 'addr', ['zip'], unique=False)
+    op.create_index(op.f('idx_tiger_addr_tlid_statefp'), 'addr', ['tlid', 'statefp'], unique=False)
+    op.create_table('county',
+    sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
+    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.Column('countyfp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
+    sa.Column('countyns', sa.VARCHAR(length=8), autoincrement=False, nullable=True),
+    sa.Column('cntyidfp', sa.VARCHAR(length=5), autoincrement=False, nullable=False),
+    sa.Column('name', sa.VARCHAR(length=100), autoincrement=False, nullable=True),
+    sa.Column('namelsad', sa.VARCHAR(length=100), autoincrement=False, nullable=True),
+    sa.Column('lsad', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.Column('classfp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.Column('mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
+    sa.Column('csafp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
+    sa.Column('cbsafp', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
+    sa.Column('metdivfp', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
+    sa.Column('funcstat', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
+    sa.Column('aland', sa.BIGINT(), autoincrement=False, nullable=True),
+    sa.Column('awater', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
+    sa.Column('intptlat', sa.VARCHAR(length=11), autoincrement=False, nullable=True),
+    sa.Column('intptlon', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
+    sa.Column('the_geom', geoalchemy2.types.Geometry(geometry_type='MULTIPOLYGON', srid=4269, dimension=2, spatial_index=False, from_text='ST_GeomFromEWKT', name='geometry', _spatial_index_reflected=True), autoincrement=False, nullable=True),
+    sa.PrimaryKeyConstraint('cntyidfp', name=op.f('pk_tiger_county')),
+    sa.UniqueConstraint('gid', name=op.f('uidx_county_gid'), postgresql_include=[], postgresql_nulls_not_distinct=False)
+    )
+    op.create_index(op.f('idx_tiger_county'), 'county', ['countyfp'], unique=False)
     op.create_table('state',
     sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
     sa.Column('region', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
@@ -681,89 +687,49 @@ def downgrade() -> None:
     sa.UniqueConstraint('stusps', name=op.f('uidx_tiger_state_stusps'), postgresql_include=[], postgresql_nulls_not_distinct=False)
     )
     op.create_index(op.f('idx_tiger_state_the_geom_gist'), 'state', ['the_geom'], unique=False, postgresql_using='gist')
-    op.create_table('countysub_lookup',
+    op.create_table('county_lookup',
     sa.Column('st_code', sa.INTEGER(), autoincrement=False, nullable=False),
     sa.Column('state', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
     sa.Column('co_code', sa.INTEGER(), autoincrement=False, nullable=False),
-    sa.Column('county', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
-    sa.Column('cs_code', sa.INTEGER(), autoincrement=False, nullable=False),
     sa.Column('name', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('st_code', 'co_code', 'cs_code', name=op.f('countysub_lookup_pkey'))
+    sa.PrimaryKeyConstraint('st_code', 'co_code', name=op.f('county_lookup_pkey'))
     )
-    op.create_index(op.f('countysub_lookup_state_idx'), 'countysub_lookup', ['state'], unique=False)
-    op.create_index(op.f('countysub_lookup_name_idx'), 'countysub_lookup', [sa.literal_column('soundex(name::text)')], unique=False)
-    op.create_table('zip_lookup_all',
-    sa.Column('zip', sa.INTEGER(), autoincrement=False, nullable=True),
-    sa.Column('st_code', sa.INTEGER(), autoincrement=False, nullable=True),
-    sa.Column('state', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('co_code', sa.INTEGER(), autoincrement=False, nullable=True),
-    sa.Column('county', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
-    sa.Column('cs_code', sa.INTEGER(), autoincrement=False, nullable=True),
-    sa.Column('cousub', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
-    sa.Column('pl_code', sa.INTEGER(), autoincrement=False, nullable=True),
-    sa.Column('place', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
-    sa.Column('cnt', sa.INTEGER(), autoincrement=False, nullable=True)
-    )
-    op.create_table('zip_lookup_base',
-    sa.Column('zip', sa.VARCHAR(length=5), autoincrement=False, nullable=False),
-    sa.Column('state', sa.VARCHAR(length=40), autoincrement=False, nullable=True),
-    sa.Column('county', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
-    sa.Column('city', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
-    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('zip', name=op.f('zip_lookup_base_pkey'))
-    )
-    op.create_table('state_lookup',
+    op.create_index(op.f('county_lookup_state_idx'), 'county_lookup', ['state'], unique=False)
+    op.create_index(op.f('county_lookup_name_idx'), 'county_lookup', [sa.literal_column('soundex(name::text)')], unique=False)
+    op.create_table('place_lookup',
     sa.Column('st_code', sa.INTEGER(), autoincrement=False, nullable=False),
-    sa.Column('name', sa.VARCHAR(length=40), autoincrement=False, nullable=True),
-    sa.Column('abbrev', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
-    sa.Column('statefp', sa.CHAR(length=2), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('st_code', name=op.f('state_lookup_pkey')),
-    sa.UniqueConstraint('abbrev', name=op.f('state_lookup_abbrev_key'), postgresql_include=[], postgresql_nulls_not_distinct=False),
-    sa.UniqueConstraint('name', name=op.f('state_lookup_name_key'), postgresql_include=[], postgresql_nulls_not_distinct=False),
-    sa.UniqueConstraint('statefp', name=op.f('state_lookup_statefp_key'), postgresql_include=[], postgresql_nulls_not_distinct=False)
+    sa.Column('state', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
+    sa.Column('pl_code', sa.INTEGER(), autoincrement=False, nullable=False),
+    sa.Column('name', sa.VARCHAR(length=90), autoincrement=False, nullable=True),
+    sa.PrimaryKeyConstraint('st_code', 'pl_code', name=op.f('place_lookup_pkey'))
     )
-    op.create_table('geocode_settings',
-    sa.Column('name', sa.TEXT(), autoincrement=False, nullable=False),
-    sa.Column('setting', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('unit', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('category', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.Column('short_desc', sa.TEXT(), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('name', name=op.f('geocode_settings_pkey'))
+    op.create_index(op.f('place_lookup_state_idx'), 'place_lookup', ['state'], unique=False)
+    op.create_index(op.f('place_lookup_name_idx'), 'place_lookup', [sa.literal_column('soundex(name::text)')], unique=False)
+    op.create_table('spatial_ref_sys',
+    sa.Column('srid', sa.INTEGER(), autoincrement=False, nullable=False),
+    sa.Column('auth_name', sa.VARCHAR(length=256), autoincrement=False, nullable=True),
+    sa.Column('auth_srid', sa.INTEGER(), autoincrement=False, nullable=True),
+    sa.Column('srtext', sa.VARCHAR(length=2048), autoincrement=False, nullable=True),
+    sa.Column('proj4text', sa.VARCHAR(length=2048), autoincrement=False, nullable=True),
+    sa.CheckConstraint('srid > 0 AND srid <= 998999', name=op.f('spatial_ref_sys_srid_check')),
+    sa.PrimaryKeyConstraint('srid', name=op.f('spatial_ref_sys_pkey'))
     )
-    op.create_table('zcta5',
-    sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
-    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=False),
-    sa.Column('zcta5ce', sa.VARCHAR(length=5), autoincrement=False, nullable=False),
-    sa.Column('classfp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('funcstat', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('aland', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
-    sa.Column('awater', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
-    sa.Column('intptlat', sa.VARCHAR(length=11), autoincrement=False, nullable=True),
-    sa.Column('intptlon', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
-    sa.Column('partflg', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('the_geom', geoalchemy2.types.Geometry(geometry_type='MULTIPOLYGON', srid=4269, dimension=2, spatial_index=False, from_text='ST_GeomFromEWKT', name='geometry', _spatial_index_reflected=True), autoincrement=False, nullable=True),
-    sa.PrimaryKeyConstraint('zcta5ce', 'statefp', name=op.f('pk_tiger_zcta5_zcta5ce'))
-    )
-    op.create_table('tract',
-    sa.Column('gid', sa.INTEGER(), autoincrement=True, nullable=False),
-    sa.Column('statefp', sa.VARCHAR(length=2), autoincrement=False, nullable=True),
-    sa.Column('countyfp', sa.VARCHAR(length=3), autoincrement=False, nullable=True),
-    sa.Column('tractce', sa.VARCHAR(length=6), autoincrement=False, nullable=True),
-    sa.Column('tract_id', sa.VARCHAR(length=11), autoincrement=False, nullable=False),
-    sa.Column('name', sa.VARCHAR(length=7), autoincrement=False, nullable=True),
-    sa.Column('namelsad', sa.VARCHAR(length=20), autoincrement=False, nullable=True),
-    sa.Column('mtfcc', sa.VARCHAR(length=5), autoincrement=False, nullable=True),
-    sa.Column('funcstat', sa.VARCHAR(length=1), autoincrement=False, nullable=True),
-    sa.Column('aland', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
-    sa.Column('awater', sa.DOUBLE_PRECISION(precision=53), autoincrement=False, nullable=True),
-    sa.Column('intptlat', sa.VARCHAR(length=11), autoincrement=False, nullable=True),
-    sa.Column('intptlon', sa.VARCHAR(length=12), autoincrement=False, nullable=True),
-    sa.Column('the_geom', geoalchemy2.types.Geometry(dimension=2, spatial_index=False, from_text='ST_GeomFromEWKT', name='geometry', _spatial_index_reflected=True), autoincrement=False, nullable=True),
-    sa.CheckConstraint("geometrytype(the_geom) = 'MULTIPOLYGON'::text OR the_geom IS NULL", name=op.f('enforce_geotype_geom')),
-    sa.CheckConstraint('st_ndims(the_geom) = 2', name=op.f('enforce_dims_geom')),
-    sa.CheckConstraint('st_srid(the_geom) = 4269', name=op.f('enforce_srid_geom')),
-    sa.PrimaryKeyConstraint('tract_id', name=op.f('tract_pkey'))
+    op.create_table('loader_lookuptables',
+    sa.Column('process_order', sa.INTEGER(), server_default=sa.text('1000'), autoincrement=False, nullable=False),
+    sa.Column('lookup_name', sa.TEXT(), autoincrement=False, nullable=False, comment='This is the table name to inherit from and suffix of resulting output table -- how the table will be named --  edges here would mean -- ma_edges , pa_edges etc. except in the case of national tables. national level tables have no prefix'),
+    sa.Column('table_name', sa.TEXT(), autoincrement=False, nullable=True, comment='suffix of the tables to load e.g.  edges would load all tables like *edges.dbf(shp)  -- so tl_2010_42129_edges.dbf .  '),
+    sa.Column('single_mode', sa.BOOLEAN(), server_default=sa.text('true'), autoincrement=False, nullable=False),
+    sa.Column('load', sa.BOOLEAN(), server_default=sa.text('true'), autoincrement=False, nullable=False, comment="Whether or not to load the table.  For states and zcta5 (you may just want to download states10, zcta510 nationwide file manually) load your own into a single table that inherits from tiger.states, tiger.zcta5.  You'll get improved performance for some geocoding cases."),
+    sa.Column('level_county', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=False),
+    sa.Column('level_state', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=False),
+    sa.Column('level_nation', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=False, comment='These are tables that contain all data for the whole US so there is just a single file'),
+    sa.Column('post_load_process', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.Column('single_geom_mode', sa.BOOLEAN(), server_default=sa.text('false'), autoincrement=False, nullable=True),
+    sa.Column('insert_mode', sa.CHAR(length=1), server_default=sa.text("'c'::bpchar"), autoincrement=False, nullable=False),
+    sa.Column('pre_load_process', sa.TEXT(), autoincrement=False, nullable=True),
+    sa.Column('columns_exclude', postgresql.ARRAY(sa.TEXT()), autoincrement=False, nullable=True, comment='List of columns to exclude as an array. This is excluded from both input table and output table and rest of columns remaining are assumed to be in same order in both tables. gid, geoid,cpi,suffix1ce are excluded if no columns are specified.'),
+    sa.Column('website_root_override', sa.TEXT(), autoincrement=False, nullable=True, comment='Path to use for wget instead of that specified in year table.  Needed currently for zcta where they release that only for 2000 and 2010'),
+    sa.PrimaryKeyConstraint('lookup_name', name=op.f('loader_lookuptables_pkey'))
     )
     op.drop_index(op.f('ix_alerts_is_active'), table_name='alerts')
     op.drop_index(op.f('ix_alerts_id'), table_name='alerts')
@@ -785,7 +751,6 @@ def downgrade() -> None:
     op.drop_index(op.f('ix_h5n1_cases_country'), table_name='h5n1_cases')
     op.drop_index(op.f('ix_h5n1_cases_case_date'), table_name='h5n1_cases')
     op.drop_index(op.f('ix_h5n1_cases_animal_category'), table_name='h5n1_cases')
-    # Drop spatial index for location
     op.drop_index('idx_spatial', table_name='h5n1_cases', postgresql_using='gist')
     op.drop_index('idx_severity_date', table_name='h5n1_cases')
     op.drop_index('idx_location_category', table_name='h5n1_cases')
@@ -794,8 +759,6 @@ def downgrade() -> None:
     op.drop_index(op.f('ix_geographic_boundaries_id'), table_name='geographic_boundaries')
     op.drop_index(op.f('ix_geographic_boundaries_code'), table_name='geographic_boundaries')
     op.drop_index(op.f('ix_geographic_boundaries_boundary_type'), table_name='geographic_boundaries')
-    # Drop spatial indexes
-    op.drop_index('idx_geographic_boundaries_centroid', table_name='geographic_boundaries', postgresql_using='gist')
     op.drop_index('idx_boundary_spatial', table_name='geographic_boundaries', postgresql_using='gist')
     op.drop_table('geographic_boundaries')
     op.drop_index(op.f('ix_data_imports_id'), table_name='data_imports')
