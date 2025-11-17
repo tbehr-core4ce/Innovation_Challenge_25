@@ -5,216 +5,47 @@ FastAPI backend for serving map visualization data
 """
 import os
 import time
-import uuid
-from datetime import datetime, timedelta
-from typing import Optional
+from datetime import datetime
+from typing import Callable
 
 import structlog
-from fastapi import FastAPI, HTTPException, Query, Request, status
+from fastapi import FastAPI, Request, status
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
-from routes import data_ingestion
 
 from core.errors import BETSError
 from core.logging import (configure_console_logging, configure_json_logging,
                           get_logger, setup_logging)
-from core.models import (CaseType, H5N1Case, HotspotZone, MapDataResponse,
-                         RiskLevel, Severity, StatsResponse, Status)
-from parsers.csv_parser import parse_h5n1_csv
-from utils.settings import settings
+from routes import data_ingestion, dashboard, map_data, alerts
 
 app = FastAPI(title="BETS API", version="1.0.0")
 
+# Include all routers
 app.include_router(data_ingestion.router)
+app.include_router(dashboard.router)
+app.include_router(map_data.router)
+app.include_router(alerts.router)
 
 logger = get_logger(__name__)
-
-# ==================== API ENDPOINTS ====================
-# Connect parser to the FastAPI backend
-@app.post("/api/ingest-csv")
-async def ingest_csv_data(file: UploadFile):
-    """
-    Upload and ingest CSV file of H5N1 cases
-    """
-    # Save uploaded file
-    contents = await file.read()
-    with open(f"/tmp/{file.filename}", "wb") as f:
-        f.write(contents)
-    
-    # Parse CSV
-    cases = parse_h5n1_csv(f"/tmp/{file.filename}")
-    
-    # Validate
-    validator = DataValidator()
-    valid_cases = [c for c in cases if validator.validate_case(c)]
-    
-    # Store in database (or update mock_cases for now)
-    mock_cases.extend(valid_cases)
-    
-    return {
-        "message": f"Ingested {len(valid_cases)} cases",
-        "validation_report": validator.get_report()
-    }
-
-
-@app.get("/")
-def read_root():
-    return {
-        "service": "BETS API",
-        "version": "1.0.0",
-        "status": "operational"
-    }
-
-@app.get("/api/map-data", response_model=MapDataResponse)
-def get_map_data(
-    case_type: Optional[CaseType] = Query(None, description="Filter by case type"),
-    severity: Optional[Severity] = Query(None, description="Filter by severity"),
-    days: Optional[int] = Query(7, description="Cases from last N days")
-):
-    """
-    Get all map visualization data (cases + hotspots)
-    """
-    cases = mock_cases.copy()
-    
-    # Apply filters
-    if case_type:
-        cases = [c for c in cases if c["caseType"] == case_type]
-    
-    if severity:
-        cases = [c for c in cases if c["severity"] == severity]
-    
-    if days:
-        cutoff_date = (datetime.now() - timedelta(days=days)).strftime("%Y-%m-%d")
-        cases = [c for c in cases if c["reportedDate"] >= cutoff_date]
-    
-    # Detect hotspots from filtered cases
-    hotspots = detect_hotspots(cases)
-    
-    return MapDataResponse(
-        cases=cases,
-        hotspots=hotspots,
-        lastUpdated=datetime.now().isoformat()
-    )
-
-@app.get("/api/cases", response_model=List[H5N1Case])
-def get_cases(
-    case_type: Optional[CaseType] = None,
-    severity: Optional[Severity] = None,
-    status: Optional[Status] = None
-):
-    """
-    Get filtered H5N1 cases
-    """
-    # in example code params are limit and offset
-    # logger.info("Fetching cases", limit=limit, offset=offset)
-    try:
-        cases = mock_cases.copy() # TODO change to database operations :)
-        
-        logger.info(
-            "Cases fetched successfully",
-            count=len(cases),
-            # limit=limit,
-            # offset=offset,
-        )
-        
-        if case_type:
-            cases = [c for c in cases if c["caseType"] == case_type]
-        
-        if severity:
-            cases = [c for c in cases if c["severity"] == severity]
-        
-        if status:
-            cases = [c for c in cases if c["status"] == status]
-        
-        return cases
-    
-    except Exception as e:
-        logger.error(
-            "Failed to fetch cases",
-            error=str(e),
-            # limit=limit,
-            # offset=offset,
-        )
-        #raise 
-
-@app.get("/api/hotspots", response_model=List[HotspotZone])
-def get_hotspots(
-    min_risk_level: Optional[RiskLevel] = Query(None, description="Minimum risk level")
-):
-    """
-    Get detected hotspot zones
-    """
-    hotspots = mock_hotspots.copy()
-    
-    if min_risk_level:
-        risk_order = ["low", "medium", "high", "critical"]
-        min_index = risk_order.index(min_risk_level)
-        hotspots = [
-            h for h in hotspots 
-            if risk_order.index(h["riskLevel"]) >= min_index
-        ]
-    
-    return hotspots
-
-@app.get("/api/stats", response_model=StatsResponse)
-def get_statistics():
-    """
-    Get aggregate statistics
-    """
-    cases = mock_cases
-    
-    stats = {
-        "totalCases": sum(c["count"] for c in cases),
-        "humanCases": sum(c["count"] for c in cases if c["caseType"] == "human"),
-        "avianCases": sum(c["count"] for c in cases if c["caseType"] == "avian"),
-        "dairyCases": sum(c["count"] for c in cases if c["caseType"] == "dairy"),
-        "environmentalCases": sum(c["count"] for c in cases if c["caseType"] == "environmental"),
-        "criticalCases": sum(c["count"] for c in cases if c["severity"] == "critical"),
-        "activeCases": sum(c["count"] for c in cases if c["status"] == "active"),
-        "lastUpdated": datetime.now().isoformat()
-    }
-    
-    return stats
-
-@app.post("/api/cases")
-def create_case(case: H5N1Case):
-    """
-    Report a new H5N1 case
-    """
-    # In production, this would save to database
-    mock_cases.append(case.dict())
-    return {"message": "Case reported successfully", "id": case.id}
-
-@app.get("/api/alerts")
-def get_alerts():
-    """
-    Get active alerts based on thresholds
-    """
-    alerts = []
-    
-    # Check for critical cases
-    critical_cases = [c for c in mock_cases if c["severity"] == "critical"]
-    if critical_cases:
-        alerts.append({
-            "level": "critical",
-            "message": f"{len(critical_cases)} critical cases detected",
-            "timestamp": datetime.now().isoformat()
-        })
-    
-    # Check for human cases
-    human_cases = [c for c in mock_cases if c["caseType"] == "human"]
-    if len(human_cases) > 2:
-        alerts.append({
-            "level": "warning",
-            "message": f"Multiple human cases reported: {len(human_cases)}",
-            "timestamp": datetime.now().isoformat()
-        })
-    
-    return alerts
 
 # ============================================================================
 # Base Endpoints | Configurations
 # ============================================================================
+
+@app.get("/")
+async def root():
+    """Root endpoint."""
+    logger.info("Root endpoint accessed")
+    return {"message": "BETS API", "status": "running", "version": "1.0.0"}
+
+@app.get("/health")
+def health_check():
+    """Health check endpoint."""
+    logger.debug("Health check requested")
+    return {
+        "status": "healthy",
+        "timestamp": datetime.now().isoformat()
+    }
 
 @app.on_event("startup")
 async def configure_logging_on_startup():
@@ -336,20 +167,7 @@ async def shutdown_event():
     """Log application shutdown."""
     logger.info("Application shutting down")
 
-@app.get("/")
-async def root():
-    """Root endpoint."""
-    logger.info("Root endpoint accessed")
-    return {"message": "BETS API", "status": "running"}
-
-@app.get("/health")
-def health_check():
-    logger.debug("Health check requested")
-    return {
-        "status": "healthy",
-        "timestamp": datetime.now().isoformat()
-    }
-# Enable CORS for React frontend
+# Enable CORS for React/Next.js frontend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:3000"],  # React dev server
