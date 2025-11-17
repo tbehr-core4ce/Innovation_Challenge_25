@@ -11,6 +11,9 @@ from typing import List, Dict, Tuple, Optional
 from datetime import datetime
 import hashlib
 import time
+import json
+import os
+from pathlib import Path
 
 from src.core.models import H5N1Case, DataImport, DataSource
 from src.core.database import get_db
@@ -109,11 +112,46 @@ class H5N1DataLoader:
         self.import_record = import_record
         return import_record
 
+    def write_log_file(
+        self,
+        dataset_name: str,
+        log_data: Dict
+    ) -> str:
+        """
+        Write comprehensive processing log to /datasets/processed/.
+
+        Args:
+            dataset_name: Name of dataset (e.g., 'commercial', 'wild_bird')
+            log_data: Dictionary containing all processing details
+
+        Returns:
+            Path to log file
+        """
+        # Get project root (backend/src/parsers -> backend -> root)
+        current_dir = Path(__file__).resolve().parent
+        project_root = current_dir.parent.parent.parent
+        processed_dir = project_root / 'datasets' / 'processed'
+
+        # Create directory if it doesn't exist
+        processed_dir.mkdir(parents=True, exist_ok=True)
+
+        # Generate log filename
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        log_file = processed_dir / f"{dataset_name}-log_{timestamp}.json"
+
+        # Write log data
+        with open(log_file, 'w') as f:
+            json.dump(log_data, f, indent=2, default=str)
+
+        print(f"📝 Log file written to: {log_file}")
+        return str(log_file)
+
     def bulk_insert(
         self,
         df: pd.DataFrame,
         source: DataSource,
-        file_path: str
+        file_path: str,
+        metadata: Optional[Dict] = None
     ) -> Tuple[int, int, int]:
         """
         Bulk insert DataFrame into H5N1Case table.
@@ -122,11 +160,16 @@ class H5N1DataLoader:
             df: Validated DataFrame with H5N1 case data
             source: Data source enum
             file_path: Path to source file
+            metadata: Optional dict with parsing/validation metadata for logging
 
         Returns:
             Tuple of (successful_count, failed_count, duplicate_count)
         """
         print(f"\nLoading {len(df)} records into database...")
+
+        # Initialize metadata if not provided
+        if metadata is None:
+            metadata = {}
 
         start_time = time.time()
 
@@ -311,12 +354,39 @@ class H5N1DataLoader:
 
         print(f"{'='*60}\n")
 
+        # Write comprehensive log file
+        dataset_name = source.value.lower() if hasattr(source, 'value') else str(source).lower()
+        log_data = {
+            'timestamp': datetime.now().isoformat(),
+            'dataset': dataset_name,
+            'source_file': file_path,
+            'file_hash': file_hash,
+            'parsing': metadata.get('parsing', {}),
+            'geocoding': metadata.get('geocoding', {}),
+            'validation': metadata.get('validation', {}),
+            'import': {
+                'successful': successful,
+                'failed': failed,
+                'duplicates': duplicates,
+                'total_records': len(df),
+                'duration_seconds': round(duration, 2)
+            },
+            'duplicate_samples': {
+                'within_batch': [d for d in duplicate_samples if d['type'] == 'within-batch'],
+                'cross_batch': [d for d in duplicate_samples if d['type'] == 'cross-batch']
+            },
+            'error_samples': errors[:20] if errors else []
+        }
+
+        self.write_log_file(dataset_name, log_data)
+
         return (successful, failed, duplicates)
 
     def load_from_parser(
         self,
         parser,
-        validate: bool = True
+        validate: bool = True,
+        parsing_metadata: Optional[Dict] = None
     ) -> Tuple[int, int, int]:
         """
         Load data from a parser object (convenience method).
@@ -324,6 +394,7 @@ class H5N1DataLoader:
         Args:
             parser: BaseParser subclass instance (must have run parse())
             validate: Whether to run validation before loading
+            parsing_metadata: Optional dict with parsing/geocoding metadata
 
         Returns:
             Tuple of (successful_count, failed_count, duplicate_count)
@@ -333,17 +404,29 @@ class H5N1DataLoader:
 
         df = parser.clean_df
 
+        # Collect metadata for logging
+        metadata = parsing_metadata if parsing_metadata else {}
+
         # Optional validation
+        validation_errors = []
         if validate:
             from src.validators.schema import SchemaValidator
             validator = SchemaValidator()
-            df, errors = validator.validate(df)
+            df, validation_errors = validator.validate(df)
 
-            if errors:
-                print(f"⚠ Validation found {len(errors)} issues")
+            if validation_errors:
+                print(f"⚠ Validation found {len(validation_errors)} issues")
+
+        # Add validation metadata
+        metadata['validation'] = {
+            'validated': validate,
+            'valid_records': len(df),
+            'error_count': len(validation_errors),
+            'sample_errors': validation_errors[:10] if validation_errors else []
+        }
 
         # Get data source from parser defaults
         source = parser.DEFAULTS.get('data_source', DataSource.OTHER)
 
         # Load into database
-        return self.bulk_insert(df, source, parser.file_path)
+        return self.bulk_insert(df, source, parser.file_path, metadata=metadata)

@@ -74,8 +74,13 @@ def run_commercial_ingestion(session, geocoder: GeocodingService):
     if parse_errors:
         print(f"⚠ Parsing errors: {len(parse_errors)}")
 
+    # Track parsing metadata
+    rows_read = len(df) if df is not None else 0
+    cols_read = len(df.columns) if df is not None else 0
+
     # 2. Add geocoding
     df = geocoder.geocode_dataframe(df)
+    geocoded_count = df['latitude'].notna().sum() if 'latitude' in df.columns else 0
 
     # 3. Validate
     validator = SchemaValidator()
@@ -84,10 +89,25 @@ def run_commercial_ingestion(session, geocoder: GeocodingService):
     if validation_errors:
         print(f"⚠ Validation errors: {len(validation_errors)}")
 
-    # 4. Load into database
+    # 4. Load into database with metadata
     parser.clean_df = df  # Update with geocoded/validated data
     loader = H5N1DataLoader(session)
-    success, failed, duplicates = loader.load_from_parser(parser, validate=False)
+
+    metadata = {
+        'parsing': {
+            'rows_read': rows_read,
+            'columns_read': cols_read,
+            'parse_errors': len(parse_errors),
+            'sample_parse_errors': parse_errors[:10] if parse_errors else []
+        },
+        'geocoding': {
+            'total_records': rows_read,
+            'geocoded_count': geocoded_count,
+            'success_rate': f"{geocoded_count/rows_read*100:.1f}%" if rows_read > 0 else "N/A"
+        }
+    }
+
+    success, failed, duplicates = loader.load_from_parser(parser, validate=False, parsing_metadata=metadata)
 
     return {
         'dataset': 'commercial',
@@ -123,8 +143,13 @@ def run_wild_bird_ingestion(session, geocoder: GeocodingService):
     if parse_errors:
         print(f"⚠ Parsing errors: {len(parse_errors)}")
 
+    # Track parsing metadata
+    rows_read = len(df) if df is not None else 0
+    cols_read = len(df.columns) if df is not None else 0
+
     # 2. Add geocoding
     df = geocoder.geocode_dataframe(df)
+    geocoded_count = df['latitude'].notna().sum() if 'latitude' in df.columns else 0
 
     # 3. Validate
     validator = SchemaValidator()
@@ -133,10 +158,25 @@ def run_wild_bird_ingestion(session, geocoder: GeocodingService):
     if validation_errors:
         print(f"⚠ Validation errors: {len(validation_errors)}")
 
-    # 4. Load into database
+    # 4. Load into database with metadata
     parser.clean_df = df
     loader = H5N1DataLoader(session)
-    success, failed, duplicates = loader.load_from_parser(parser, validate=False)
+
+    metadata = {
+        'parsing': {
+            'rows_read': rows_read,
+            'columns_read': cols_read,
+            'parse_errors': len(parse_errors),
+            'sample_parse_errors': parse_errors[:10] if parse_errors else []
+        },
+        'geocoding': {
+            'total_records': rows_read,
+            'geocoded_count': geocoded_count,
+            'success_rate': f"{geocoded_count/rows_read*100:.1f}%" if rows_read > 0 else "N/A"
+        }
+    }
+
+    success, failed, duplicates = loader.load_from_parser(parser, validate=False, parsing_metadata=metadata)
 
     return {
         'dataset': 'wild_bird',
@@ -172,8 +212,13 @@ def run_mammal_ingestion(session, geocoder: GeocodingService):
     if parse_errors:
         print(f"⚠ Parsing errors: {len(parse_errors)}")
 
+    # Track parsing metadata
+    rows_read = len(df) if df is not None else 0
+    cols_read = len(df.columns) if df is not None else 0
+
     # 2. Add geocoding
     df = geocoder.geocode_dataframe(df)
+    geocoded_count = df['latitude'].notna().sum() if 'latitude' in df.columns else 0
 
     # 3. Validate
     validator = SchemaValidator()
@@ -182,10 +227,25 @@ def run_mammal_ingestion(session, geocoder: GeocodingService):
     if validation_errors:
         print(f"⚠ Validation errors: {len(validation_errors)}")
 
-    # 4. Load into database
+    # 4. Load into database with metadata
     parser.clean_df = df
     loader = H5N1DataLoader(session)
-    success, failed, duplicates = loader.load_from_parser(parser, validate=False)
+
+    metadata = {
+        'parsing': {
+            'rows_read': rows_read,
+            'columns_read': cols_read,
+            'parse_errors': len(parse_errors),
+            'sample_parse_errors': parse_errors[:10] if parse_errors else []
+        },
+        'geocoding': {
+            'total_records': rows_read,
+            'geocoded_count': geocoded_count,
+            'success_rate': f"{geocoded_count/rows_read*100:.1f}%" if rows_read > 0 else "N/A"
+        }
+    }
+
+    success, failed, duplicates = loader.load_from_parser(parser, validate=False, parsing_metadata=metadata)
 
     return {
         'dataset': 'mammal',
