@@ -24,7 +24,7 @@ from pathlib import Path
 import argparse
 
 # Add parent directory to path for imports
-sys.path.insert(0, str(Path(__file__).parent.parent.parent))
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
 from src.parsers.commercial import CommercialPoultryParser
 from src.parsers.wild_bird import WildBirdParser
