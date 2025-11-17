@@ -156,9 +156,27 @@ class H5N1DataLoader:
             batch = records[i:i + batch_size]
 
             try:
-                # Create H5N1Case objects
-                cases = []
+                # Deduplicate within batch by external_id (keep first occurrence)
+                seen_ids = set()
+                unique_batch = []
+                batch_duplicates = 0
+
                 for record in batch:
+                    external_id = record.get('external_id')
+                    if external_id and external_id in seen_ids:
+                        batch_duplicates += 1
+                        duplicates += 1
+                    else:
+                        if external_id:
+                            seen_ids.add(external_id)
+                        unique_batch.append(record)
+
+                if batch_duplicates > 0:
+                    print(f"  ⚠ Batch {i//batch_size + 1}: Removed {batch_duplicates} within-batch duplicates")
+
+                # Create H5N1Case objects from unique records only
+                cases = []
+                for record in unique_batch:
                     try:
                         # Convert enum string values to enum objects if needed
                         # (Parsers typically provide enum objects, but pandas may convert to strings)
