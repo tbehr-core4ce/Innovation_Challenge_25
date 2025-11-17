@@ -79,7 +79,7 @@ def run_commercial_ingestion(session, geocoder: GeocodingService):
     cols_read = len(df.columns) if df is not None else 0
 
     # 2. Add geocoding
-    df = geocoder.geocode_dataframe(df)
+    df, geocoding_failures = geocoder.geocode_dataframe(df)
     geocoded_count = df['latitude'].notna().sum() if 'latitude' in df.columns else 0
 
     # 3. Validate
@@ -103,7 +103,9 @@ def run_commercial_ingestion(session, geocoder: GeocodingService):
         'geocoding': {
             'total_records': rows_read,
             'geocoded_count': geocoded_count,
-            'success_rate': f"{geocoded_count/rows_read*100:.1f}%" if rows_read > 0 else "N/A"
+            'failed_count': len(geocoding_failures),
+            'success_rate': f"{geocoded_count/rows_read*100:.1f}%" if rows_read > 0 else "N/A",
+            'failures': geocoding_failures
         }
     }
 
@@ -148,7 +150,7 @@ def run_wild_bird_ingestion(session, geocoder: GeocodingService):
     cols_read = len(df.columns) if df is not None else 0
 
     # 2. Add geocoding
-    df = geocoder.geocode_dataframe(df)
+    df, geocoding_failures = geocoder.geocode_dataframe(df)
     geocoded_count = df['latitude'].notna().sum() if 'latitude' in df.columns else 0
 
     # 3. Validate
@@ -172,7 +174,9 @@ def run_wild_bird_ingestion(session, geocoder: GeocodingService):
         'geocoding': {
             'total_records': rows_read,
             'geocoded_count': geocoded_count,
-            'success_rate': f"{geocoded_count/rows_read*100:.1f}%" if rows_read > 0 else "N/A"
+            'failed_count': len(geocoding_failures),
+            'success_rate': f"{geocoded_count/rows_read*100:.1f}%" if rows_read > 0 else "N/A",
+            'failures': geocoding_failures
         }
     }
 
@@ -217,7 +221,7 @@ def run_mammal_ingestion(session, geocoder: GeocodingService):
     cols_read = len(df.columns) if df is not None else 0
 
     # 2. Add geocoding
-    df = geocoder.geocode_dataframe(df)
+    df, geocoding_failures = geocoder.geocode_dataframe(df)
     geocoded_count = df['latitude'].notna().sum() if 'latitude' in df.columns else 0
 
     # 3. Validate
@@ -241,7 +245,9 @@ def run_mammal_ingestion(session, geocoder: GeocodingService):
         'geocoding': {
             'total_records': rows_read,
             'geocoded_count': geocoded_count,
-            'success_rate': f"{geocoded_count/rows_read*100:.1f}%" if rows_read > 0 else "N/A"
+            'failed_count': len(geocoding_failures),
+            'success_rate': f"{geocoded_count/rows_read*100:.1f}%" if rows_read > 0 else "N/A",
+            'failures': geocoding_failures
         }
     }
 

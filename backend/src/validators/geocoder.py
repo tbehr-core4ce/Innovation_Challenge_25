@@ -184,7 +184,7 @@ class GeocodingService:
         df: pd.DataFrame,
         county_col: str = 'county',
         state_col: str = 'state_province'
-    ) -> pd.DataFrame:
+    ) -> Tuple[pd.DataFrame, list]:
         """
         Add latitude and longitude columns to DataFrame based on county/state.
 
@@ -194,16 +194,31 @@ class GeocodingService:
             state_col: Name of state column
 
         Returns:
-            DataFrame with 'latitude' and 'longitude' columns added
+            Tuple of (DataFrame with 'latitude' and 'longitude' columns added, list of failed records)
         """
         df = df.copy()
+        failed_records = []
 
-        # Apply geocoding to each row
+        # Apply geocoding to each row and track failures
+        def geocode_with_tracking(row, idx):
+            county = row.get(county_col)
+            state = row.get(state_col)
+            coords = self.geocode_county(county, state)
+
+            # Track failures
+            if coords[0] is None or coords[1] is None:
+                reason = "Missing county or state" if pd.isna(county) or pd.isna(state) else "County not found in lookup table"
+                failed_records.append({
+                    'index': idx,
+                    'county': str(county) if not pd.isna(county) else "N/A",
+                    'state': str(state) if not pd.isna(state) else "N/A",
+                    'reason': reason
+                })
+
+            return coords
+
         coords = df.apply(
-            lambda row: self.geocode_county(
-                row.get(county_col),
-                row.get(state_col)
-            ),
+            lambda row: geocode_with_tracking(row, row.name),
             axis=1
         )
 
@@ -216,7 +231,7 @@ class GeocodingService:
         total_count = len(df)
         print(f"Geocoded {success_count}/{total_count} records ({success_count/total_count*100:.1f}%)")
 
-        return df
+        return df, failed_records
 
     def get_stats(self) -> Dict:
         """
