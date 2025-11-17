@@ -238,6 +238,17 @@ class H5N1DataLoader:
         print(f"  ✗ Failed: {failed}")
         print(f"  ≈ Duplicates: {duplicates}")
         print(f"  ⏱ Duration: {duration:.2f}s")
+
+        # Print sample errors for debugging
+        if errors:
+            print(f"\n⚠ Sample errors (showing first 5):")
+            for i, error in enumerate(errors[:5], 1):
+                print(f"  {i}. {error['error']}")
+                if 'record' in error:
+                    print(f"     Record: external_id={error['record'].get('external_id', 'N/A')}, "
+                          f"species={error['record'].get('animal_species', 'N/A')}, "
+                          f"date={error['record'].get('case_date', 'N/A')}")
+
         print(f"{'='*60}\n")
 
         return (successful, failed, duplicates)
