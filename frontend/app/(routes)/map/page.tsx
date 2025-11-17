@@ -1,7 +1,10 @@
 'use client'
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import dynamic from 'next/dynamic'
-import type { H5N1Case, HotspotZone } from '../../components/BETSMapVisualization'
+import type {
+  H5N1Case,
+  HotspotZone
+} from '../../components/BETSMapVisualization'
 import { betsApi } from '../../../services/betsApi'
 
 // ==================== MOCK DATA ====================
@@ -207,46 +210,46 @@ export default function DashboardPage() {
       `Clicked: ${caseData.location}\nType: ${caseData.caseType}\nCases: ${caseData.count}`
     )
   }
-    // State management
-    const [cases, setCases] = useState<H5N1Case[]>([])
-    const [hotspots, setHotspots] = useState<HotspotZone[]>([])
-    const [loading, setLoading] = useState<boolean>(true)
-    const [error, setError] = useState<string | null>(null)
-    const [lastUpdated, setLastUpdated] = useState<string>('')
-    const [refreshInterval, setRefreshInterval] = useState<number>(30000) // 30 seconds
-  
-    // Fetch data from API
-    const fetchMapData = async () => {
-      try {
-        setLoading(true)
-        setError(null)
-  
-        const data = await betsApi.getMapData()
-        setCases(data.cases)
-        setHotspots(data.hotspots)
-        setLastUpdated(new Date(data.lastUpdated).toLocaleString())
-      } catch (err) {
-        setError(err instanceof Error ? err.message : 'Failed to fetch data')
-        console.error('Error fetching map data:', err)
-      } finally {
-        setLoading(false)
-      }
-    }
-  
-    // Initial load
-    useEffect(() => {
-      fetchMapData()
-    }, [])
-  
-    // Auto-refresh data
-    useEffect(() => {
-      if (refreshInterval > 0) {
-        const interval = setInterval(fetchMapData, refreshInterval)
-        return () => clearInterval(interval)
-      }
-    }, [refreshInterval])
+  // State management
+  const [cases, setCases] = useState<H5N1Case[]>([])
+  const [hotspots, setHotspots] = useState<HotspotZone[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
+  const [error, setError] = useState<string | null>(null)
+  const [lastUpdated, setLastUpdated] = useState<string>('')
+  const [refreshInterval, setRefreshInterval] = useState<number>(30000) // 30 seconds
 
-    // Loading state
+  // Fetch data from API
+  const fetchMapData = async () => {
+    try {
+      setLoading(true)
+      setError(null)
+
+      const data = await betsApi.getMapData()
+      setCases(data.cases)
+      setHotspots(data.hotspots)
+      setLastUpdated(new Date(data.lastUpdated).toLocaleString())
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to fetch data')
+      console.error('Error fetching map data:', err)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Initial load
+  useEffect(() => {
+    fetchMapData()
+  }, [])
+
+  // Auto-refresh data
+  useEffect(() => {
+    if (refreshInterval > 0) {
+      const interval = setInterval(fetchMapData, refreshInterval)
+      return () => clearInterval(interval)
+    }
+  }, [refreshInterval])
+
+  // Loading state
   if (loading && cases.length === 0) {
     return (
       <div className="flex items-center justify-center w-full h-screen bg-gray-100">
@@ -320,17 +323,17 @@ export default function DashboardPage() {
         </div>
       </div>
 
-    <div className="w-full h-screen">
-      <BETSMapVisualization
-        cases={mockCases}
-        hotspots={mockHotspots}
-        center={[39.8283, -98.5795]}
-        zoom={5}
-        onCaseClick={handleCaseClick}
-      />
-    </div>
+      <div className="w-full h-screen">
+        <BETSMapVisualization
+          cases={mockCases}
+          hotspots={mockHotspots}
+          center={[39.8283, -98.5795]}
+          zoom={5}
+          onCaseClick={handleCaseClick}
+        />
+      </div>
 
-    {/* Loading Overlay */}
+      {/* Loading Overlay */}
       {loading && cases.length > 0 && (
         <div className="absolute top-20 right-4 z-[1001] bg-blue-600 text-white px-4 py-2 rounded shadow-lg">
           <div className="flex items-center space-x-2">
@@ -342,4 +345,3 @@ export default function DashboardPage() {
     </div>
   )
 }
-

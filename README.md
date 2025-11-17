@@ -129,3 +129,15 @@ source $(poetry env info --path)/bin/activate
 ``` docker compose up ```
 or
 ``` uvicorn src.main:app --reload --host 0.0.0.0 --port 8000```
+
+
+Cool commands to know
+in frontend folder
+
+`pnpm format` makes it prettier
+
+`pnpm lint` 
+
+`pnpm dev` (to end server ctrl + c)
+
+`pnpm type-check`
