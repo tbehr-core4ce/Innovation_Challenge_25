@@ -236,9 +236,17 @@ export default function DashboardPage() {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={({ name, percent }) =>
-                          `${name}: ${(percent * 100).toFixed(0)}%`
-                        }
+                        label={({ name, percent }) => {
+                          const percentValue = percent * 100
+                          // Hide label if too small to prevent overlap
+                          if (percentValue < 2) return ''
+                          // Show 1 decimal for values < 5%, otherwise no decimals
+                          const formatted =
+                            percentValue < 5
+                              ? percentValue.toFixed(1)
+                              : percentValue.toFixed(0)
+                          return `${name}: ${formatted}%`
+                        }}
                         outerRadius={100}
                         dataKey="value"
                       >
@@ -246,7 +254,16 @@ export default function DashboardPage() {
                           <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
                       </Pie>
-                      <RechartsTooltip />
+                      <RechartsTooltip
+                        formatter={(value: number, name: string) => {
+                          const total = animalCategories.reduce(
+                            (sum, item) => sum + item.value,
+                            0
+                          )
+                          const percent = ((value / total) * 100).toFixed(1)
+                          return [`${value} cases (${percent}%)`, name]
+                        }}
+                      />
                       <Legend />
                     </PieChart>
                   </ResponsiveContainer>
@@ -284,9 +301,17 @@ export default function DashboardPage() {
                         cx="50%"
                         cy="50%"
                         labelLine={false}
-                        label={({ name, percent }) =>
-                          `${name}: ${(percent * 100).toFixed(0)}%`
-                        }
+                        label={({ name, percent }) => {
+                          const percentValue = percent * 100
+                          // Hide label if too small to prevent overlap
+                          if (percentValue < 2) return ''
+                          // Show 1 decimal for values < 5%, otherwise no decimals
+                          const formatted =
+                            percentValue < 5
+                              ? percentValue.toFixed(1)
+                              : percentValue.toFixed(0)
+                          return `${name}: ${formatted}%`
+                        }}
                         outerRadius={100}
                         dataKey="value"
                       >
@@ -294,7 +319,16 @@ export default function DashboardPage() {
                           <Cell key={`cell-${index}`} fill={entry.color} />
                         ))}
                       </Pie>
-                      <RechartsTooltip />
+                      <RechartsTooltip
+                        formatter={(value: number, name: string) => {
+                          const total = statusData.reduce(
+                            (sum, item) => sum + item.value,
+                            0
+                          )
+                          const percent = ((value / total) * 100).toFixed(1)
+                          return [`${value} cases (${percent}%)`, name]
+                        }}
+                      />
                       <Legend />
                     </PieChart>
                   </ResponsiveContainer>
