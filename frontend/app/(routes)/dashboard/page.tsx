@@ -68,6 +68,7 @@ export default function DashboardPage() {
         setAnalytics(overview)
         setTimelineData(timeline)
         setRegionData(regions)
+        console.log('Setting animal categories:', animals)
         setAnimalCategories(animals)
         setStatusData(status)
         setDataSources(sources)
@@ -191,7 +192,13 @@ export default function DashboardPage() {
                 <p className="text-sm text-gray-500 mb-4">
                   Breakdown by WOAH categories
                 </p>
-                <PieChart data={animalCategories} />
+                {animalCategories.length > 0 ? (
+                  <PieChart data={animalCategories} />
+                ) : (
+                  <div className="flex items-center justify-center h-[300px] text-gray-400">
+                    <p>No animal category data available</p>
+                  </div>
+                )}
               </div>
             </Tooltip>
           </div>

@@ -344,14 +344,19 @@ class BETSApiService {
       { category: string; count: number; color: string }[]
     >(`/api/dashboard/animal-categories${queryString}`)
 
+    console.log('Animal categories raw response:', response)
+
     // Transform backend response to match frontend expectations
-    return (response || [])
-      .filter((item) => item && item.category)
+    const transformed = (response || [])
+      .filter((item) => item && item.category && (item.count ?? 0) > 0) // Filter out empty categories
       .map((item) => ({
         name: item.category,
         value: item.count ?? 0,
         color: item.color ?? '#6b7280'
       }))
+
+    console.log('Animal categories transformed:', transformed)
+    return transformed
   }
 
   /**
