@@ -18,9 +18,13 @@ interface AnimatedLineChartProps {
   data?: TimelineDataPoint[]
 }
 
-export default function AnimatedLineChart({ data = [] }: AnimatedLineChartProps) {
+export default function AnimatedLineChart({
+  data = []
+}: AnimatedLineChartProps) {
   const fullData = data.length > 0 ? data : []
-  const [currentIndex, setCurrentIndex] = useState(Math.max(0, fullData.length - 1))
+  const [currentIndex, setCurrentIndex] = useState(
+    Math.max(0, fullData.length - 1)
+  )
   const [isPlaying, setIsPlaying] = useState(false)
   const [speed, setSpeed] = useState(1000)
   const intervalRef = useRef<NodeJS.Timeout | null>(null)
@@ -45,7 +49,7 @@ export default function AnimatedLineChart({ data = [] }: AnimatedLineChartProps)
   useEffect(() => {
     if (isPlaying) {
       intervalRef.current = setInterval(() => {
-        setCurrentIndex(prev => {
+        setCurrentIndex((prev) => {
           if (prev >= fullData.length - 1) {
             setIsPlaying(false)
             return prev
@@ -85,15 +89,15 @@ export default function AnimatedLineChart({ data = [] }: AnimatedLineChartProps)
 
   const handleStepForward = () => {
     setIsPlaying(false)
-    setCurrentIndex(prev => Math.min(prev + 1, fullData.length - 1))
+    setCurrentIndex((prev) => Math.min(prev + 1, fullData.length - 1))
   }
 
   const handleStepBackward = () => {
     setIsPlaying(false)
-    setCurrentIndex(prev => Math.max(prev - 1, 0))
+    setCurrentIndex((prev) => Math.max(prev - 1, 0))
   }
 
-  const maxValue = Math.max(...fullData.map(d => d.total)) * 1.1
+  const maxValue = Math.max(...fullData.map((d) => d.total)) * 1.1
   const width = 800
   const height = 400
   const padding = { top: 40, right: 120, bottom: 80, left: 60 }
@@ -102,13 +106,13 @@ export default function AnimatedLineChart({ data = [] }: AnimatedLineChartProps)
 
   const createPath = (key: keyof Omit<TimelineDataPoint, 'month' | 'date'>) => {
     if (visibleData.length === 0) return ''
-    
+
     const points = visibleData.map((d, i) => {
       const x = padding.left + (i / (fullData.length - 1)) * chartWidth
       const y = padding.top + chartHeight - (d[key] / maxValue) * chartHeight
       return `${i === 0 ? 'M' : 'L'} ${x} ${y}`
     })
-    
+
     return points.join(' ')
   }
 
@@ -120,15 +124,19 @@ export default function AnimatedLineChart({ data = [] }: AnimatedLineChartProps)
     { key: 'total' as const, color: '#000000', label: 'Total Cases' }
   ]
 
-  const yTicks = [0, 0.25, 0.5, 0.75, 1].map(ratio => ({
+  const yTicks = [0, 0.25, 0.5, 0.75, 1].map((ratio) => ({
     value: Math.round(maxValue * ratio),
-    y: padding.top + chartHeight - (ratio * chartHeight)
+    y: padding.top + chartHeight - ratio * chartHeight
   }))
 
   return (
     <div className="space-y-4">
       <div className="relative">
-        <svg width={width} height={height} className="border border-gray-200 rounded bg-white">
+        <svg
+          width={width}
+          height={height}
+          className="border border-gray-200 rounded bg-white"
+        >
           {yTicks.map((tick, i) => (
             <g key={i}>
               <line
@@ -167,7 +175,7 @@ export default function AnimatedLineChart({ data = [] }: AnimatedLineChartProps)
             )
           })}
 
-          {categories.map(cat => (
+          {categories.map((cat) => (
             <path
               key={cat.key}
               d={createPath(cat.key)}
@@ -180,39 +188,51 @@ export default function AnimatedLineChart({ data = [] }: AnimatedLineChartProps)
             />
           ))}
 
-          {visibleData.length > 0 && categories.map(cat => {
-            const lastPoint = visibleData[visibleData.length - 1]
-            const x = padding.left + ((visibleData.length - 1) / (fullData.length - 1)) * chartWidth
-            const y = padding.top + chartHeight - (lastPoint[cat.key] / maxValue) * chartHeight
-            
-            return (
-              <g key={`point-${cat.key}`}>
-                <circle
-                  cx={x}
-                  cy={y}
-                  r={cat.key === 'total' ? 5 : 4}
-                  fill={cat.color}
-                  stroke="white"
-                  strokeWidth="2"
-                />
-                <text
-                  x={x + 10}
-                  y={y}
-                  className="text-xs font-semibold"
-                  fill={cat.color}
-                  alignmentBaseline="middle"
-                >
-                  {lastPoint[cat.key]}
-                </text>
-              </g>
-            )
-          })}
+          {visibleData.length > 0 &&
+            categories.map((cat) => {
+              const lastPoint = visibleData[visibleData.length - 1]
+              const x =
+                padding.left +
+                ((visibleData.length - 1) / (fullData.length - 1)) * chartWidth
+              const y =
+                padding.top +
+                chartHeight -
+                (lastPoint[cat.key] / maxValue) * chartHeight
+
+              return (
+                <g key={`point-${cat.key}`}>
+                  <circle
+                    cx={x}
+                    cy={y}
+                    r={cat.key === 'total' ? 5 : 4}
+                    fill={cat.color}
+                    stroke="white"
+                    strokeWidth="2"
+                  />
+                  <text
+                    x={x + 10}
+                    y={y}
+                    className="text-xs font-semibold"
+                    fill={cat.color}
+                    alignmentBaseline="middle"
+                  >
+                    {lastPoint[cat.key]}
+                  </text>
+                </g>
+              )
+            })}
 
           {visibleData.length > 0 && (
             <line
-              x1={padding.left + ((visibleData.length - 1) / (fullData.length - 1)) * chartWidth}
+              x1={
+                padding.left +
+                ((visibleData.length - 1) / (fullData.length - 1)) * chartWidth
+              }
               y1={padding.top}
-              x2={padding.left + ((visibleData.length - 1) / (fullData.length - 1)) * chartWidth}
+              x2={
+                padding.left +
+                ((visibleData.length - 1) / (fullData.length - 1)) * chartWidth
+              }
               y2={height - padding.bottom}
               stroke="#3b82f6"
               strokeWidth="2"
@@ -221,7 +241,9 @@ export default function AnimatedLineChart({ data = [] }: AnimatedLineChartProps)
             />
           )}
 
-          <g transform={`translate(${width - padding.right + 20}, ${padding.top})`}>
+          <g
+            transform={`translate(${width - padding.right + 20}, ${padding.top})`}
+          >
             {categories.map((cat, i) => (
               <g key={cat.key} transform={`translate(0, ${i * 25})`}>
                 <line
@@ -260,11 +282,12 @@ export default function AnimatedLineChart({ data = [] }: AnimatedLineChartProps)
           <div className="flex items-center justify-between text-sm text-gray-600">
             <span>{fullData[0].month}</span>
             <span className="font-semibold text-gray-900">
-              {fullData[currentIndex].month} ({currentIndex + 1}/{fullData.length})
+              {fullData[currentIndex].month} ({currentIndex + 1}/
+              {fullData.length})
             </span>
             <span>{fullData[fullData.length - 1].month}</span>
           </div>
-          
+
           <input
             type="range"
             min="0"
@@ -291,7 +314,11 @@ export default function AnimatedLineChart({ data = [] }: AnimatedLineChartProps)
               className="p-2 rounded-lg bg-blue-600 text-white hover:bg-blue-700 transition"
               title={isPlaying ? 'Pause' : 'Play'}
             >
-              {isPlaying ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4" />}
+              {isPlaying ? (
+                <Pause className="w-4 h-4" />
+              ) : (
+                <Play className="w-4 h-4" />
+              )}
             </button>
 
             <button
@@ -328,14 +355,13 @@ export default function AnimatedLineChart({ data = [] }: AnimatedLineChartProps)
         </div>
 
         <div className="grid grid-cols-5 gap-3 pt-3 border-t border-gray-200">
-          {categories.map(cat => (
+          {categories.map((cat) => (
             <div key={cat.key} className="text-center">
               <div className="text-xs text-gray-500 mb-1">{cat.label}</div>
-              <div 
-                className="text-lg font-bold"
-                style={{ color: cat.color }}
-              >
-                {visibleData.length > 0 ? visibleData[visibleData.length - 1][cat.key] : 0}
+              <div className="text-lg font-bold" style={{ color: cat.color }}>
+                {visibleData.length > 0
+                  ? visibleData[visibleData.length - 1][cat.key]
+                  : 0}
               </div>
             </div>
           ))}

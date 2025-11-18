@@ -15,7 +15,7 @@ export default function Tooltip({ content, children }: TooltipProps) {
       <MUITooltip
         title={content}
         arrow
-        placement="top"
+        placement="bottom"
         sx={{
           position: 'absolute',
           top: 8,

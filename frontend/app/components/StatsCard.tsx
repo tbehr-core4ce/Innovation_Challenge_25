@@ -9,9 +9,9 @@ interface StatsCardProps {
   textColor?: string
 }
 
-export default function StatsCard({ 
-  title, 
-  value, 
+export default function StatsCard({
+  title,
+  value,
   icon,
   bgColor = 'bg-green-50',
   textColor = 'text-green-700'
@@ -21,11 +21,15 @@ export default function StatsCard({
       <div className="flex items-center justify-between">
         <div>
           <p className={`text-sm ${textColor} font-medium`}>{title}</p>
-          <p className={`text-2xl font-bold ${textColor.replace('700', '900')}`}>
+          <p
+            className={`text-2xl font-bold ${textColor.replace('700', '900')}`}
+          >
             {value}
           </p>
         </div>
-        <div className={`w-12 h-12 ${bgColor.replace('50', '200')} rounded-full flex items-center justify-center`}>
+        <div
+          className={`w-12 h-12 ${bgColor.replace('50', '200')} rounded-full flex items-center justify-center`}
+        >
           {icon}
         </div>
       </div>

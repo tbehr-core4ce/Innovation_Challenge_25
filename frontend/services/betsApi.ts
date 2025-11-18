@@ -101,17 +101,66 @@ const MOCK_DASHBOARD_DATA = {
     animalsDeceased: 3890,
     lastUpdated: new Date().toISOString()
   },
-  
+
   timeline: [
-    { month: 'Jan', total: 45, poultry: 38, dairy_cattle: 5, wild_bird: 2, wild_mammal: 0 },
-    { month: 'Feb', total: 62, poultry: 52, dairy_cattle: 7, wild_bird: 3, wild_mammal: 0 },
-    { month: 'Mar', total: 78, poultry: 65, dairy_cattle: 8, wild_bird: 4, wild_mammal: 1 },
-    { month: 'Apr', total: 95, poultry: 79, dairy_cattle: 10, wild_bird: 5, wild_mammal: 1 },
-    { month: 'May', total: 134, poultry: 112, dairy_cattle: 14, wild_bird: 6, wild_mammal: 2 },
-    { month: 'Jun', total: 189, poultry: 165, dairy_cattle: 14, wild_bird: 8, wild_mammal: 2 },
-    { month: 'Jul', total: 247, poultry: 189, dairy_cattle: 46, wild_bird: 10, wild_mammal: 2 }
+    {
+      month: 'Jan',
+      total: 45,
+      poultry: 38,
+      dairy_cattle: 5,
+      wild_bird: 2,
+      wild_mammal: 0
+    },
+    {
+      month: 'Feb',
+      total: 62,
+      poultry: 52,
+      dairy_cattle: 7,
+      wild_bird: 3,
+      wild_mammal: 0
+    },
+    {
+      month: 'Mar',
+      total: 78,
+      poultry: 65,
+      dairy_cattle: 8,
+      wild_bird: 4,
+      wild_mammal: 1
+    },
+    {
+      month: 'Apr',
+      total: 95,
+      poultry: 79,
+      dairy_cattle: 10,
+      wild_bird: 5,
+      wild_mammal: 1
+    },
+    {
+      month: 'May',
+      total: 134,
+      poultry: 112,
+      dairy_cattle: 14,
+      wild_bird: 6,
+      wild_mammal: 2
+    },
+    {
+      month: 'Jun',
+      total: 189,
+      poultry: 165,
+      dairy_cattle: 14,
+      wild_bird: 8,
+      wild_mammal: 2
+    },
+    {
+      month: 'Jul',
+      total: 247,
+      poultry: 189,
+      dairy_cattle: 46,
+      wild_bird: 10,
+      wild_mammal: 2
+    }
   ],
-  
+
   regions: [
     { name: 'California', value: 45 },
     { name: 'Texas', value: 38 },
@@ -121,27 +170,27 @@ const MOCK_DASHBOARD_DATA = {
     { name: 'Florida', value: 21 },
     { name: 'Others', value: 59 }
   ],
-  
+
   animalCategories: [
     { name: 'Poultry', value: 189, color: '#f97316' },
     { name: 'Dairy Cattle', value: 46, color: '#eab308' },
     { name: 'Wild Bird', value: 10, color: '#3b82f6' },
     { name: 'Wild Mammal', value: 2, color: '#8b5cf6' }
   ],
-  
+
   statusBreakdown: [
     { name: 'Confirmed', value: 189, color: '#10b981' },
     { name: 'Suspected', value: 34, color: '#f59e0b' },
     { name: 'Under Investigation', value: 24, color: '#3b82f6' }
   ],
-  
+
   dataSources: [
     { name: 'WOAH', value: 120 },
     { name: 'CDC', value: 45 },
     { name: 'USDA', value: 67 },
     { name: 'State Agency', value: 15 }
   ],
-  
+
   recentAlerts: [
     {
       date: '2024-07-15',
@@ -168,7 +217,7 @@ const MOCK_DASHBOARD_DATA = {
 }
 
 // Mock delay to simulate network request
-const mockDelay = () => new Promise(resolve => setTimeout(resolve, 500))
+const mockDelay = () => new Promise((resolve) => setTimeout(resolve, 500))
 
 // ==================== API CLIENT ====================
 
@@ -289,9 +338,9 @@ class BETSApiService {
     return this.fetchApi('/health')
   }
 
-  //  DASHBOARD API ENDPOINTS 
-  //  TODO: Make sure these endpoints make sense 
-  
+  //  DASHBOARD API ENDPOINTS
+  //  TODO: Make sure these endpoints make sense
+
   /**
    * Get dashboard overview metrics
    * Backend endpoint: GET /api/dashboard/overview
@@ -300,7 +349,7 @@ class BETSApiService {
     // TODO: Replace with real API call
     await mockDelay()
     return MOCK_DASHBOARD_DATA.overview
-    
+
     // TODO: When backend is ready, uncomment this:
     // return this.fetchApi('/api/dashboard/overview')
   }
@@ -312,7 +361,7 @@ class BETSApiService {
   async getDashboardTimeline() {
     await mockDelay()
     return MOCK_DASHBOARD_DATA.timeline
-    
+
     // TODO: When backend is ready:
     // return this.fetchApi('/api/dashboard/timeline')
   }
@@ -324,7 +373,7 @@ class BETSApiService {
   async getDashboardRegions() {
     await mockDelay()
     return MOCK_DASHBOARD_DATA.regions
-    
+
     // TODO: When backend is ready:
     // return this.fetchApi('/api/dashboard/regions')
   }
@@ -336,7 +385,7 @@ class BETSApiService {
   async getAnimalCategories() {
     await mockDelay()
     return MOCK_DASHBOARD_DATA.animalCategories
-    
+
     // TODO: When backend is ready:
     // return this.fetchApi('/api/dashboard/animal-categories')
   }
@@ -348,7 +397,7 @@ class BETSApiService {
   async getStatusBreakdown() {
     await mockDelay()
     return MOCK_DASHBOARD_DATA.statusBreakdown
-    
+
     // TODO: When backend is ready:
     // return this.fetchApi('/api/dashboard/status')
   }
@@ -360,7 +409,7 @@ class BETSApiService {
   async getDataSources() {
     await mockDelay()
     return MOCK_DASHBOARD_DATA.dataSources
-    
+
     // TODO: When backend is ready:
     // return this.fetchApi('/api/dashboard/sources')
   }
@@ -372,7 +421,7 @@ class BETSApiService {
   async getDashboardAlerts() {
     await mockDelay()
     return MOCK_DASHBOARD_DATA.recentAlerts
-    
+
     // TODO: When backend is ready:
     // return this.fetchApi('/api/alerts/recent')
   }

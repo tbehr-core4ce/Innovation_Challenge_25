@@ -154,7 +154,7 @@ export default function RoutesLayout({
               fontStyle: 'italic'
             }}
           >
-            Powered by core4ce
+            Forged by Core4ce
           </Typography>
         </Box>
       ) : (

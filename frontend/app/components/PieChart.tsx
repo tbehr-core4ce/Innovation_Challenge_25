@@ -13,15 +13,15 @@ interface DistributionPieChartProps {
   data: {
     name: string
     value: number
-    color?: string  // Optional color field
+    color?: string // Optional color field
   }[]
   title?: string
-  colors?: string[]  // Fallback colors if data doesn't have colors
+  colors?: string[] // Fallback colors if data doesn't have colors
 }
 
-export default function DistributionPieChart({ 
-  data, 
-  title = "Distribution",
+export default function DistributionPieChart({
+  data,
+  title = 'Distribution',
   colors = ['#ef4444', '#f97316', '#eab308', '#22c55e', '#3b82f6']
 }: DistributionPieChartProps) {
   return (
@@ -34,14 +34,16 @@ export default function DistributionPieChart({
             cx="50%"
             cy="50%"
             labelLine={false}
-            label={({ name, percent }) => `${name}: ${(percent * 100).toFixed(0)}%`}
+            label={({ name, percent }) =>
+              `${name}: ${(percent * 100).toFixed(0)}%`
+            }
             outerRadius={100}
             dataKey="value"
           >
             {data.map((entry, index) => (
-              <Cell 
-                key={`cell-${index}`} 
-                fill={entry.color || colors[index % colors.length]} 
+              <Cell
+                key={`cell-${index}`}
+                fill={entry.color || colors[index % colors.length]}
               />
             ))}
           </Pie>
