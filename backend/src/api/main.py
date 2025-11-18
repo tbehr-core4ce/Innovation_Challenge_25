@@ -1,66 +1,208 @@
 """
-/services/service_name/src/main.py
-FastAPI application for document processing with Azure Blob Storage
+src/api/main.py
+BETS Backend API - H5N1 Case Data Service
+FastAPI backend for serving map visualization data
 """
-from fastapi import FastAPI, HTTPException, Query
-from fastapi.middleware.cors import CORSMiddleware
-from datetime import datetime, timedelta
-import uuid
 import os
-from settings import settings
-from azure_storage import get_storage_client
-from models.workflow import JobSubmission
-from models.microsoft import UploadSasResponse, DownloadSasResponse
-from routers import data_ingestion
+import time
+from datetime import datetime
+from typing import Callable
 
+import structlog
+from fastapi import FastAPI, Request, status
+from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
+
+from core.errors import BETSError
+from core.logging import (configure_console_logging, configure_json_logging,
+                          get_logger, setup_logging)
+
+from .routes import alerts, dashboard, data_ingestion, map_data
+
+app = FastAPI(title="BETS API", version="1.0.0")
+
+# Include all routers
 app.include_router(data_ingestion.router)
+app.include_router(dashboard.router)
+app.include_router(map_data.router)
+app.include_router(alerts.router)
 
+logger = get_logger(__name__)
 
-app = FastAPI(title="Document Processor API")
+# ============================================================================
+# Base Endpoints | Configurations
+# ============================================================================
 
-# CORS configuration
+@app.get("/")
+async def root():
+    """Root endpoint."""
+    logger.info("Root endpoint accessed")
+    return {"message": "BETS API", "status": "running", "version": "1.0.0"}
+
+@app.get("/health")
+def health_check():
+    """Health check endpoint."""
+    logger.debug("Health check requested")
+    return {
+        "status": "healthy",
+        "timestamp": datetime.now().isoformat()
+    }
+
+@app.get("/debug/config")
+def debug_config():
+    """Debug endpoint to check configuration."""
+    from utils.settings import settings
+    db_url = settings.DATABASE_URL
+    # Mask password for security
+    if '@' in db_url:
+        parts = db_url.split('@')
+        auth_part = parts[0]
+        if ':' in auth_part:
+            user = auth_part.split(':')[0].split('//')[-1]
+            masked = auth_part.replace(auth_part.split(':')[-1], '***')
+            db_url_masked = masked + '@' + parts[1]
+        else:
+            db_url_masked = db_url
+    else:
+        db_url_masked = db_url
+
+    return {
+        "DATABASE_URL": db_url_masked,
+        "ENVIRONMENT": settings.environment,
+        "ENV_DATABASE_URL": os.getenv("DATABASE_URL", "NOT SET")[:50] + "..." if os.getenv("DATABASE_URL") else "NOT SET"
+    }
+
+@app.on_event("startup")
+async def configure_logging_on_startup():
+    """Configure logging based on environment."""
+    environment = os.getenv("ENVIRONMENT", "development")
+    log_level = os.getenv("LOG_LEVEL", "INFO")
+    
+    # Initialize base logging
+    setup_logging(log_level)
+    
+    # Configure output format based on environment
+    if environment == "production":
+        configure_json_logging()
+        logger.info("Logging configured for production (JSON output)")
+    else:
+        configure_console_logging()
+        logger.info("Logging configured for development (console output)")
+    
+    logger.info(
+        "Application starting",
+        environment=environment,
+        log_level=log_level,
+    )
+
+@app.middleware("http")
+async def logging_middleware(request: Request, call_next: Callable):
+    """
+    Log all HTTP requests with timing and status information.
+    Adds request context to all logs within the request lifecycle.
+    """
+    # Generate request ID
+    request_id = request.headers.get("X-Request-ID", f"req_{int(time.time() * 1000)}")
+    
+    # Bind request context for all logs in this request
+    structlog.contextvars.bind_contextvars(
+        request_id=request_id,
+        method=request.method,
+        path=request.url.path,
+        client_ip=request.client.host if request.client else None,
+    )
+    
+    # Log request
+    logger.info(
+        "Request started",
+        user_agent=request.headers.get("user-agent"),
+    )
+    
+    # Process request and measure time
+    start_time = time.time()
+    try:
+        response = await call_next(request)
+        duration_ms = int((time.time() - start_time) * 1000)
+        
+        # Log response
+        logger.info(
+            "Request completed",
+            status_code=response.status_code,
+            duration_ms=duration_ms,
+        )
+        
+        # Add request ID to response headers
+        response.headers["X-Request-ID"] = request_id
+        
+        return response
+        
+    except Exception as e:
+        duration_ms = int((time.time() - start_time) * 1000)
+        logger.error(
+            "Request failed",
+            error=str(e),
+            error_type=type(e).__name__,
+            duration_ms=duration_ms,
+            exc_info=True,
+        )
+        raise
+        
+    finally:
+        # Clear request context
+        structlog.contextvars.clear_contextvars()
+
+@app.exception_handler(BETSError)
+async def bets_error_handler(request: Request, exc: BETSError):
+    """
+    Handle BETS custom errors.
+    Logging is already done in the error constructor.
+    """
+    return JSONResponse(
+        status_code=exc.status_code,
+        content={
+            "error": exc.detail,
+            "status_code": exc.status_code,
+        },
+    )
+
+@app.exception_handler(Exception)
+async def general_exception_handler(request: Request, exc: Exception):
+    """
+    Catch-all error handler for unexpected exceptions.
+    """
+    logger.error(
+        "Unhandled exception",
+        error=str(exc),
+        error_type=type(exc).__name__,
+        path=request.url.path,
+        method=request.method,
+        exc_info=True,
+    )
+    
+    return JSONResponse(
+        status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+        content={
+            "error": "Internal server error",
+            "status_code": 500,
+        },
+    )
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    """Log application shutdown."""
+    logger.info("Application shutting down")
+
+# Enable CORS for React/Next.js frontend
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["http://localhost:3000"],  # React dev server
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-
-@app.get("/health")
-def health_check():
-    """Health check endpoint"""
-    return {"status": "healthy"}
-
-
-# In backend_api.py, add:
-# Connect parser to the FastAPI backend
-@app.post("/api/ingest-csv")
-async def ingest_csv_data(file: UploadFile):
-    """
-    Upload and ingest CSV file of H5N1 cases
-    """
-    # Save uploaded file
-    contents = await file.read()
-    with open(f"/tmp/{file.filename}", "wb") as f:
-        f.write(contents)
-    
-    # Parse CSV
-    cases = parse_h5n1_csv(f"/tmp/{file.filename}")
-    
-    # Validate
-    validator = DataValidator()
-    valid_cases = [c for c in cases if validator.validate_case(c)]
-    
-    # Store in database (or update mock_cases for now)
-    mock_cases.extend(valid_cases)
-    
-    return {
-        "message": f"Ingested {len(valid_cases)} cases",
-        "validation_report": validator.get_report()
-    }
-
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=8000, log_level="info")
+
+        # reload=True,  # Development only

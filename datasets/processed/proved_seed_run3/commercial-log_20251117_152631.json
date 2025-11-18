@@ -1,0 +1,44 @@
+{
+  "timestamp": "2025-11-17T15:26:31.844261",
+  "dataset": "commercial",
+  "source_file": "/Users/tiffanybehrcore4ce/Documents/Work-Projects/Innovation_Challenge_25/datasets/raw/commercial-backyard-flocks.csv",
+  "file_hash": "f25dc2bceea619f1471fd10301afc28f1e84823037553b85186788467101c456",
+  "parsing": {
+    "rows_read": 1700,
+    "columns_read": 12,
+    "parse_errors": 0,
+    "sample_parse_errors": []
+  },
+  "geocoding": {
+    "total_records": 1700,
+    "geocoded_count": "1699",
+    "failed_count": 1,
+    "success_rate": "99.9%",
+    "failures": [
+      {
+        "index": 322,
+        "county": "Culebra",
+        "state": "Puerto Rico",
+        "reason": "County not found in lookup table"
+      }
+    ]
+  },
+  "validation": {
+    "validated": false,
+    "valid_records": 1700,
+    "error_count": 0,
+    "sample_errors": []
+  },
+  "import": {
+    "successful": 1700,
+    "failed": 0,
+    "duplicates": 0,
+    "total_records": 1700,
+    "duration_seconds": 0.22
+  },
+  "duplicate_samples": {
+    "within_batch": [],
+    "cross_batch": []
+  },
+  "error_samples": []
+}
