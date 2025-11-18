@@ -370,7 +370,7 @@ export default function DashboardPage() {
                   Dashboard Status
                 </h4>
                 <p className="text-sm text-blue-700">
-                  all this data is fake :c for now Last updated:{' '}
+                  Live data from backend API. Last updated:{' '}
                   {new Date().toLocaleString()}
                 </p>
               </div>
