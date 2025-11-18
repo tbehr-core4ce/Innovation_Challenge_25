@@ -72,8 +72,18 @@ export default function DashboardPage() {
 
       const results = await Promise.all(categoryPromises)
 
-      // Combine all cases from different categories
-      const allCases = results.flatMap((result) => result.cases)
+      // Combine all cases from different categories and deduplicate by ID
+      const allCasesArray = results.flatMap((result) => result.cases)
+
+      // Use Map to deduplicate - keeps first occurrence of each ID
+      const uniqueCasesMap = new Map<string, H5N1Case>()
+      allCasesArray.forEach((caseData) => {
+        if (!uniqueCasesMap.has(caseData.id)) {
+          uniqueCasesMap.set(caseData.id, caseData)
+        }
+      })
+      const allCases = Array.from(uniqueCasesMap.values())
+
       const allHotspots =
         activeLayers.hotspots && results.length > 0
           ? results[0].hotspots
