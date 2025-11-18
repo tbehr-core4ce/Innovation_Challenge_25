@@ -20,6 +20,9 @@ services:
       - DATABASE_URL=postgresql+psycopg://bets_user:bets_password@postgres:5432/bets_db
     volumes:
       - ./backend:/app
+    depends_on:
+      postgres:
+        condition: service_healthy
     restart: unless-stopped # always instead ?
     networks:
       - bets-network
