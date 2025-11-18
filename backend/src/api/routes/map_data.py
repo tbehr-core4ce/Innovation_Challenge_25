@@ -12,12 +12,10 @@ from pydantic import BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
+from src.api.utils.transformers import (calculate_risk_level,
+                                        transform_case_for_map)
 from src.core.database import get_db
 from src.core.models import H5N1Case
-from src.api.utils.transformers import (
-    transform_case_for_map,
-    calculate_risk_level
-)
 
 router = APIRouter(prefix="/api", tags=["map"])
 

@@ -12,16 +12,12 @@ from pydantic import BaseModel
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
+from src.api.utils.transformers import (CATEGORY_COLORS, CATEGORY_NAMES,
+                                        STATUS_COLORS, STATUS_NAMES,
+                                        format_category_name,
+                                        format_status_name)
 from src.core.database import get_db
 from src.core.models import H5N1Case
-from src.api.utils.transformers import (
-    CATEGORY_COLORS,
-    CATEGORY_NAMES,
-    STATUS_COLORS,
-    STATUS_NAMES,
-    format_category_name,
-    format_status_name
-)
 
 router = APIRouter(prefix="/api/dashboard", tags=["dashboard"])
 

@@ -4,10 +4,10 @@ Converts database models to frontend-compatible formats.
 backend/src/api/utils/transformers.py
 """
 
-from typing import Dict, Any, Optional
 from datetime import datetime
-from src.core.models import H5N1Case
+from typing import Any, Dict, Optional
 
+from src.core.models import H5N1Case
 
 # Color and name mappings for frontend
 CATEGORY_COLORS = {
