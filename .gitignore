@@ -213,6 +213,9 @@ node_modules/
 .next/
 out/
 
+# TypeScript build cache
+*.tsbuildinfo
+
 # Build cache
 .cache/
 dist/
