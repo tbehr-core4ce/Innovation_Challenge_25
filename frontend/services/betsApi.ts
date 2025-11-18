@@ -172,18 +172,20 @@ class BETSApiService {
     }
 
     // Transform cases to match frontend expectations
-    const transformedCases: H5N1Case[] = response.cases.map((c) => ({
-      ...c,
-      caseType:
-        categoryMap[c.caseType] ||
-        ('environmental' as H5N1Case['caseType']),
-      severity: c.severity as H5N1Case['severity'],
-      status: c.status as H5N1Case['status']
-    }))
+    const transformedCases: H5N1Case[] = (response.cases || [])
+      .filter((c) => c && c.id && c.lat && c.lng)
+      .map((c) => ({
+        ...c,
+        caseType:
+          categoryMap[c.caseType] ||
+          ('environmental' as H5N1Case['caseType']),
+        severity: c.severity as H5N1Case['severity'],
+        status: c.status as H5N1Case['status']
+      }))
 
     return {
       cases: transformedCases,
-      hotspots: response.hotspots,
+      hotspots: response.hotspots || [],
       lastUpdated: new Date().toISOString()
     }
   }
@@ -262,26 +264,26 @@ class BETSApiService {
 
     const queryString = params.toString() ? `?${params.toString()}` : ''
     const response = await this.fetchApi<{
-      totalCases: number
-      confirmedCases: number
-      suspectedCases: number
-      underInvestigation: number
-      criticalCases: number
-      highSeverityCases: number
-      totalAnimalsAffected: number
-      totalAnimalsDeceased: number
+      totalCases?: number
+      confirmedCases?: number
+      suspectedCases?: number
+      underInvestigation?: number
+      criticalCases?: number
+      highSeverityCases?: number
+      totalAnimalsAffected?: number
+      totalAnimalsDeceased?: number
     }>(`/api/dashboard/overview${queryString}`)
 
-    // Transform backend response to match frontend expectations
+    // Transform backend response to match frontend expectations with default values
     return {
-      totalCases: response.totalCases,
-      confirmedCases: response.confirmedCases,
-      suspectedCases: response.suspectedCases,
-      underInvestigation: response.underInvestigation,
-      criticalSeverity: response.criticalCases,
-      highSeverity: response.highSeverityCases,
-      animalsAffected: response.totalAnimalsAffected,
-      animalsDeceased: response.totalAnimalsDeceased,
+      totalCases: response.totalCases ?? 0,
+      confirmedCases: response.confirmedCases ?? 0,
+      suspectedCases: response.suspectedCases ?? 0,
+      underInvestigation: response.underInvestigation ?? 0,
+      criticalSeverity: response.criticalCases ?? 0,
+      highSeverity: response.highSeverityCases ?? 0,
+      animalsAffected: response.totalAnimalsAffected ?? 0,
+      animalsDeceased: response.totalAnimalsDeceased ?? 0,
       lastUpdated: new Date().toISOString()
     }
   }
@@ -297,9 +299,10 @@ class BETSApiService {
     if (months) params.append('months', months.toString())
 
     const queryString = params.toString() ? `?${params.toString()}` : ''
-    return this.fetchApi<TimelineDataPoint[]>(
+    const response = await this.fetchApi<TimelineDataPoint[]>(
       `/api/dashboard/timeline${queryString}`
     )
+    return response || []
   }
 
   /**
@@ -320,10 +323,12 @@ class BETSApiService {
     >(`/api/dashboard/regions${queryString}`)
 
     // Transform backend response to match frontend expectations
-    return response.map((item) => ({
-      name: item.region,
-      value: item.caseCount
-    }))
+    return (response || [])
+      .filter((item) => item && item.region)
+      .map((item) => ({
+        name: item.region,
+        value: item.caseCount ?? 0
+      }))
   }
 
   /**
@@ -340,11 +345,13 @@ class BETSApiService {
     >(`/api/dashboard/animal-categories${queryString}`)
 
     // Transform backend response to match frontend expectations
-    return response.map((item) => ({
-      name: item.category,
-      value: item.count,
-      color: item.color
-    }))
+    return (response || [])
+      .filter((item) => item && item.category)
+      .map((item) => ({
+        name: item.category,
+        value: item.count ?? 0,
+        color: item.color ?? '#6b7280'
+      }))
   }
 
   /**
@@ -402,10 +409,12 @@ class BETSApiService {
     )
 
     // Transform backend response to match frontend expectations
-    return response.map((item) => ({
-      name: item.source,
-      value: item.count
-    }))
+    return (response || [])
+      .filter((item) => item && item.source)
+      .map((item) => ({
+        name: item.source,
+        value: item.count ?? 0
+      }))
   }
 
   /**
@@ -435,13 +444,15 @@ class BETSApiService {
     >(`/api/alerts/recent${queryString}`)
 
     // Transform backend response to match frontend expectations
-    return response.map((item) => ({
-      date: new Date(item.date).toLocaleDateString(),
-      type: item.title,
-      location: item.location,
-      severity: item.severity,
-      message: item.message
-    }))
+    return (response || [])
+      .filter((item) => item && item.title && item.date)
+      .map((item) => ({
+        date: new Date(item.date).toLocaleDateString(),
+        type: item.title ?? 'Alert',
+        location: item.location ?? 'Unknown',
+        severity: item.severity ?? 'info',
+        message: item.message ?? ''
+      }))
   }
 }
 
