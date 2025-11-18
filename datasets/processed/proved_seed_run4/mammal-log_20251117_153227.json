@@ -1,0 +1,37 @@
+{
+  "timestamp": "2025-11-17T15:32:27.381000",
+  "dataset": "mammal",
+  "source_file": "/Users/tiffanybehrcore4ce/Documents/Work-Projects/Innovation_Challenge_25/datasets/raw/HPAI Detections in Mammals.csv",
+  "file_hash": "46fc88bef209aefd51d1bdbd04a6440f32447fda24f785ea71c4777aaf83ac68",
+  "parsing": {
+    "rows_read": 485,
+    "columns_read": 14,
+    "parse_errors": 0,
+    "sample_parse_errors": []
+  },
+  "geocoding": {
+    "total_records": 485,
+    "geocoded_count": "485",
+    "failed_count": 0,
+    "success_rate": "100.0%",
+    "failures": []
+  },
+  "validation": {
+    "validated": false,
+    "valid_records": 485,
+    "error_count": 0,
+    "sample_errors": []
+  },
+  "import": {
+    "successful": 485,
+    "failed": 0,
+    "duplicates": 0,
+    "total_records": 485,
+    "duration_seconds": 0.03
+  },
+  "duplicate_samples": {
+    "within_batch": [],
+    "cross_batch": []
+  },
+  "error_samples": []
+}

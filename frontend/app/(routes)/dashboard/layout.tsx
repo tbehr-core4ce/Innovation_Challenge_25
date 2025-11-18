@@ -9,7 +9,6 @@ export default function DashboardLayout({
   return <>{children}</>
 }
 
-
 // import type { Metadata } from 'next'
 
 // export const metadata: Metadata = {
