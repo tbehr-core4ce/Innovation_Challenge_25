@@ -140,10 +140,11 @@ def get_dashboard_timeline(
     # Calculate date range
     cutoff_date = datetime.now() - timedelta(days=months * 30)
 
-    # Query monthly data
+    # Query monthly data - use date_trunc for grouping only
+    month_trunc = func.date_trunc('month', H5N1Case.case_date).label('month_date')
+
     results = db.query(
-        func.to_char(H5N1Case.case_date, 'Mon').label('month'),
-        func.date_trunc('month', H5N1Case.case_date).label('month_date'),
+        month_trunc,
         func.count(H5N1Case.id).label('total'),
         func.count(H5N1Case.id).filter(H5N1Case.animal_category == 'poultry').label('poultry'),
         func.count(H5N1Case.id).filter(H5N1Case.animal_category == 'dairy_cattle').label('dairy_cattle'),
@@ -153,15 +154,14 @@ def get_dashboard_timeline(
         H5N1Case.is_deleted == False,
         H5N1Case.case_date >= cutoff_date
     ).group_by(
-        func.to_char(H5N1Case.case_date, 'Mon'),
-        func.date_trunc('month', H5N1Case.case_date)
+        month_trunc
     ).order_by(
-        func.date_trunc('month', H5N1Case.case_date)
+        month_trunc
     ).all()
 
     return [
         TimelineDataPoint(
-            month=row.month,
+            month=row.month_date.strftime('%b') if row.month_date else 'Unknown',
             total=row.total or 0,
             poultry=row.poultry or 0,
             dairy_cattle=row.dairy_cattle or 0,
