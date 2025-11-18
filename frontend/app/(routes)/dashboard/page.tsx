@@ -76,9 +76,11 @@ export default function DashboardPage() {
         // Update state with API data
         setAnalytics(overview)
         setTimelineData(timeline)
+        console.log('Setting region data:', regions)
         setRegionData(regions)
         setAnimalCategories(animals)
         setStatusData(status)
+        console.log('Setting data sources:', sources)
         setDataSources(sources)
         setRecentAlerts(alerts)
       } catch (error) {
@@ -318,12 +320,20 @@ export default function DashboardPage() {
         </section>
 
         {/*  REGIONAL BREAKDOWN  */}
-      <section>
-        <h2 className="text-xl font-semibold text-gray-900 mb-4">
-          Regional Breakdown
-        </h2>
-        <BarChart data={regionData} title="Top 10 States by Case Count" />
-      </section>
+        <section>
+          <h2 className="text-xl font-semibold text-gray-900 mb-4">
+            Regional Breakdown
+          </h2>
+          {regionData && regionData.length > 0 ? (
+            <BarChart data={regionData} title="Top 10 States by Case Count" />
+          ) : (
+            <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 flex items-center justify-center h-[300px]">
+              <p className="text-gray-400">
+                No regional data available (count: {regionData?.length ?? 0})
+              </p>
+            </div>
+          )}
+        </section>
 
         {/*  RECENT ALERTS  */}
         <section>

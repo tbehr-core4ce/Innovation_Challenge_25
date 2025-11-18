@@ -318,17 +318,19 @@ class BETSApiService {
     if (limit) params.append('limit', limit.toString())
 
     const queryString = params.toString() ? `?${params.toString()}` : ''
-    const response = await this.fetchApi<
-      { region: string; caseCount: number }[]
-    >(`/api/dashboard/regions${queryString}`)
+    const response = await this.fetchApi<RegionDataPoint[]>(
+      `/api/dashboard/regions${queryString}`
+    )
 
-    // Transform backend response to match frontend expectations
-    return (response || [])
-      .filter((item) => item && item.region)
-      .map((item) => ({
-        name: item.region,
-        value: item.caseCount ?? 0
-      }))
+    console.log('Regional data raw response:', response)
+
+    // Backend already returns the correct format, just filter out empty regions
+    const filtered = (response || []).filter(
+      (item) => item && item.name && (item.value ?? 0) > 0
+    )
+
+    console.log('Regional data filtered:', filtered)
+    return filtered
   }
 
   /**
