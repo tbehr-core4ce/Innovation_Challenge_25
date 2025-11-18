@@ -268,10 +268,10 @@ class BETSApiService {
       confirmedCases?: number
       suspectedCases?: number
       underInvestigation?: number
-      criticalCases?: number
-      highSeverityCases?: number
-      totalAnimalsAffected?: number
-      totalAnimalsDeceased?: number
+      criticalSeverity?: number
+      highSeverity?: number
+      animalsAffected?: number      // ✅ Changed from totalAnimalsAffected
+      animalsDeceased?: number      // ✅ Changed from totalAnimalsDeceased
     }>(`/api/dashboard/overview${queryString}`)
 
     // Transform backend response to match frontend expectations with default values
@@ -280,10 +280,10 @@ class BETSApiService {
       confirmedCases: response.confirmedCases ?? 0,
       suspectedCases: response.suspectedCases ?? 0,
       underInvestigation: response.underInvestigation ?? 0,
-      criticalSeverity: response.criticalCases ?? 0,
-      highSeverity: response.highSeverityCases ?? 0,
-      animalsAffected: response.totalAnimalsAffected ?? 0,
-      animalsDeceased: response.totalAnimalsDeceased ?? 0,
+      criticalSeverity: response.criticalSeverity ?? 0,
+      highSeverity: response.highSeverity ?? 0,
+      animalsAffected: response.animalsAffected ?? 0,
+      animalsDeceased: response.animalsDeceased ?? 0,
       lastUpdated: new Date().toISOString()
     }
   }
@@ -355,47 +355,30 @@ class BETSApiService {
     return filtered
   }
 
-  /**
-   * Get case status breakdown
-   * Backend endpoint: GET /api/dashboard/status
-   */
-  async getStatusBreakdown(days: number = 90): Promise<StatusData[]> {
-    const params = new URLSearchParams()
-    if (days) params.append('days', days.toString())
+/**
+ * Get case status breakdown
+ * Backend endpoint: GET /api/dashboard/status
+ */
+async getStatusBreakdown(days: number = 90): Promise<StatusData[]> {
+  const params = new URLSearchParams()
+  if (days) params.append('days', days.toString())
 
-    const queryString = params.toString() ? `?${params.toString()}` : ''
-    const response = await this.fetchApi<{ status: string; count: number }[]>(
-      `/api/dashboard/status${queryString}`
-    )
+  const queryString = params.toString() ? `?${params.toString()}` : ''
+  const response = await this.fetchApi<StatusData[]>(
+    `/api/dashboard/status${queryString}`
+  )
 
-    // Define colors for different statuses
-    const statusColors: Record<string, string> = {
-      confirmed: '#10b981',
-      suspected: '#f59e0b',
-      under_investigation: '#3b82f6',
-      negative: '#6b7280',
-      inconclusive: '#8b5cf6'
-    }
+  console.log('Status breakdown raw response:', response)
 
-    // Transform backend response to match frontend expectations
-    return response
-      .filter((item) => item && item.status) // Filter out any invalid items
-      .map((item) => {
-        const status = item.status.toLowerCase()
-        // Convert status to readable name
-        const name = status
-          .split('_')
-          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-          .join(' ')
+  // Backend already returns the correct format {name, value, color}
+  // Just filter out empty statuses
+  const filtered = (response || []).filter(
+    (item) => item && item.name && (item.value ?? 0) > 0
+  )
 
-        return {
-          name,
-          value: item.count,
-          color: statusColors[status] || '#6b7280'
-        }
-      })
-  }
-
+  console.log('Status breakdown filtered:', filtered)
+  return filtered
+}
   /**
    * Get data sources
    * Backend endpoint: GET /api/dashboard/sources

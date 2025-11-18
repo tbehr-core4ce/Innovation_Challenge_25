@@ -77,7 +77,6 @@ export default function DashboardPage() {
         setAnalytics(overview)
         setTimelineData(timeline)
         setRegionData(regions)
-        console.log('Setting animal categories:', animals)
         setAnimalCategories(animals)
         setStatusData(status)
         setDataSources(sources)
@@ -161,6 +160,7 @@ export default function DashboardPage() {
                 value={analytics.totalCases.toLocaleString()}
                 icon={<Activity className="text-blue-500 w-6 h-6" />}
                 trend="+12.5%"
+                timeRange={timeRange} 
               />
             </Tooltip>
 
@@ -170,6 +170,7 @@ export default function DashboardPage() {
                 value={analytics.confirmedCases.toLocaleString()}
                 icon={<AlertTriangle className="text-green-500 w-6 h-6" />}
                 trend={`${((analytics.confirmedCases / analytics.totalCases) * 100).toFixed(0)}% of total`}
+                timeRange={timeRange} 
               />
             </Tooltip>
 
@@ -181,6 +182,7 @@ export default function DashboardPage() {
                 ).toLocaleString()}
                 icon={<AlertTriangle className="text-red-500 w-6 h-6" />}
                 trend={`${analytics.criticalSeverity} critical`}
+                timeRange={timeRange} 
               />
             </Tooltip>
 
@@ -190,6 +192,7 @@ export default function DashboardPage() {
                 value={analytics.animalsAffected.toLocaleString()}
                 icon={<Bird className="text-orange-500 w-6 h-6" />}
                 trend={`${mortalityRate}% mortality`}
+                timeRange={timeRange} 
               />
             </Tooltip>
           </div>
@@ -315,12 +318,12 @@ export default function DashboardPage() {
         </section>
 
         {/*  REGIONAL BREAKDOWN  */}
-        <section>
-          <h2 className="text-xl font-semibold text-gray-900 mb-4">
-            Regional Breakdown
-          </h2>
-          <BarChart data={regionData} />
-        </section>
+      <section>
+        <h2 className="text-xl font-semibold text-gray-900 mb-4">
+          Regional Breakdown
+        </h2>
+        <BarChart data={regionData} title="Top 10 States by Case Count" />
+      </section>
 
         {/*  RECENT ALERTS  */}
         <section>
