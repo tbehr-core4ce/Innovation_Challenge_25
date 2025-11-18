@@ -350,14 +350,17 @@ export default function RoutesLayout({
         </Drawer>
       )}
 
-      {/* Desktop Sidebar (static - part of flex layout) */}
+      {/* Desktop Sidebar (sticky - stays in place while content scrolls) */}
       {!isMobile && (
         <Box
           sx={{
             width: sidebarCollapsed ? drawerCollapsedWidth : drawerWidth,
             flexShrink: 0,
-            position: 'relative',
-            transition: 'width 0.3s ease'
+            position: 'sticky',
+            top: 0,
+            height: '100vh',
+            transition: 'width 0.3s ease',
+            overflowY: 'auto'
           }}
         >
           {drawer}
