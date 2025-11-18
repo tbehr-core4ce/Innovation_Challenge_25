@@ -244,7 +244,7 @@ export default function RoutesLayout({
         </AppBar>
       )}
 
-      {/* Drawer - Mobile (temporary) */}
+      {/* Mobile Drawer (temporary - slides over content) */}
       {isMobile && (
         <Drawer
           variant="temporary"
@@ -254,7 +254,6 @@ export default function RoutesLayout({
             keepMounted: true // Better mobile performance
           }}
           sx={{
-            display: { xs: 'block', md: 'none' },
             '& .MuiDrawer-paper': {
               boxSizing: 'border-box',
               width: drawerWidth,
@@ -266,22 +265,17 @@ export default function RoutesLayout({
         </Drawer>
       )}
 
-      {/* Drawer - Desktop (permanent) */}
+      {/* Desktop Sidebar (static - part of flex layout) */}
       {!isMobile && (
-        <Drawer
-          variant="permanent"
+        <Box
           sx={{
-            display: { xs: 'none', md: 'block' },
-            '& .MuiDrawer-paper': {
-              boxSizing: 'border-box',
-              width: drawerWidth,
-              border: 'none'
-            }
+            width: drawerWidth,
+            flexShrink: 0,
+            position: 'relative'
           }}
-          open
         >
           {drawer}
-        </Drawer>
+        </Box>
       )}
 
       {/* Main Content */}
@@ -289,7 +283,6 @@ export default function RoutesLayout({
         component="main"
         sx={{
           flexGrow: 1,
-          width: { md: `calc(100% - ${drawerWidth}px)` },
           minHeight: '100vh',
           backgroundColor: brandColors.lightBlueGray,
           mt: isMobile ? '64px' : 0
