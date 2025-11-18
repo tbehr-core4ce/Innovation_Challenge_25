@@ -405,17 +405,19 @@ class BETSApiService {
     if (days) params.append('days', days.toString())
 
     const queryString = params.toString() ? `?${params.toString()}` : ''
-    const response = await this.fetchApi<{ source: string; count: number }[]>(
+    const response = await this.fetchApi<DataSourceData[]>(
       `/api/dashboard/sources${queryString}`
     )
 
-    // Transform backend response to match frontend expectations
-    return (response || [])
-      .filter((item) => item && item.source)
-      .map((item) => ({
-        name: item.source,
-        value: item.count ?? 0
-      }))
+    console.log('Data sources raw response:', response)
+
+    // Backend already returns the correct format, just filter out empty sources
+    const filtered = (response || []).filter(
+      (item) => item && item.name && (item.value ?? 0) > 0
+    )
+
+    console.log('Data sources filtered:', filtered)
+    return filtered
   }
 
   /**
