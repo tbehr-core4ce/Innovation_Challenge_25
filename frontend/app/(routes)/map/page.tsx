@@ -6,6 +6,7 @@ import type {
   HotspotZone
 } from '../../components/BETSMapVisualization'
 import { betsApi } from '../../../services/betsApi'
+import { Layers, Filter, Clock, AlertCircle } from 'lucide-react'
 
 // Load map component dynamically (disable SSR for Leaflet)
 const BETSMapVisualization = dynamic(
@@ -21,13 +22,36 @@ export default function DashboardPage() {
       `Clicked: ${caseData.location}\nType: ${caseData.caseType}\nCases: ${caseData.count}`
     )
   }
+
   // State management
   const [cases, setCases] = useState<H5N1Case[]>([])
   const [hotspots, setHotspots] = useState<HotspotZone[]>([])
   const [loading, setLoading] = useState<boolean>(true)
   const [error, setError] = useState<string | null>(null)
   const [lastUpdated, setLastUpdated] = useState<string>('')
-  const [refreshInterval, setRefreshInterval] = useState<number>(30000) // 30 seconds
+  const [refreshInterval, setRefreshInterval] = useState<number>(30000)
+
+  // Filter state
+  const [timeRange, setTimeRange] = useState<number>(30) // Default 30 days
+  const [severityFilter, setSeverityFilter] = useState<string>('all')
+  const [showLayerPanel, setShowLayerPanel] = useState<boolean>(true)
+
+  // Layer toggles - multiple categories can be selected
+  const [activeLayers, setActiveLayers] = useState<{
+    poultry: boolean
+    dairy_cattle: boolean
+    wild_bird: boolean
+    wild_mammal: boolean
+    domestic_mammal: boolean
+    hotspots: boolean
+  }>({
+    poultry: true,
+    dairy_cattle: true,
+    wild_bird: true,
+    wild_mammal: true,
+    domestic_mammal: true,
+    hotspots: true
+  })
 
   // Fetch data from API
   const fetchMapData = async () => {
@@ -35,10 +59,29 @@ export default function DashboardPage() {
       setLoading(true)
       setError(null)
 
-      const data = await betsApi.getMapData()
-      setCases(data.cases)
-      setHotspots(data.hotspots)
-      setLastUpdated(new Date(data.lastUpdated).toLocaleString())
+      // Fetch data for each active layer category
+      const categoryPromises = Object.entries(activeLayers)
+        .filter(([key, isActive]) => isActive && key !== 'hotspots')
+        .map(([category]) =>
+          betsApi.getMapData({
+            caseType: category,
+            severity: severityFilter !== 'all' ? severityFilter : undefined,
+            days: timeRange
+          })
+        )
+
+      const results = await Promise.all(categoryPromises)
+
+      // Combine all cases from different categories
+      const allCases = results.flatMap((result) => result.cases)
+      const allHotspots =
+        activeLayers.hotspots && results.length > 0
+          ? results[0].hotspots
+          : []
+
+      setCases(allCases)
+      setHotspots(allHotspots)
+      setLastUpdated(new Date().toLocaleString())
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to fetch data')
       console.error('Error fetching map data:', err)
@@ -47,10 +90,10 @@ export default function DashboardPage() {
     }
   }
 
-  // Initial load
+  // Initial load and when filters change
   useEffect(() => {
     fetchMapData()
-  }, [])
+  }, [activeLayers, timeRange, severityFilter])
 
   // Auto-refresh data
   useEffect(() => {
@@ -58,7 +101,15 @@ export default function DashboardPage() {
       const interval = setInterval(fetchMapData, refreshInterval)
       return () => clearInterval(interval)
     }
-  }, [refreshInterval])
+  }, [refreshInterval, activeLayers, timeRange, severityFilter])
+
+  // Toggle individual layer
+  const toggleLayer = (layer: keyof typeof activeLayers) => {
+    setActiveLayers((prev) => ({
+      ...prev,
+      [layer]: !prev[layer]
+    }))
+  }
 
   // Loading state
   if (loading && cases.length === 0) {
@@ -115,47 +166,190 @@ export default function DashboardPage() {
         <div className="flex items-center justify-between px-6 py-3">
           <div className="flex items-center space-x-4">
             <h1 className="text-2xl font-bold" style={{ color: '#2C425A' }}>
-              Map View
+              Interactive Map
             </h1>
             <span className="text-sm text-gray-500">
-              Interactive H5N1 Case Tracking
+              H5N1 Case Tracking & Hotspot Detection
             </span>
           </div>
 
           <div className="flex items-center space-x-4">
-            <div className="text-sm text-gray-600">
-              Last Updated: {lastUpdated}
+            <div className="flex items-center gap-2">
+              <Clock className="w-4 h-4 text-gray-600" />
+              <select
+                value={timeRange}
+                onChange={(e) => setTimeRange(Number(e.target.value))}
+                className="border border-gray-300 rounded px-2 py-1 text-sm"
+              >
+                <option value={7}>Last 7 days</option>
+                <option value={14}>Last 14 days</option>
+                <option value={30}>Last 30 days</option>
+                <option value={60}>Last 60 days</option>
+                <option value={90}>Last 90 days</option>
+                <option value={0}>All time</option>
+              </select>
+            </div>
+
+            <div className="flex items-center gap-2">
+              <Filter className="w-4 h-4 text-gray-600" />
+              <select
+                value={severityFilter}
+                onChange={(e) => setSeverityFilter(e.target.value)}
+                className="border border-gray-300 rounded px-2 py-1 text-sm"
+              >
+                <option value="all">All Severities</option>
+                <option value="low">Low</option>
+                <option value="medium">Medium</option>
+                <option value="high">High</option>
+                <option value="critical">Critical</option>
+              </select>
             </div>
 
             <button
-              onClick={fetchMapData}
-              disabled={loading}
-              className="text-white px-4 py-2 rounded transition disabled:opacity-50 disabled:cursor-not-allowed"
-              style={{ backgroundColor: loading ? '#DAD5CB' : '#2C425A' }}
-              onMouseEnter={(e) =>
-                !loading && (e.currentTarget.style.backgroundColor = '#F05323')
-              }
-              onMouseLeave={(e) =>
-                !loading && (e.currentTarget.style.backgroundColor = '#2C425A')
-              }
+              onClick={() => setShowLayerPanel(!showLayerPanel)}
+              className="text-white px-3 py-1 rounded transition flex items-center gap-2"
+              style={{
+                backgroundColor: showLayerPanel ? '#F05323' : '#2C425A'
+              }}
             >
-              {loading ? 'Refreshing...' : 'Refresh Data'}
+              <Layers className="w-4 h-4" />
+              {showLayerPanel ? 'Hide Layers' : 'Show Layers'}
             </button>
 
-            <select
-              value={refreshInterval}
-              onChange={(e) => setRefreshInterval(Number(e.target.value))}
-              className="border rounded px-3 py-2 text-sm"
-            >
-              <option value={0}>Manual Only</option>
-              <option value={15000}>15 seconds</option>
-              <option value={30000}>30 seconds</option>
-              <option value={60000}>1 minute</option>
-              <option value={300000}>5 minutes</option>
-            </select>
+            <div className="text-sm text-gray-600 border-l pl-4">
+              Last Updated: {lastUpdated}
+            </div>
           </div>
         </div>
       </div>
+
+      {/* Layer Control Panel */}
+      {showLayerPanel && (
+        <div className="absolute top-20 left-4 z-[1000] bg-white rounded-lg shadow-lg p-4 w-72">
+          <h3 className="font-semibold text-lg mb-3 flex items-center gap-2">
+            <Layers className="w-5 h-5" style={{ color: '#2C425A' }} />
+            Data Layers
+          </h3>
+
+          <div className="space-y-3">
+            {/* Poultry Layer */}
+            <label className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-gray-50">
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-4 h-4 rounded"
+                  style={{ backgroundColor: '#f97316' }}
+                ></div>
+                <span className="text-sm font-medium">Poultry Detections</span>
+              </div>
+              <input
+                type="checkbox"
+                checked={activeLayers.poultry}
+                onChange={() => toggleLayer('poultry')}
+                className="w-4 h-4"
+              />
+            </label>
+
+            {/* Dairy Cattle Layer */}
+            <label className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-gray-50">
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-4 h-4 rounded"
+                  style={{ backgroundColor: '#eab308' }}
+                ></div>
+                <span className="text-sm font-medium">
+                  Dairy Cattle Detections
+                </span>
+              </div>
+              <input
+                type="checkbox"
+                checked={activeLayers.dairy_cattle}
+                onChange={() => toggleLayer('dairy_cattle')}
+                className="w-4 h-4"
+              />
+            </label>
+
+            {/* Wild Bird Layer */}
+            <label className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-gray-50">
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-4 h-4 rounded"
+                  style={{ backgroundColor: '#3b82f6' }}
+                ></div>
+                <span className="text-sm font-medium">Wild Bird Detections</span>
+              </div>
+              <input
+                type="checkbox"
+                checked={activeLayers.wild_bird}
+                onChange={() => toggleLayer('wild_bird')}
+                className="w-4 h-4"
+              />
+            </label>
+
+            {/* Wild Mammal Layer */}
+            <label className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-gray-50">
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-4 h-4 rounded"
+                  style={{ backgroundColor: '#8b5cf6' }}
+                ></div>
+                <span className="text-sm font-medium">
+                  Wild Mammal Detections
+                </span>
+              </div>
+              <input
+                type="checkbox"
+                checked={activeLayers.wild_mammal}
+                onChange={() => toggleLayer('wild_mammal')}
+                className="w-4 h-4"
+              />
+            </label>
+
+            {/* Domestic Mammal Layer */}
+            <label className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-gray-50">
+              <div className="flex items-center gap-3">
+                <div
+                  className="w-4 h-4 rounded"
+                  style={{ backgroundColor: '#ec4899' }}
+                ></div>
+                <span className="text-sm font-medium">
+                  Domestic Mammal Detections
+                </span>
+              </div>
+              <input
+                type="checkbox"
+                checked={activeLayers.domestic_mammal}
+                onChange={() => toggleLayer('domestic_mammal')}
+                className="w-4 h-4"
+              />
+            </label>
+
+            <div className="border-t pt-3 mt-3">
+              {/* Hotspots Layer */}
+              <label className="flex items-center justify-between cursor-pointer p-2 rounded hover:bg-gray-50">
+                <div className="flex items-center gap-3">
+                  <AlertCircle className="w-4 h-4 text-red-500" />
+                  <span className="text-sm font-medium">Hotspot Zones</span>
+                </div>
+                <input
+                  type="checkbox"
+                  checked={activeLayers.hotspots}
+                  onChange={() => toggleLayer('hotspots')}
+                  className="w-4 h-4"
+                />
+              </label>
+            </div>
+          </div>
+
+          <div className="mt-4 pt-3 border-t text-xs text-gray-600">
+            <p>
+              <strong>{cases.length}</strong> cases displayed
+            </p>
+            <p>
+              <strong>{hotspots.length}</strong> hotspot zones detected
+            </p>
+          </div>
+        </div>
+      )}
 
       <div className="w-full h-screen">
         <BETSMapVisualization
