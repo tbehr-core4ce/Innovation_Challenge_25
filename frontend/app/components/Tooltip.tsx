@@ -1,5 +1,7 @@
 'use client'
 import { ReactNode } from 'react'
+import { Tooltip as MUITooltip, IconButton, Box } from '@mui/material'
+import { Info as InfoIcon } from '@mui/icons-material'
 
 interface TooltipProps {
   content: string | ReactNode
@@ -8,16 +10,35 @@ interface TooltipProps {
 
 export default function Tooltip({ content, children }: TooltipProps) {
   return (
-    <div className="relative inline-block w-full">
+    <Box sx={{ position: 'relative', width: '100%' }}>
       {children}
-      <div className="group absolute bottom-2 right-2">
-        <div className="w-5 h-5 rounded-full bg-gray-300 hover:bg-gray-400 flex items-center justify-center cursor-help text-xs text-gray-600 font-semibold">
-          ?
-        </div>
-        <div className="absolute bottom-full right-0 mb-2 hidden group-hover:block w-56 p-2 text-sm text-white bg-gray-800 rounded shadow-lg z-10">
-          {content}
-        </div>
-      </div>
-    </div>
+      <MUITooltip
+        title={content}
+        arrow
+        placement="top"
+        sx={{
+          position: 'absolute',
+          top: 8,
+          right: 8
+        }}
+      >
+        <IconButton
+          size="small"
+          sx={{
+            position: 'absolute',
+            top: 8,
+            right: 8,
+            width: 20,
+            height: 20,
+            backgroundColor: 'rgba(0, 0, 0, 0.1)',
+            '&:hover': {
+              backgroundColor: 'rgba(0, 0, 0, 0.2)'
+            }
+          }}
+        >
+          <InfoIcon sx={{ fontSize: 14, color: '#666' }} />
+        </IconButton>
+      </MUITooltip>
+    </Box>
   )
 }

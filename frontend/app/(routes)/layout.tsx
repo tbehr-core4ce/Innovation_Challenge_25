@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { usePathname } from 'next/navigation'
 import Link from 'next/link'
 import {
@@ -17,16 +17,20 @@ import {
   ListItemIcon,
   ListItemText,
   useMediaQuery,
-  useTheme
+  useTheme,
+  Tooltip
 } from '@mui/material'
 import {
   Menu as MenuIcon,
   Dashboard as DashboardIcon,
   Map as MapIcon,
-  Settings as SettingsIcon
+  Settings as SettingsIcon,
+  ChevronLeft as ChevronLeftIcon,
+  ChevronRight as ChevronRightIcon
 } from '@mui/icons-material'
 
 const drawerWidth = 260
+const drawerCollapsedWidth = 70
 
 // Brand colors from core4ce
 const brandColors = {
@@ -68,12 +72,30 @@ export default function RoutesLayout({
   children: React.ReactNode
 }) {
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false)
   const pathname = usePathname()
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
+  // Load collapsed state from localStorage
+  useEffect(() => {
+    const saved = localStorage.getItem('sidebarCollapsed')
+    if (saved !== null) {
+      setSidebarCollapsed(saved === 'true')
+    }
+  }, [])
+
+  // Save collapsed state to localStorage
+  useEffect(() => {
+    localStorage.setItem('sidebarCollapsed', String(sidebarCollapsed))
+  }, [sidebarCollapsed])
+
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen)
+  }
+
+  const handleSidebarToggle = () => {
+    setSidebarCollapsed(!sidebarCollapsed)
   }
 
   const drawer = (
@@ -81,92 +103,119 @@ export default function RoutesLayout({
       sx={{
         height: '100%',
         backgroundColor: brandColors.darkBlue,
-        color: 'white'
+        color: 'white',
+        display: 'flex',
+        flexDirection: 'column'
       }}
     >
       {/* Logo/Branding Section */}
-      <Box
-        sx={{
-          p: 3,
-          display: 'flex',
-          flexDirection: 'column',
-          gap: 0.5
-        }}
-      >
-        <Typography
-          variant="h4"
+      {!sidebarCollapsed ? (
+        <Box
           sx={{
-            fontWeight: 700,
-            color: brandColors.darkOrange,
-            letterSpacing: '0.5px'
+            p: 3,
+            display: 'flex',
+            flexDirection: 'column',
+            gap: 0.5
           }}
         >
-          BETS
-        </Typography>
-        <Typography
-          variant="caption"
+          <Typography
+            variant="h4"
+            sx={{
+              fontWeight: 700,
+              color: brandColors.darkOrange,
+              letterSpacing: '0.5px'
+            }}
+          >
+            BETS
+          </Typography>
+          <Typography
+            variant="caption"
+            sx={{
+              color: brandColors.lightBlueGray,
+              fontSize: '0.7rem',
+              letterSpacing: '0.3px'
+            }}
+          >
+            Bio-Event Tracking System
+          </Typography>
+          <Divider
+            sx={{
+              mt: 1,
+              backgroundColor: brandColors.darkOrange,
+              height: 2
+            }}
+          />
+          <Typography
+            variant="caption"
+            sx={{
+              color: brandColors.gray,
+              fontSize: '0.65rem',
+              mt: 1,
+              fontStyle: 'italic'
+            }}
+          >
+            Powered by core4ce
+          </Typography>
+        </Box>
+      ) : (
+        <Box
           sx={{
-            color: brandColors.lightBlueGray,
-            fontSize: '0.7rem',
-            letterSpacing: '0.3px'
+            p: 2,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
           }}
         >
-          Bio-Event Tracking System
-        </Typography>
-        <Divider
-          sx={{
-            mt: 1,
-            backgroundColor: brandColors.darkOrange,
-            height: 2
-          }}
-        />
-        <Typography
-          variant="caption"
-          sx={{
-            color: brandColors.gray,
-            fontSize: '0.65rem',
-            mt: 1,
-            fontStyle: 'italic'
-          }}
-        >
-          Powered by core4ce
-        </Typography>
-      </Box>
+          <Typography
+            variant="h5"
+            sx={{
+              fontWeight: 700,
+              color: brandColors.darkOrange,
+              letterSpacing: '0.5px'
+            }}
+          >
+            B
+          </Typography>
+        </Box>
+      )}
 
       <Divider sx={{ backgroundColor: 'rgba(255, 255, 255, 0.12)' }} />
 
       {/* Navigation Items */}
-      <List sx={{ px: 1, pt: 2 }}>
+      <List sx={{ px: 1, pt: 2, flexGrow: 1 }}>
         {navItems.map((item) => {
           const isActive = pathname === item.path
-          return (
-            <ListItem key={item.text} disablePadding sx={{ mb: 0.5 }}>
-              <ListItemButton
-                component={Link}
-                href={item.path}
-                onClick={() => isMobile && setMobileOpen(false)}
-                sx={{
-                  borderRadius: 2,
-                  py: 1.5,
+          const navButton = (
+            <ListItemButton
+              component={Link}
+              href={item.path}
+              onClick={() => isMobile && setMobileOpen(false)}
+              sx={{
+                borderRadius: 2,
+                py: 1.5,
+                px: sidebarCollapsed ? 1.5 : 2,
+                backgroundColor: isActive
+                  ? brandColors.darkOrange
+                  : 'transparent',
+                '&:hover': {
                   backgroundColor: isActive
                     ? brandColors.darkOrange
-                    : 'transparent',
-                  '&:hover': {
-                    backgroundColor: isActive
-                      ? brandColors.darkOrange
-                      : 'rgba(255, 255, 255, 0.08)'
-                  },
-                  transition: 'all 0.2s ease'
+                    : 'rgba(255, 255, 255, 0.08)'
+                },
+                transition: 'all 0.3s ease',
+                justifyContent: sidebarCollapsed ? 'center' : 'flex-start'
+              }}
+            >
+              <ListItemIcon
+                sx={{
+                  color: isActive ? 'white' : brandColors.lightBlueGray,
+                  minWidth: sidebarCollapsed ? 'auto' : 40,
+                  justifyContent: 'center'
                 }}
               >
-                <ListItemIcon
-                  sx={{
-                    color: isActive ? 'white' : brandColors.lightBlueGray,
-                    minWidth: 40
-                  }}
-                >
-                  {item.icon}
-                </ListItemIcon>
+                {item.icon}
+              </ListItemIcon>
+              {!sidebarCollapsed && (
                 <ListItemText
                   primary={item.text}
                   primaryTypographyProps={{
@@ -175,43 +224,79 @@ export default function RoutesLayout({
                     color: isActive ? 'white' : brandColors.lightBlueGray
                   }}
                 />
-              </ListItemButton>
+              )}
+            </ListItemButton>
+          )
+
+          return (
+            <ListItem key={item.text} disablePadding sx={{ mb: 0.5 }}>
+              {sidebarCollapsed ? (
+                <Tooltip title={item.text} placement="right" arrow>
+                  {navButton}
+                </Tooltip>
+              ) : (
+                navButton
+              )}
             </ListItem>
           )
         })}
       </List>
 
+      {/* Toggle Button */}
+      {!isMobile && (
+        <Box
+          sx={{
+            px: 1,
+            py: 2,
+            borderTop: `1px solid rgba(255, 255, 255, 0.12)`
+          }}
+        >
+          <IconButton
+            onClick={handleSidebarToggle}
+            sx={{
+              width: '100%',
+              color: brandColors.lightBlueGray,
+              borderRadius: 2,
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.08)'
+              }
+            }}
+          >
+            {sidebarCollapsed ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+        </Box>
+      )}
+
       {/* Footer Info */}
-      <Box
-        sx={{
-          position: 'absolute',
-          bottom: 0,
-          width: '100%',
-          p: 2,
-          backgroundColor: 'rgba(0, 0, 0, 0.2)'
-        }}
-      >
-        <Typography
-          variant="caption"
+      {!sidebarCollapsed && (
+        <Box
           sx={{
-            color: brandColors.gray,
-            fontSize: '0.7rem',
-            display: 'block'
+            p: 2,
+            backgroundColor: 'rgba(0, 0, 0, 0.2)'
           }}
         >
-          H5N1 Surveillance
-        </Typography>
-        <Typography
-          variant="caption"
-          sx={{
-            color: brandColors.lightBlueGray,
-            fontSize: '0.65rem',
-            display: 'block'
-          }}
-        >
-          Version 1.0 - Prototype
-        </Typography>
-      </Box>
+          <Typography
+            variant="caption"
+            sx={{
+              color: brandColors.gray,
+              fontSize: '0.7rem',
+              display: 'block'
+            }}
+          >
+            H5N1 Surveillance
+          </Typography>
+          <Typography
+            variant="caption"
+            sx={{
+              color: brandColors.lightBlueGray,
+              fontSize: '0.65rem',
+              display: 'block'
+            }}
+          >
+            Version 1.0 - Prototype
+          </Typography>
+        </Box>
+      )}
     </Box>
   )
 
@@ -269,9 +354,10 @@ export default function RoutesLayout({
       {!isMobile && (
         <Box
           sx={{
-            width: drawerWidth,
+            width: sidebarCollapsed ? drawerCollapsedWidth : drawerWidth,
             flexShrink: 0,
-            position: 'relative'
+            position: 'relative',
+            transition: 'width 0.3s ease'
           }}
         >
           {drawer}
