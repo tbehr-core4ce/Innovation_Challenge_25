@@ -37,6 +37,10 @@ class H5N1CaseResponse(BaseModel):
 
     class Config:
         orm_mode = True
+    """
+    bets-backend  | /usr/local/lib/python3.12/site-packages/pydantic/_internal/_config.py:383: UserWarning: Valid config keys have changed in V2:
+    bets-backend  | * 'orm_mode' has been renamed to 'from_attributes'
+    """
 
 
 class HotspotZoneResponse(BaseModel):

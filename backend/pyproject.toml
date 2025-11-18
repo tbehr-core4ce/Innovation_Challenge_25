@@ -29,6 +29,7 @@ asyncpg = "^0.30.0"
 structlog = "^25.5.0"
 black = "^25.11.0"
 isort = "^7.0.0"
+python-multipart = "^0.0.20"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]

@@ -16,7 +16,7 @@ from fastapi.responses import JSONResponse
 from core.errors import BETSError
 from core.logging import (configure_console_logging, configure_json_logging,
                           get_logger, setup_logging)
-from routes import data_ingestion, dashboard, map_data, alerts
+from .routes import data_ingestion, dashboard, map_data, alerts
 
 app = FastAPI(title="BETS API", version="1.0.0")
 
