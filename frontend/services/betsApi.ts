@@ -370,13 +370,22 @@ class BETSApiService {
     }
 
     // Transform backend response to match frontend expectations
-    return response.map((item) => ({
-      name:
-        item.status.charAt(0).toUpperCase() +
-        item.status.slice(1).replace('_', ' '),
-      value: item.count,
-      color: statusColors[item.status] || '#6b7280'
-    }))
+    return response
+      .filter((item) => item && item.status) // Filter out any invalid items
+      .map((item) => {
+        const status = item.status.toLowerCase()
+        // Convert status to readable name
+        const name = status
+          .split('_')
+          .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+          .join(' ')
+
+        return {
+          name,
+          value: item.count,
+          color: statusColors[status] || '#6b7280'
+        }
+      })
   }
 
   /**
