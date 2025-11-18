@@ -15,19 +15,19 @@ export default function Tooltip({ content, children }: TooltipProps) {
       <MUITooltip
         title={content}
         arrow
-        placement="bottom"
+        placement="top"
         sx={{
           position: 'absolute',
-          top: 8,
-          right: 8
+          bottom: 8,
+          left: 8
         }}
       >
         <IconButton
           size="small"
           sx={{
             position: 'absolute',
-            top: 8,
-            right: 8,
+            bottom: 8,
+            left: 8,
             width: 20,
             height: 20,
             backgroundColor: 'rgba(0, 0, 0, 0.1)',
