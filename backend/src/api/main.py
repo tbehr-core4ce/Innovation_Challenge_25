@@ -47,6 +47,30 @@ def health_check():
         "timestamp": datetime.now().isoformat()
     }
 
+@app.get("/debug/config")
+def debug_config():
+    """Debug endpoint to check configuration."""
+    from utils.settings import settings
+    db_url = settings.DATABASE_URL
+    # Mask password for security
+    if '@' in db_url:
+        parts = db_url.split('@')
+        auth_part = parts[0]
+        if ':' in auth_part:
+            user = auth_part.split(':')[0].split('//')[-1]
+            masked = auth_part.replace(auth_part.split(':')[-1], '***')
+            db_url_masked = masked + '@' + parts[1]
+        else:
+            db_url_masked = db_url
+    else:
+        db_url_masked = db_url
+
+    return {
+        "DATABASE_URL": db_url_masked,
+        "ENVIRONMENT": settings.environment,
+        "ENV_DATABASE_URL": os.getenv("DATABASE_URL", "NOT SET")[:50] + "..." if os.getenv("DATABASE_URL") else "NOT SET"
+    }
+
 @app.on_event("startup")
 async def configure_logging_on_startup():
     """Configure logging based on environment."""
