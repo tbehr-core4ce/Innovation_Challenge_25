@@ -340,23 +340,19 @@ class BETSApiService {
     if (days) params.append('days', days.toString())
 
     const queryString = params.toString() ? `?${params.toString()}` : ''
-    const response = await this.fetchApi<
-      { category: string; count: number; color: string }[]
-    >(`/api/dashboard/animal-categories${queryString}`)
+    const response = await this.fetchApi<AnimalCategoryData[]>(
+      `/api/dashboard/animal-categories${queryString}`
+    )
 
     console.log('Animal categories raw response:', response)
 
-    // Transform backend response to match frontend expectations
-    const transformed = (response || [])
-      .filter((item) => item && item.category && (item.count ?? 0) > 0) // Filter out empty categories
-      .map((item) => ({
-        name: item.category,
-        value: item.count ?? 0,
-        color: item.color ?? '#6b7280'
-      }))
+    // Backend already returns the correct format, just filter out empty categories
+    const filtered = (response || []).filter(
+      (item) => item && item.name && (item.value ?? 0) > 0
+    )
 
-    console.log('Animal categories transformed:', transformed)
-    return transformed
+    console.log('Animal categories filtered:', filtered)
+    return filtered
   }
 
   /**

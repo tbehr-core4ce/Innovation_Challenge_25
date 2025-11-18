@@ -30,8 +30,16 @@ import {
 import MetricCard from '@/app/components/MetricCard'
 import BarChart from '@/app/components/BarChart'
 import LineChart from '@/app/components/LineChart'
-import PieChart from '@/app/components/PieChart'
+import DistributionPieChart from '@/app/components/PieChart'
 import Tooltip from '@/app/components/Tooltip'
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip as RechartsTooltip,
+  ResponsiveContainer,
+  Legend
+} from 'recharts'
 
 //  MAIN DASHBOARD
 
@@ -46,22 +54,23 @@ export default function DashboardPage() {
   const [dataSources, setDataSources] = useState<DataSourceData[]>([])
   const [recentAlerts, setRecentAlerts] = useState<RecentAlert[]>([])
   const [loading, setLoading] = useState(true)
+  const [timeRange, setTimeRange] = useState<number>(90) // Default to 90 days
 
   useEffect(() => {
     const loadData = async () => {
       setLoading(true)
 
       try {
-        // Fetch all data from API
+        // Fetch all data from API with time range
         const [overview, timeline, regions, animals, status, sources, alerts] =
           await Promise.all([
-            betsApi.getDashboardOverview(),
+            betsApi.getDashboardOverview(timeRange),
             betsApi.getDashboardTimeline(),
-            betsApi.getDashboardRegions(),
-            betsApi.getAnimalCategories(),
-            betsApi.getStatusBreakdown(),
-            betsApi.getDataSources(),
-            betsApi.getDashboardAlerts()
+            betsApi.getDashboardRegions(timeRange),
+            betsApi.getAnimalCategories(timeRange),
+            betsApi.getStatusBreakdown(timeRange),
+            betsApi.getDataSources(timeRange),
+            betsApi.getDashboardAlerts(timeRange)
           ])
 
         // Update state with API data
@@ -81,7 +90,7 @@ export default function DashboardPage() {
     }
 
     loadData()
-  }, [])
+  }, [timeRange]) // Reload when time range changes
 
   if (loading) {
     return (
@@ -111,13 +120,35 @@ export default function DashboardPage() {
     <div className="min-h-screen" style={{ backgroundColor: '#E4E5ED' }}>
       <div className="max-w-7xl mx-auto p-6 space-y-6">
         {/* PAGE TITLE */}
-        <div className="mb-6">
-          <h1 className="text-3xl font-bold" style={{ color: '#2C425A' }}>
-            H5N1 Surveillance Dashboard
-          </h1>
-          <p className="text-sm text-gray-600 mt-1">
-            Real-time monitoring and surveillance
-          </p>
+        <div className="mb-6 flex items-center justify-between">
+          <div>
+            <h1 className="text-3xl font-bold" style={{ color: '#2C425A' }}>
+              H5N1 Surveillance Dashboard
+            </h1>
+            <p className="text-sm text-gray-600 mt-1">
+              Real-time monitoring and surveillance
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <label className="text-sm font-medium text-gray-700">
+              Time Range:
+            </label>
+            <select
+              value={timeRange}
+              onChange={(e) => setTimeRange(Number(e.target.value))}
+              className="border border-gray-300 rounded-md px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              style={{ minWidth: '150px' }}
+            >
+              <option value={7}>Last 7 days</option>
+              <option value={14}>Last 14 days</option>
+              <option value={30}>Last 30 days</option>
+              <option value={60}>Last 60 days</option>
+              <option value={90}>Last 90 days</option>
+              <option value={180}>Last 6 months</option>
+              <option value={365}>Last year</option>
+              <option value={0}>All time</option>
+            </select>
+          </div>
         </div>
 
         {/*  KEY METRICS  */}
@@ -192,11 +223,34 @@ export default function DashboardPage() {
                 <p className="text-sm text-gray-500 mb-4">
                   Breakdown by WOAH categories
                 </p>
-                {animalCategories.length > 0 ? (
-                  <PieChart data={animalCategories} />
+                {animalCategories && animalCategories.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie
+                        data={animalCategories}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={({ name, percent }) =>
+                          `${name}: ${(percent * 100).toFixed(0)}%`
+                        }
+                        outerRadius={100}
+                        dataKey="value"
+                      >
+                        {animalCategories.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <RechartsTooltip />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
                 ) : (
                   <div className="flex items-center justify-center h-[300px] text-gray-400">
-                    <p>No animal category data available</p>
+                    <p>
+                      No animal category data available (count:{' '}
+                      {animalCategories?.length ?? 'undefined'})
+                    </p>
                   </div>
                 )}
               </div>
@@ -217,7 +271,33 @@ export default function DashboardPage() {
                 <p className="text-sm text-gray-500 mb-4">
                   Current investigation status
                 </p>
-                <PieChart data={statusData} />
+                {statusData && statusData.length > 0 ? (
+                  <ResponsiveContainer width="100%" height={300}>
+                    <PieChart>
+                      <Pie
+                        data={statusData}
+                        cx="50%"
+                        cy="50%"
+                        labelLine={false}
+                        label={({ name, percent }) =>
+                          `${name}: ${(percent * 100).toFixed(0)}%`
+                        }
+                        outerRadius={100}
+                        dataKey="value"
+                      >
+                        {statusData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <RechartsTooltip />
+                      <Legend />
+                    </PieChart>
+                  </ResponsiveContainer>
+                ) : (
+                  <div className="flex items-center justify-center h-[300px] text-gray-400">
+                    <p>No status data available</p>
+                  </div>
+                )}
               </div>
             </Tooltip>
 
@@ -377,8 +457,11 @@ export default function DashboardPage() {
                   Dashboard Status
                 </h4>
                 <p className="text-sm text-blue-700">
-                  Live data from backend API. Last updated:{' '}
-                  {new Date().toLocaleString()}
+                  Live data from backend API.{' '}
+                  {timeRange === 0
+                    ? 'Showing all time data'
+                    : `Showing last ${timeRange} days`}
+                  . Last updated: {new Date().toLocaleString()}
                 </p>
               </div>
             </div>
