@@ -5,7 +5,10 @@
 
 import { H5N1Case, HotspotZone } from '../app/components/BETSMapVisualization'
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:8000'
+const API_BASE_URL =
+  process.env.NEXT_PUBLIC_PYTHON_API_URL ||
+  process.env.PYTHON_API_URL ||
+  'http://localhost:8000'
 
 // ==================== TYPE DEFINITIONS ====================
 
@@ -87,138 +90,6 @@ export interface RecentAlert {
   message: string
 }
 
-// TODO: Remove this section when backend APIs are ready (?) and then make sure API is working correctly
-
-const MOCK_DASHBOARD_DATA = {
-  overview: {
-    totalCases: 247,
-    confirmedCases: 189,
-    suspectedCases: 34,
-    underInvestigation: 24,
-    criticalSeverity: 8,
-    highSeverity: 34,
-    animalsAffected: 12450,
-    animalsDeceased: 3890,
-    lastUpdated: new Date().toISOString()
-  },
-
-  timeline: [
-    {
-      month: 'Jan',
-      total: 45,
-      poultry: 38,
-      dairy_cattle: 5,
-      wild_bird: 2,
-      wild_mammal: 0
-    },
-    {
-      month: 'Feb',
-      total: 62,
-      poultry: 52,
-      dairy_cattle: 7,
-      wild_bird: 3,
-      wild_mammal: 0
-    },
-    {
-      month: 'Mar',
-      total: 78,
-      poultry: 65,
-      dairy_cattle: 8,
-      wild_bird: 4,
-      wild_mammal: 1
-    },
-    {
-      month: 'Apr',
-      total: 95,
-      poultry: 79,
-      dairy_cattle: 10,
-      wild_bird: 5,
-      wild_mammal: 1
-    },
-    {
-      month: 'May',
-      total: 134,
-      poultry: 112,
-      dairy_cattle: 14,
-      wild_bird: 6,
-      wild_mammal: 2
-    },
-    {
-      month: 'Jun',
-      total: 189,
-      poultry: 165,
-      dairy_cattle: 14,
-      wild_bird: 8,
-      wild_mammal: 2
-    },
-    {
-      month: 'Jul',
-      total: 247,
-      poultry: 189,
-      dairy_cattle: 46,
-      wild_bird: 10,
-      wild_mammal: 2
-    }
-  ],
-
-  regions: [
-    { name: 'California', value: 45 },
-    { name: 'Texas', value: 38 },
-    { name: 'Michigan', value: 32 },
-    { name: 'Wisconsin', value: 28 },
-    { name: 'New York', value: 24 },
-    { name: 'Florida', value: 21 },
-    { name: 'Others', value: 59 }
-  ],
-
-  animalCategories: [
-    { name: 'Poultry', value: 189, color: '#f97316' },
-    { name: 'Dairy Cattle', value: 46, color: '#eab308' },
-    { name: 'Wild Bird', value: 10, color: '#3b82f6' },
-    { name: 'Wild Mammal', value: 2, color: '#8b5cf6' }
-  ],
-
-  statusBreakdown: [
-    { name: 'Confirmed', value: 189, color: '#10b981' },
-    { name: 'Suspected', value: 34, color: '#f59e0b' },
-    { name: 'Under Investigation', value: 24, color: '#3b82f6' }
-  ],
-
-  dataSources: [
-    { name: 'WOAH', value: 120 },
-    { name: 'CDC', value: 45 },
-    { name: 'USDA', value: 67 },
-    { name: 'State Agency', value: 15 }
-  ],
-
-  recentAlerts: [
-    {
-      date: '2024-07-15',
-      type: 'New Outbreak',
-      location: 'California',
-      severity: 'high',
-      message: 'Cluster detected in dairy farms'
-    },
-    {
-      date: '2024-07-14',
-      type: 'Geographic Spread',
-      location: 'Texas',
-      severity: 'medium',
-      message: 'Cases spreading to neighboring counties'
-    },
-    {
-      date: '2024-07-13',
-      type: 'Severity Increase',
-      location: 'Michigan',
-      severity: 'high',
-      message: 'Multiple high-severity cases reported'
-    }
-  ]
-}
-
-// Mock delay to simulate network request
-const mockDelay = () => new Promise((resolve) => setTimeout(resolve, 500))
-
 // ==================== API CLIENT ====================
 
 class BETSApiService {
@@ -268,12 +139,55 @@ class BETSApiService {
   }): Promise<MapDataResponse> {
     const params = new URLSearchParams()
 
-    if (filters?.caseType) params.append('case_type', filters.caseType)
+    if (filters?.caseType) params.append('category', filters.caseType)
     if (filters?.severity) params.append('severity', filters.severity)
     if (filters?.days) params.append('days', filters.days.toString())
 
     const queryString = params.toString() ? `?${params.toString()}` : ''
-    return this.fetchApi<MapDataResponse>(`/api/map-data${queryString}`)
+    const response = await this.fetchApi<{
+      cases: Array<{
+        id: string
+        lat: number
+        lng: number
+        location: string
+        caseType: string
+        count: number
+        severity: string
+        reportedDate: string
+        status: string
+        description?: string
+      }>
+      hotspots: HotspotZone[]
+    }>(`/api/map-data${queryString}`)
+
+    // Map backend animal categories to frontend case types
+    const categoryMap: Record<string, H5N1Case['caseType']> = {
+      poultry: 'avian',
+      wild_bird: 'avian',
+      dairy_cattle: 'dairy',
+      wild_mammal: 'environmental',
+      domestic_mammal: 'environmental',
+      other: 'environmental',
+      human: 'human'
+    }
+
+    // Transform cases to match frontend expectations
+    const transformedCases: H5N1Case[] = (response.cases || [])
+      .filter((c) => c && c.id && c.lat && c.lng)
+      .map((c) => ({
+        ...c,
+        caseType:
+          categoryMap[c.caseType] ||
+          ('environmental' as H5N1Case['caseType']),
+        severity: c.severity as H5N1Case['severity'],
+        status: c.status as H5N1Case['status']
+      }))
+
+    return {
+      cases: transformedCases,
+      hotspots: response.hotspots || [],
+      lastUpdated: new Date().toISOString()
+    }
   }
 
   /**
@@ -339,91 +253,194 @@ class BETSApiService {
   }
 
   //  DASHBOARD API ENDPOINTS
-  //  TODO: Make sure these endpoints make sense
 
   /**
    * Get dashboard overview metrics
    * Backend endpoint: GET /api/dashboard/overview
    */
-  async getDashboardOverview() {
-    // TODO: Replace with real API call
-    await mockDelay()
-    return MOCK_DASHBOARD_DATA.overview
+  async getDashboardOverview(days: number = 90): Promise<AnalyticsData> {
+    const params = new URLSearchParams()
+    if (days > 0) params.append('days', days.toString())
 
-    // TODO: When backend is ready, uncomment this:
-    // return this.fetchApi('/api/dashboard/overview')
+    const queryString = params.toString() ? `?${params.toString()}` : ''
+    const response = await this.fetchApi<{
+      totalCases?: number
+      confirmedCases?: number
+      suspectedCases?: number
+      underInvestigation?: number
+      criticalSeverity?: number
+      highSeverity?: number
+      animalsAffected?: number      // ✅ Changed from totalAnimalsAffected
+      animalsDeceased?: number      // ✅ Changed from totalAnimalsDeceased
+    }>(`/api/dashboard/overview${queryString}`)
+
+    // Transform backend response to match frontend expectations with default values
+    return {
+      totalCases: response.totalCases ?? 0,
+      confirmedCases: response.confirmedCases ?? 0,
+      suspectedCases: response.suspectedCases ?? 0,
+      underInvestigation: response.underInvestigation ?? 0,
+      criticalSeverity: response.criticalSeverity ?? 0,
+      highSeverity: response.highSeverity ?? 0,
+      animalsAffected: response.animalsAffected ?? 0,
+      animalsDeceased: response.animalsDeceased ?? 0,
+      lastUpdated: new Date().toISOString()
+    }
   }
 
   /**
    * Get timeline data
    * Backend endpoint: GET /api/dashboard/timeline
    */
-  async getDashboardTimeline() {
-    await mockDelay()
-    return MOCK_DASHBOARD_DATA.timeline
+  async getDashboardTimeline(
+    months: number = 12
+  ): Promise<TimelineDataPoint[]> {
+    const params = new URLSearchParams()
+    if (months) params.append('months', months.toString())
 
-    // TODO: When backend is ready:
-    // return this.fetchApi('/api/dashboard/timeline')
+    const queryString = params.toString() ? `?${params.toString()}` : ''
+    const response = await this.fetchApi<TimelineDataPoint[]>(
+      `/api/dashboard/timeline${queryString}`
+    )
+    return response || []
   }
 
   /**
    * Get regional breakdown
    * Backend endpoint: GET /api/dashboard/regions
    */
-  async getDashboardRegions() {
-    await mockDelay()
-    return MOCK_DASHBOARD_DATA.regions
+  async getDashboardRegions(
+    days: number = 90,
+    limit: number = 10
+  ): Promise<RegionDataPoint[]> {
+    const params = new URLSearchParams()
+    if (days) params.append('days', days.toString())
+    if (limit) params.append('limit', limit.toString())
 
-    // TODO: When backend is ready:
-    // return this.fetchApi('/api/dashboard/regions')
+    const queryString = params.toString() ? `?${params.toString()}` : ''
+    const response = await this.fetchApi<RegionDataPoint[]>(
+      `/api/dashboard/regions${queryString}`
+    )
+
+    console.log('Regional data raw response:', response)
+
+    // Backend already returns the correct format, just filter out empty regions
+    const filtered = (response || []).filter(
+      (item) => item && item.name && (item.value ?? 0) > 0
+    )
+
+    console.log('Regional data filtered:', filtered)
+    return filtered
   }
 
   /**
    * Get animal category distribution
    * Backend endpoint: GET /api/dashboard/animal-categories
    */
-  async getAnimalCategories() {
-    await mockDelay()
-    return MOCK_DASHBOARD_DATA.animalCategories
+  async getAnimalCategories(days: number = 90): Promise<AnimalCategoryData[]> {
+    const params = new URLSearchParams()
+    if (days) params.append('days', days.toString())
 
-    // TODO: When backend is ready:
-    // return this.fetchApi('/api/dashboard/animal-categories')
+    const queryString = params.toString() ? `?${params.toString()}` : ''
+    const response = await this.fetchApi<AnimalCategoryData[]>(
+      `/api/dashboard/animal-categories${queryString}`
+    )
+
+    console.log('Animal categories raw response:', response)
+
+    // Backend already returns the correct format, just filter out empty categories
+    const filtered = (response || []).filter(
+      (item) => item && item.name && (item.value ?? 0) > 0
+    )
+
+    console.log('Animal categories filtered:', filtered)
+    return filtered
   }
 
-  /**
-   * Get case status breakdown
-   * Backend endpoint: GET /api/dashboard/status
-   */
-  async getStatusBreakdown() {
-    await mockDelay()
-    return MOCK_DASHBOARD_DATA.statusBreakdown
+/**
+ * Get case status breakdown
+ * Backend endpoint: GET /api/dashboard/status
+ */
+async getStatusBreakdown(days: number = 90): Promise<StatusData[]> {
+  const params = new URLSearchParams()
+  if (days) params.append('days', days.toString())
 
-    // TODO: When backend is ready:
-    // return this.fetchApi('/api/dashboard/status')
-  }
+  const queryString = params.toString() ? `?${params.toString()}` : ''
+  const response = await this.fetchApi<StatusData[]>(
+    `/api/dashboard/status${queryString}`
+  )
 
+  console.log('Status breakdown raw response:', response)
+
+  // Backend already returns the correct format {name, value, color}
+  // Just filter out empty statuses
+  const filtered = (response || []).filter(
+    (item) => item && item.name && (item.value ?? 0) > 0
+  )
+
+  console.log('Status breakdown filtered:', filtered)
+  return filtered
+}
   /**
    * Get data sources
    * Backend endpoint: GET /api/dashboard/sources
    */
-  async getDataSources() {
-    await mockDelay()
-    return MOCK_DASHBOARD_DATA.dataSources
+  async getDataSources(days: number = 90): Promise<DataSourceData[]> {
+    const params = new URLSearchParams()
+    if (days) params.append('days', days.toString())
 
-    // TODO: When backend is ready:
-    // return this.fetchApi('/api/dashboard/sources')
+    const queryString = params.toString() ? `?${params.toString()}` : ''
+    const response = await this.fetchApi<DataSourceData[]>(
+      `/api/dashboard/sources${queryString}`
+    )
+
+    console.log('Data sources raw response:', response)
+
+    // Backend already returns the correct format, just filter out empty sources
+    const filtered = (response || []).filter(
+      (item) => item && item.name && (item.value ?? 0) > 0
+    )
+
+    console.log('Data sources filtered:', filtered)
+    return filtered
   }
 
   /**
    * Get recent alerts
    * Backend endpoint: GET /api/alerts/recent
    */
-  async getDashboardAlerts() {
-    await mockDelay()
-    return MOCK_DASHBOARD_DATA.recentAlerts
+  async getDashboardAlerts(
+    days: number = 30,
+    limit: number = 10
+  ): Promise<RecentAlert[]> {
+    const params = new URLSearchParams()
+    if (days) params.append('days', days.toString())
+    if (limit) params.append('limit', limit.toString())
 
-    // TODO: When backend is ready:
-    // return this.fetchApi('/api/alerts/recent')
+    const queryString = params.toString() ? `?${params.toString()}` : ''
+    const response = await this.fetchApi<
+      {
+        id: string
+        type: string
+        severity: string
+        title: string
+        message: string
+        location: string
+        date: string
+        caseCount: number
+      }[]
+    >(`/api/alerts/recent${queryString}`)
+
+    // Transform backend response to match frontend expectations
+    return (response || [])
+      .filter((item) => item && item.title && item.date)
+      .map((item) => ({
+        date: new Date(item.date).toLocaleDateString(),
+        type: item.title ?? 'Alert',
+        location: item.location ?? 'Unknown',
+        severity: item.severity ?? 'info',
+        message: item.message ?? ''
+      }))
   }
 }
 

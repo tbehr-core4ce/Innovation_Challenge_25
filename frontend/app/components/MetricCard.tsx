@@ -1,3 +1,4 @@
+// frontend/app/components/MetricCard.tsx
 import { ReactNode } from 'react'
 
 interface MetricCardProps {
@@ -5,14 +6,32 @@ interface MetricCardProps {
   value: string | number
   icon: ReactNode
   trend?: string
+  timeRange?: number // Add this prop
 }
 
 export default function MetricCard({
   title,
   value,
   icon,
-  trend
+  trend,
+  timeRange
 }: MetricCardProps) {
+  // Calculate the date range text
+  const getDateRangeText = () => {
+    if (!timeRange || timeRange === 0) {
+      return 'all time'
+    }
+    
+    const startDate = new Date()
+    startDate.setDate(startDate.getDate() - timeRange)
+    
+    return `since ${startDate.toLocaleDateString('en-US', { 
+      month: 'short', 
+      day: 'numeric',
+      year: startDate.getFullYear() !== new Date().getFullYear() ? 'numeric' : undefined
+    })}`
+  }
+
   return (
     <div className="bg-white p-4 rounded-lg shadow-sm border border-gray-100">
       <div className="flex items-center justify-between">
@@ -25,10 +44,10 @@ export default function MetricCard({
       {trend && (
         <p
           className={`text-xs mt-2 ${
-            trend.includes('+') ? 'text-green-500' : 'text-red-500'
+            trend.includes('+') ? 'text-green-500' : 'text-gray-500'
           }`}
         >
-          {trend} from some date
+          {trend} {getDateRangeText()}
         </p>
       )}
     </div>
